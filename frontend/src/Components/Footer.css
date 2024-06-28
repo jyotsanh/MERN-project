@@ -1,0 +1,113 @@
+/* Set the font family for the entire website */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for the footer */
+footer {
+    background-color: #000000; /* Set the background color of the footer */
+    color: white; /* Set the text color of the footer */
+    margin-top: auto;/* Set the top margin to bring the footer down */
+}
+
+/* Styling for the search bar */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: right; /* Align items to the right */
+    margin-right: 150px; /* Add margin to the right */
+    height: 10vh; /* Set the height of the search container */
+}
+.search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    width: 200px;
+}
+.send-button {
+    padding: 9px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+/* Styling for the footer content sections */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-left: 50px;
+}
+.footer-left,
+.footer-middle,
+.footer-right {
+    flex: 1 1 30%;
+    margin: 0 10px;
+}
+.footer-left p span{
+    font-size: 30px; /* Set the font size for the span inside p tags */
+}
+.footer-left p{
+    width: 250px; /* Set the width of the paragraph */
+}
+.footer-middle  p{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.footer-middle ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+.footer-middle ul li a{
+    margin-bottom: 5px;
+    color: white; /* Set the text color */
+    text-decoration: none; /* Remove underline */
+}
+ .footer-right p{
+    font-weight: bold;
+    margin-bottom: 20px;
+
+}
+.footer-right ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+.footer-right ul li a{
+    margin-bottom: 5px;
+    color: white; /* Set the text color */
+    text-decoration: none; /* Remove underline */
+}
+.footer-icons {
+    margin-top: 15px;
+    margin-left: 20px;
+}
+.footer-icons a {
+    color: white; /* Set the text color */
+    margin-right: 10px;
+}
+.orange-text {
+    color: orange; /* Set the text color to orange */
+}
+.blue-text {
+    color: blue; /* Set the text color to blue */
+}
+.footer-copy{
+   
+    padding: 0;
+}
+.footer-copy p{
+    text-align: center;
+    color: black; /* Set the text color */
+    margin-top: 15px; /* Add margin at the top */
+    background-color: white; /* Set the background color */
+}

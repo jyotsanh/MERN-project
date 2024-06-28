@@ -1,0 +1,36 @@
+h1{
+    margin-left: 50px;
+    margin-bottom: 10px;
+}
+.side-navbar {
+    /* margin-top: 150px; */
+    display: flex;
+    height: 100vh;
+    margin-left: 50px;
+    width: 30%;
+}
+.side-options {
+    flex: 1;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ccc;
+}
+.side-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+.side-sub-options {
+    display: none;
+    padding-left: 20px;
+}
+.side-sub-option {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+.side-line {
+    border-top: 2px solid #ccc;
+}
+/* End of side NAvbar  */

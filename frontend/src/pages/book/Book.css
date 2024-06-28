@@ -1,0 +1,87 @@
+/* body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+} */
+.book-h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.book-appointment {
+    width: 50%;
+    margin: 80px 200px;
+    height: auto;
+}
+
+.Book-h1 {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-appointment label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.book-appointment input[type="text"],
+.book-appointment input[type="tel"],
+.book-appointment select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.book-appointment input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.book-appointment input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.book-time-picker-container {
+    display: flex;
+    align-items: center;
+}
+
+.react-time-picker__wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.react-time-picker__inputGroup {
+    margin-right: 5px; /* Adjust as needed */
+}
+
+.react-time-picker__inputGroup__clock {
+    margin-top: 0; /* Reset margin-top */
+    margin-left: 5px; /* Adjust as needed */
+    font-size: 1.2em; /* Increase the font size for better visibility */
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 768px) {
+    .book-appointment {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .book-appointment {
+        width: 100%;
+    }
+}

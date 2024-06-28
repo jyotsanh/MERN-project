@@ -1,0 +1,114 @@
+/* Reset margin and padding for all elements */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* Set the font family and background color for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+/* Style for the navigation bar */
+nav {
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    height: 70px; /* Set the height of the navigation bar */
+}
+
+/* Style for the logo */
+nav .logo {
+    flex: 1; /* Take up available space */
+}
+
+/* Style for the logo image */
+nav .logo img {
+    height: 50px; /* Set the height of the logo image */
+    margin-left: 50px; /* Add some left margin */
+}
+
+/* Style for the search bar */
+nav .search-bar {
+    flex: 2; /* Take up available space */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: #D9D9D9; /* Set the background color of the search bar */
+}
+
+/* Style for the search bar input */
+nav .search-bar input {
+    border: none;
+    background: none;
+    outline: none;
+    color: rgb(0, 0, 0);
+    width: 100%;
+}
+
+/* Style for the search bar icon */
+nav .search-bar img {
+    margin-right: 10px;
+    height: 30px; /* Set the height of the search icon */
+    cursor: pointer;
+}
+
+/* Style for the actions section */
+nav .actions {
+    flex: 1; /* Take up available space */
+    display: flex;
+    justify-content: center;
+    margin-right: 15px; /* Add some right margin */
+}
+
+/* Style for the action icons */
+nav .actions img {
+    height: 50px; /* Set the height of the action icons */
+    margin: 0 5px; /* Reduce the space between the icons */
+    cursor: pointer;
+    opacity: 0.3s;
+}
+
+/* Style for the menu */
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgb(148, 148, 148); /* Add a border at the top of the menu */
+    width: 100%;
+    text-align: center;
+}
+
+/* Style for menu items */
+.menu li {
+    display: inline-block;
+    margin: 0 10px; /* Add some margin around each item */
+    font-size: 1.2rem; /* Set the font size */
+}
+
+/* Style for menu item links */
+.menu li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove underline */
+    margin-top: 15px; /* Add some top margin */
+    color: black; /* Set the text color */
+}
+
+/* Style for the active link */
+.menu li a.active {
+    color: #E77E31; /* Set the text color for the active link */
+}
+
+/* Hover effect for menu item links */
+.menu li a:hover {
+    color: #1780CC; /* Change the color on hover */
+}
