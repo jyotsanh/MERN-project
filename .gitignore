@@ -23,6 +23,9 @@ __pycache__/
 __pycache__
 *.sqlite3
 
+backend/node_modules
+backend/package-lock.json/
+
 # Dependency directories
 venv/
 
