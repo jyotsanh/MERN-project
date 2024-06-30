@@ -1,18 +1,22 @@
 const express = require("express");
-const AdminRoutes = require("../routes/adminroutes");
-const connectDb = require("../db/connectdb");
+app = express()
+const cors = require('cors')
 
+app.use(express.json())
+app.use(cors())
+
+
+const AdminRoutes = require("../routes/adminroutes");
+const UserRoutes = require("../routes/UserRoutes");
+
+const connectDb = require("../db/connectdb");
 connectDb();
 
 PORT = 3000
-app = express()
-app.use(express.json())
 
 
-
-
-app.use("/",AdminRoutes);
-
+app.use("/api",AdminRoutes);
+app.use("/api",UserRoutes);
 
 
 

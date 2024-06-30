@@ -10,8 +10,13 @@ const AdminSchema = ({
         type: String
     },
 
-    isAdmin: {
-        type: Boolean
+    username:{
+        type: String
+    },
+
+    role: {
+        type: String,
+        default: "admin"
     },
 
     createdAt: {

@@ -4,7 +4,7 @@ const ConnectDb = () => {
 
   try {
     mongoose.set('strictQuery', true);
-    const data = mongoose.connect("mongodb://localhost:27017/phoenix-mern-app");
+    const data = mongoose.connect("mongodb://localhost:27017/EyeMate");
     if (data) console.log(`connected to MongoDb`)
   } catch (err) {
     console.log("Db Connection error", err)

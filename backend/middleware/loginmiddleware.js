@@ -7,21 +7,21 @@ const LoginMiddleware   = (request,response,next)=>{
         const {password} = request.body;
         
         if(!email){
-            return response.send({
+            return response.status(400).send({
                 "msg":"email key is not provide"
             })
         }
         if(!password){
-            return response.send({
+            return response.status(400).send({
                 "msg":"password key is not provide"
             })
         }
         next();
     }else{
-        return response.send({
-            "msg":"error occured"
+        return response.status(400).send({
+            "msg":"request.body error"
         })
     }
 }
 
-module.exports = LoginMiddleware
+module.exports = LoginMiddleware;

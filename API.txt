@@ -1,0 +1,34 @@
+URL = "localhost:3000/api/admin-register"
+
+data = {
+    "email":"testuser01@gmail.com",
+    "username":"hehe",
+    "password":"123",
+    "password2":123
+}
+
+URL = "localhost:3000/api/admin-login"
+
+data = {
+    "email":"testuser01@gmail.com",
+    "password":"123",
+}
+
+
+---------------------------------------------------------------------------------------
+
+URL = "localhost:3000/api/user-register"
+
+data = {
+    "email":"testuser01@gmail.com",
+    "username":"hehe",
+    "password":"123",
+    "password2":123
+}
+
+URL = "localhost:3000/api/user-login"
+
+data = {
+    "email":"testuser01@gmail.com",
+    "password":"123",
+}

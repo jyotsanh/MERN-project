@@ -5,9 +5,7 @@ const RegisterMiddleware = require("../middleware/registermiddleware")
 const {AdminLogInController,AdminRegisterController} = require("../controllers/adminController");
 
 
-router.post("/login",LoginMiddleware,AdminLogInController)
-
-
-router.post("/register",RegisterMiddleware,AdminRegisterController)
+router.post("/admin-login",LoginMiddleware,AdminLogInController)
+router.post("/admin-register",RegisterMiddleware,AdminRegisterController)
 
 module.exports = router;
