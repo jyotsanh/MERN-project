@@ -21,6 +21,12 @@ function AddProducts(){
         e.preventDefault();
         SetError({});
         setMessage("");
+        setName("");
+        setPrice("");
+        setImage('');
+        setDescription("");
+        setCategory("");
+        setQuantity("");
 
         
         const formData = new FormData();
