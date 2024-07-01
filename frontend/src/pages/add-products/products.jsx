@@ -21,7 +21,7 @@ function AddProducts(){
         const handleSubmit = async (e) => {
         e.preventDefault();
         SetError({});
-        setMessage("");
+        
 
         
         const formData = new FormData();
@@ -39,6 +39,13 @@ function AddProducts(){
             console.log(response);
             SetError('')
             setMessage(response.data.msg)
+            
+            setName("");
+            setPrice("");
+            setImage('');
+            setDescription("");
+            setCategory("");
+            setQuantity("");
             
           } catch (error) {
             console.log("------------------------------------error------");

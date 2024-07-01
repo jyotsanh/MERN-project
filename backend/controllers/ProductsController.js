@@ -26,7 +26,7 @@ const AddProductController = async (req,res) => {
     try{
     const {name,price,description,category,quantity} = req.body;
     console.log(req.body)
-    const imageUrl = `../../uploads/${req.file.filename}`;
+    const imageUrl = `uploads/Products/${req.file.filename}`;
     console.log(name,price,description,category,quantity,imageUrl)
 
     const data = await ProductSchemadb.create({name,price,description,category,quantity,imageUrl})

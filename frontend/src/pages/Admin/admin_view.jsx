@@ -51,14 +51,15 @@ function Admin_View() {
                     <ul>
                         {products.map(product => (
                             <li key={product._id}>
-                                <h2>{product.name}</h2>
-                                <p>Price: {product.price}</p>
-                                <p>Description: {product.description}</p>
-                                <p>Category: {product.category}</p>
-                                <p>Quantity: {product.quantity}</p>
-                                <img src={`http://localhost:3000/${product.imageUrl}`} alt={product.name} width="100" />
-                                <button onClick={() => handleEdit(product._id)}>Edit</button>
-                                <button onClick={() => handleDelete(product._id)}>Delete</button>
+
+                            <img src={`${product.imageUrl}`} alt={product.name} width="100" />
+                            <h2>{product.name}</h2>
+                            <p>Price: {product.price}</p>
+                            <p>Description: {product.description}</p>
+                            <p>Category: {product.category}</p>
+                            <p>Quantity: {product.quantity}</p>
+                            
+
                             </li>
                         ))}
                     </ul>
