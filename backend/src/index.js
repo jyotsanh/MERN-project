@@ -8,6 +8,7 @@ app.use(cors())
 
 const AdminRoutes = require("../routes/adminroutes");
 const UserRoutes = require("../routes/UserRoutes");
+const ProductRoutes = require("../routes/Productroutes");
 
 const connectDb = require("../db/connectdb");
 connectDb();
@@ -17,6 +18,7 @@ PORT = 3000
 
 app.use("/api",AdminRoutes);
 app.use("/api",UserRoutes);
+app.use("/api",ProductRoutes);
 
 
 
