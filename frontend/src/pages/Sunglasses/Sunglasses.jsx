@@ -155,7 +155,7 @@ function Sunglasses() {
                             products.map(
                             product => (
                             <li key={product._id}>
-                            <img src={`http://localhost:3000/${product.imageUrl}`} alt={product.name} width="100" />
+                            <img src={`${product.imageUrl}`} alt={product.name} width="100" />
                             <h2>{product.name}</h2>
                             <p>Price: {product.price}</p>
                             <p>Description: {product.description}</p>
