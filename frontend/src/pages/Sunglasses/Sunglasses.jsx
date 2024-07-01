@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './Sunglasses.css';
-
+import { FetchProducts } from '../../service/api';
 
 function Sunglasses() {
   const [visibleSubOptions, setVisibleSubOptions] = useState({});
+
+  const [products, setProducts] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const productsData = await FetchProducts();
+                console.log("productsData",productsData)
+                const { Product } = productsData;
+                setProducts(Product);
+                
+            } catch (error) {
+                setProducts([]);
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
   const toggleSubOptions = (option) => {
     setVisibleSubOptions((prevVisibleSubOptions) => ({
@@ -129,7 +147,26 @@ function Sunglasses() {
 
         {/* Start of api  */}
         <div className="side-content">
-          
+        {products.length == 0 ? (
+                    <p>No products available</p>
+                ) : (
+                    <ul>
+                        {
+                            products.map(
+                            product => (
+                            <li key={product._id}>
+                            <img src={`http://localhost:3000/${product.imageUrl}`} alt={product.name} width="100" />
+                            <h2>{product.name}</h2>
+                            <p>Price: {product.price}</p>
+                            <p>Description: {product.description}</p>
+                            <p>Category: {product.category}</p>
+                            
+                            </li>
+                            )
+                                )
+                        }
+                    </ul>
+                )}  
         </div>
       </div>
     </div>
