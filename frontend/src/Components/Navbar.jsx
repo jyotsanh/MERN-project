@@ -47,6 +47,7 @@ function Navbar() {
         <li><NavLink to="/contactlens" activeClassName="active">Lens</NavLink></li>
         <li><NavLink to="/book" activeClassName="active">Book Appointment</NavLink></li>
         <li><NavLink to="/faq" activeClassName="active">FAQs</NavLink></li>
+        <li><NavLink to="/admin" activeClassName="active">Admin</NavLink></li>
       </ul>
 
       {showLoginForm && (

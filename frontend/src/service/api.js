@@ -17,3 +17,8 @@ export const UploadProducts = async (formdata)=>{
     return response;
 
 }
+
+export const FetchProducts = async ()=>{
+    const response = await axios.get('http://localhost:3000/api/products')
+    return response.data;
+}

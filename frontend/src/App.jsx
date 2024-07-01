@@ -11,6 +11,9 @@ import Log from './pages/Login/Log';
 // import Sign from "./pages/Sign/Sign";
 import Sign from './pages/Sign/Sign';
 import AddProducts from '../src/pages/add-products/products';
+import Admin from "../src/pages/Admin/admin";
+import Admin_View from "../src/pages/Admin/admin_view"
+
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
         <Route path="/login" element={<Log />} />
         <Route path="/sign" element={<Sign />} /> 
         <Route path="/add-products" element={<AddProducts />} /> 
+        <Route path="/admin" element={<Admin />} /> 
+        <Route path="/admin-view" element={<Admin_View />} /> 
       </Routes>
       <Footer />
     </BrowserRouter>

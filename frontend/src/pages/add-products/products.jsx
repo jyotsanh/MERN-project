@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {UploadProducts} from "../../service/api";
 
+import { NavLink } from 'react-router-dom';
+
 
 
 function AddProducts(){
@@ -128,6 +130,11 @@ function AddProducts(){
         
         {message && <p> {message} </p>}
         {error && <p> {error.msg} </p>}
+        <div>
+            <NavLink to="/admin">
+                <button>Back to Admin</button>
+            </NavLink>
+        </div>
     </div>
     );
 }
