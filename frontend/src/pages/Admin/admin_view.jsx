@@ -41,12 +41,13 @@ function Admin_View(){
                             products.map(
                             product => (
                             <li key={product._id}>
+                            <img src={`${product.imageUrl}`} alt={product.name} width="100" />
                             <h2>{product.name}</h2>
                             <p>Price: {product.price}</p>
                             <p>Description: {product.description}</p>
                             <p>Category: {product.category}</p>
                             <p>Quantity: {product.quantity}</p>
-                            <img src={`http://localhost:3000/${product.imageUrl}`} alt={product.name} width="100" />
+                            
                             </li>
                             )
                                 )
