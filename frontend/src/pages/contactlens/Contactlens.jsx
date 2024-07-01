@@ -1,127 +1,84 @@
-import React, { useState } from 'react';
-// import'./Sunglasses.css'
+import React from 'react';
+import './Contact.css';
+import softlens from '../../assets/softlens.jpeg';
+import disposal from '../../assets/disposal.jpeg';
+import grplens from '../../assets/grplens.jpg';
+import lenss from '../../assets/extends.jpg';
 
 function Contactlens() {
-  const [visibleSubOptions, setVisibleSubOptions] = useState({});
-
-  const toggleSubOptions = (option) => {
-    setVisibleSubOptions((prevVisibleSubOptions) => ({
-      ...prevVisibleSubOptions,
-      [option]: !prevVisibleSubOptions[option],
-    }));
-  };
-
   return (
-    <div>
-      {/* Side Nav Bar Started  */}
-      <h1>Contact Lens</h1>
-      <div className="side-navbar">
-        <div className="side-options">
-          <div className="side-option" onClick={() => toggleSubOptions('gender')}>
-            Gender
-            <span>+</span>
-          </div>
-          <div
-            className="side-sub-options"
-            id="genderSubOptions"
-            style={{ display: visibleSubOptions.gender ? 'block' : 'none' }}
-          >
-            <div className="side-sub-option">
-              <input type="checkbox" id="male" name="gender" />
-              <label htmlFor="male">Male</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="female" name="gender" />
-              <label htmlFor="female">Female</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="kids" name="gender" />
-              <label htmlFor="kids">Kids</label>
-            </div>
-          </div>
-          <div className="side-line"></div>
+    <div className="lens-container">
+      <h1>Types Of Lens</h1>
+      <div className="content">
 
-          <div className="side-option" onClick={() => toggleSubOptions('price')}>
-            Price
-            <span>+</span>
+        <div className="section">
+          <div className="text-section">
+            <h2>Soft Contact Lenses</h2>
+            <p>
+            Soft contact lenses are made of soft, flexible plastics that allow oxygen to pass 
+            through to the cornea. Soft contact lenses may be easier to adjust to and are more
+             comfortable than rigid gas permeable lenses. Newer soft lens materials include silicone-hydrogels 
+            to provide more oxygen to your eye while you wear your lenses.
+            </p>
           </div>
-          <div
-            className="side-sub-options"
-            id="priceSubOptions"
-            style={{ display: visibleSubOptions.price ? 'block' : 'none' }}
-          >
-            <div className="side-sub-option">
-              <input type="checkbox" id="under50" name="price" />
-              <label htmlFor="under50">Under Rs 500</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="50to100" name="price" />
-              <label htmlFor="50to100">Rs 500 - Rs2000</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="over100" name="price" />
-              <label htmlFor="over100">Over Rs 2000</label>
-            </div>
+          <div className="image-section">
+            <img src={softlens} alt="softlens" />
           </div>
-          <div className="side-line"></div>
-
-          <div className="side-option" onClick={() => toggleSubOptions('brands')}>
-            Brands
-            <span>+</span>
-          </div>
-          <div
-            className="side-sub-options"
-            id="brandsSubOptions"
-            style={{ display: visibleSubOptions.brands ? 'block' : 'none' }}
-          >
-            <div className="side-sub-option">
-              <input type="checkbox" id="brand1" name="brands" />
-              <label htmlFor="brand1">Soft Contact Lenses</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="brand2" name="brands" />
-              <label htmlFor="brand2">Rigid Gas Permeable (RGP) Contact Lenses</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="brand3" name="brands" />
-              <label htmlFor="brand3">Extended Wear Contact Lenses</label>
-            </div>
-            
-          </div>
-          <div className="side-line"></div>
-
-          <div className="side-option" onClick={() => toggleSubOptions('shape')}>
-            Shape
-            <span>+</span>
-          </div>
-          <div
-            className="side-sub-options"
-            id="shapeSubOptions"
-            style={{ display: visibleSubOptions.shape ? 'block' : 'none' }}
-          >
-            <div className="side-sub-option">
-              <input type="checkbox" id="square" name="shape" />
-              <label htmlFor="square">Square</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="round" name="shape" />
-              <label htmlFor="round">Round</label>
-            </div>
-            <div className="side-sub-option">
-              <input type="checkbox" id="aviator" name="shape" />
-              <label htmlFor="aviator">Aviator</label>
-            </div>
-          </div>
-          <div className="side-line"></div>
         </div>
-      {/* Side Nav Bar ended  */}
 
-      {/* Start of api  */}
+        <div className="section">
+          <div className="image-section">
+            <img src={disposal} alt="disposal lens" />
+          </div>
+          <div className="text-section">
+            <h2>Disposable Contact Lenses</h2>
+            <p>
+            The majority of soft contact lens wearers are prescribed some type of frequent replacement 
+            schedule. “Disposable,” as defined by the FDA, means used once and discarded.
+             With a true daily wear disposable schedule, a brand new pair of lenses is used each day.
+             Some soft contact lenses are referred to as “disposable”
+              by contact lens sellers, but actually, they are for frequent/planned replacement. 
+            </p>
+          </div>
+        </div>
 
-        
-        <div className="side-content">Content Area</div>
+        <div className="section">
+          <div className="text-section">
+            <h2>Rigid Gas Permeable Contact Lenses</h2>
+            <p>
+            Rigid gas permeable contact lenses (RGPs) are more durable and resistant 
+            to deposit buildup, and generally give a clearer, crisper vision. They tend
+             to be less expensive over the life of the lens since they last longer than 
+             soft contact lenses. They are easier to handle and less likely to tear. However,
+              they are not as comfortable initially as soft contacts and it may take a few weeks
+               to get used to wearing RGPs, compared to several days for soft contacts.
+            </p>
+          </div>
+          <div className="image-section">
+            <img src={grplens} alt="grplens" />
+          </div>
+        </div>
+
+        <div className="section">
+          <div className="image-section">
+            <img src={lenss} alt="extend" />
+          </div>
+          <div className="text-section">
+            <h2>Extended Wear Contact Lenses</h2>
+            <p>
+            Extended wear contact lenses are available for overnight or continuous wear 
+            ranging from one to six nights or up to 30 days. Extended wear contact lenses
+             are usually soft contact lenses. They are made of flexible plastics that allow 
+             oxygen to pass through to the cornea. There are also a very few rigid gas permeable 
+             lenses that are designed and approved for overnight wear. Length of continuous wear 
+             depends on lens type and your eye care professional’s evaluation of your tolerance for 
+             overnight wear. It’s important for the eyes to have a rest without lenses for at least one 
+             night following each scheduled removal.
+            </p>
+          </div>
+        </div>
+
       </div>
-
     </div>
   );
 }
