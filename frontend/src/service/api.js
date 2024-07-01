@@ -26,6 +26,6 @@ export const deleteProduct = async (id) => {
 };
 
 export const editProduct = async (id, updatedData) => {
-    const response = await axios.put(`http://localhost:3000/api/products/${id}`, updatedData);
+    const response = await axios.put(`http://localhost:3000/api/edit-product/${id}`, updatedData);
     return response;
 };

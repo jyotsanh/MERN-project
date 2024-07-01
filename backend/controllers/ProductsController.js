@@ -61,7 +61,7 @@ const EditProductController = async (req, res) => {
         if (req.file) {
             updatedData.image = req.file.path;
         }
-        const updatedProduct = await ProductSchema.findByIdAndUpdate(productId, updatedData, { new: true });
+        const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
         if (updatedProduct) {
             res.status(200).json({
                 msg: "Product updated successfully",
