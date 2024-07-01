@@ -29,3 +29,9 @@ export const editProduct = async (id, updatedData) => {
     const response = await axios.put(`http://localhost:3000/api/edit-product/${id}`, updatedData);
     return response;
 };
+
+
+export const getAppointments = async () => {
+    const response = await axios.get('http://localhost:3000/api/get-appointments');
+    return response.data;
+}

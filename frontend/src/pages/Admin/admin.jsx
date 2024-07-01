@@ -15,6 +15,11 @@ function Admin(){
             <NavLink to="/admin-view">
                 <button href="/admin-view">See the Products</button>
             </NavLink>
+            <br />
+            <br />
+            <NavLink to="/appointments">
+                <button >See the Appointments</button>
+            </NavLink>
             
         </>
     );
