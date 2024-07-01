@@ -4,9 +4,16 @@ const ProductSchemadb = require("../schema/ProductSchema");
 
 
 const ProductController = async (req,res)=>{
-    return res.send({
-        "msg":"Product Details"
-    })
+    const product_data = await ProductSchemadb.find();
+    if(product_data){
+        return res.send({
+            "Product":product_data
+        })
+    }else{
+        return res.send({
+            "msg":"no data in db"
+        })
+    }
 }
 
 const TopProductController = async (req,res) => {
@@ -17,19 +24,24 @@ const TopProductController = async (req,res) => {
 
 const AddProductController = async (req,res) => {
     try{
-    let {name,price,description,category,imageUrl,quantity} = request.body;
-    imageUrl = `/uploads/${req.file.filename}`;
-    const data = await ProductSchemadb.create(req.body)
+    const {name,price,description,category,quantity} = req.body;
+    console.log(req.body)
+    const imageUrl = `../../uploads/${req.file.filename}`;
+    console.log(name,price,description,category,quantity,imageUrl)
+
+    const data = await ProductSchemadb.create({name,price,description,category,quantity,imageUrl})
+    console.log(data)
     if(data){
         {
-            return response.status(200).send({
+            return res.status(200).send({
                 "msg":"Product Added Successfully"
             })
         }
     }
     }catch(error){
-        return response.status(400).send({
-            "msg":"Server Error"
+        return res.status(400).send({
+            "msg":"Server here Error",
+            "error":error
         })
     }
 }

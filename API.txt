@@ -32,3 +32,21 @@ data = {
     "email":"testuser01@gmail.com",
     "password":"123",
 }
+
+
+------------------------------------------------------------
+URL = "localhost:3000/api/products" => Get 
+
+
+
+
+URL = "localhost:3000/api/add-products"
+
+data = {
+    "name":"Aviator",
+    "price":2000,
+    "description":"niceeeeeeeeeeee..."
+    "category":"sunglasses",
+    quantity:230,
+    imageUrl:"../../uploads/image.png"
+}

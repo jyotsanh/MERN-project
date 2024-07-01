@@ -10,7 +10,7 @@ import FAQ from "./pages/Faq/FAQ";
 import Log from './pages/Login/Log';
 // import Sign from "./pages/Sign/Sign";
 import Sign from './pages/Sign/Sign';
-
+import AddProducts from '../src/pages/add-products/products';
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/login" element={<Log />} />
         <Route path="/sign" element={<Sign />} /> 
+        <Route path="/add-products" element={<AddProducts />} /> 
       </Routes>
       <Footer />
     </BrowserRouter>

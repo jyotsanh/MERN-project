@@ -1,30 +1,40 @@
 
 const AddProductMiddleware   = (request,response,next)=>{
     if (request.body){
-        const {name,price,description,category,imageUrl,quantity} = request.body;
+        const {name,price,description,category,quantity} = request.body;
         if(!name){
             return response.status(400).send({
-                "msg":"name key is not provide"
+                "name":"name key is not provide"
             })
         }
         if(!price){
             return response.status(400).send({
-                "msg":"price key is not provide"
+                "price":"price key is not provide"
             })
         }
         if(!description){
             return response.status(400).send({
-                "msg":"description key is not provide"
+                "description":"description key is not provide"
             })
         }
         if(!category){
             return response.status(400).send({
-                "msg":"category key is not provide"
+                "category":"category key is not provide"
             })
         }
         if(!quantity){
             return response.status(400).send({
-                "msg":"quantity key is not provide"
+                "quantity":"quantity key is not provide"
+            })
+        }
+        if(isNaN(price)){
+            return response.status(400).send({
+                "price":"price key is not number"
+            })
+        }
+        if(isNaN(quantity)){
+            return response.status(400).send({
+                "quantity":"price key is not number"
             })
         }
         next();
