@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {UploadProducts} from "../../service/api";
+import './products.css'
 
 
 
@@ -49,11 +50,11 @@ function AddProducts(){
         }
 
     return(
-        <div className="App">
+        <div className="pro-upload-product-container">
             <h1>Upload Product</h1>
             <form onSubmit={handleSubmit}>
 
-            <div>
+            <div className="pro-form-group">
             <label htmlFor="name">Product Name:</label>
             <input 
             type="text" 
@@ -65,7 +66,7 @@ function AddProducts(){
             {error.name && <p className="error-text">{error.name}</p>}
         </div>
 
-            <div>
+            <div className="pro-form-group">
                 <label htmlFor="name">Description:</label>
                 <input 
                 type="text" 
@@ -77,7 +78,7 @@ function AddProducts(){
                 {error.description && <p className="error-text">{error.description}</p>}
             </div>
 
-            <div>
+            <div className="pro-form-group">
             <label htmlFor="price">Product Price:</label>
             <input 
             type="number" 
@@ -89,7 +90,7 @@ function AddProducts(){
              {error.price && <p className="error-text">{error.price}</p>}
             </div>
 
-            <div>
+            <div className="pro-form-group">
             <label htmlFor="name">Category : </label>
             <input 
             type="text" 
@@ -101,10 +102,10 @@ function AddProducts(){
              {error.category && <p className="error-text">{error.category}</p>}
             </div>
             
-            <div>
+            <div className="pro-form-group">
             <label htmlFor="name">Quantity : </label>
             <input 
-            type="text" 
+            type="number" 
             id="name" 
             value={quantity} 
             onChange={(e)=>{setQuantity(e.target.value)}} 
@@ -113,7 +114,7 @@ function AddProducts(){
         {error.quantity && <p className="error-text">{error.quantity}</p>}
             </div>
 
-            <div>
+            <div className="pro-form-group">
                 <label htmlFor="image">Product Image:</label>
                 <input
                     type="file"
