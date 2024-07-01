@@ -1,12 +1,11 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const ProductSchema = ({
-
-    name:{
+const ProductSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
-    price:{
+    price: {
         type: Number,
         required: true
     },
@@ -14,7 +13,7 @@ const ProductSchema = ({
         type: String,
         required: true
     },
-    category:{
+    category: {
         type: String,
         required: true
     },
@@ -22,24 +21,26 @@ const ProductSchema = ({
         type: String,
         required: true
     },
-
     quantity: {
         type: Number,
         required: true
     },
-
     createdAt: {
-         type: Date, 
-         default: Date.now 
-        },
-
-    updatedAt: { 
-        type: Date, 
-        default: Date.now 
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
     }
+});
 
-})
+// Pre-save middleware to update the updatedAt field
+ProductSchema.pre('save', function(next) {
+    this.updatedAt = Date.now();
+    next();
+});
 
-const ProductSchemadb = mongoose.model("product", ProductSchema)
+const ProductSchemadb = mongoose.model("Product", ProductSchema);
 
 module.exports = ProductSchemadb;
