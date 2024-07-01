@@ -47,7 +47,63 @@ const AddProductController = async (req,res) => {
 }
 
 
+const EditProductController = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const { name, price, description, category, quantity } = req.body;
+        const updatedData = {
+            name,
+            price,
+            description,
+            category,
+            quantity
+        };
+        if (req.file) {
+            updatedData.image = req.file.path;
+        }
+        const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
+        if (updatedProduct) {
+            res.status(200).json({
+                msg: "Product updated successfully",
+                product: updatedProduct
+            });
+        } else {
+            res.status(404).json({
+                msg: "Product not found"
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: "Server error"
+        });
+    }
+};
+
+const DeleteProductController = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const deletedProduct = await ProductSchemadb.findByIdAndDelete(productId);
+        if (deletedProduct) {
+            res.status(200).json({
+                msg: "Product deleted successfully"
+            });
+        } else {
+            res.status(404).json({
+                msg: "Product not found"
+            });
+        }
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).json({
+            msg: "Server error"
+        });
+    }
+};
+
+
 exports.ProductController = ProductController;
 exports.TopProductController = TopProductController;
-
 exports.AddProductController = AddProductController;
+exports.EditProductController = EditProductController;
+exports.DeleteProductController = DeleteProductController;

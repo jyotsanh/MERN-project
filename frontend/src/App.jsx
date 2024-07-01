@@ -13,6 +13,7 @@ import Sign from './pages/Sign/Sign';
 import AddProducts from '../src/pages/add-products/products';
 import Admin from "../src/pages/Admin/admin";
 import Admin_View from "../src/pages/Admin/admin_view"
+import EditProduct from "./pages/edit-products/edit-product";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/add-products" element={<AddProducts />} /> 
         <Route path="/admin" element={<Admin />} /> 
         <Route path="/admin-view" element={<Admin_View />} /> 
+        <Route path="/edit-product/:id" element={<EditProduct />} />
       </Routes>
       <Footer />
     </BrowserRouter>
