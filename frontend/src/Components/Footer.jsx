@@ -19,8 +19,8 @@ function Footer() {
           <div className="footer-middle">
             <p>Shop</p>
             <ul>
-              <li><a href="/">Sunglasses</a></li>
-              <li><a href="/">Lens</a></li>
+              <li><a href="/sunglasses">Sunglasses</a></li>
+              <li><a href="/contactslens">Lens</a></li>
               <li><a href="/">Prescription Frames</a></li>
               <li><a href="/">Computer Lens</a></li>
             </ul>
@@ -30,8 +30,8 @@ function Footer() {
             <p>About Us</p>
             <ul>
               <li><a href="/">Store Details</a></li>
-              <li><a href="/">Book Appointment</a></li>
-              <li><a href="/">About Us</a></li>
+              <li><a href="/book">Book Appointment</a></li>
+              <li><a href="/about">About Us</a></li>
               <li><a href="/">Our Services</a></li>
             </ul>
           </div>
