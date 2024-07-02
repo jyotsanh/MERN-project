@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { editProduct, FetchProducts } from '../../service/api';
+import './edit-product.css'; 
 
 function EditProduct() {
     const { id } = useParams();
@@ -38,29 +39,31 @@ function EditProduct() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Name:
-                <input type="text" name="name" value={product.name} onChange={handleChange} />
-            </label>
-            <label>
-                Price:
-                <input type="number" name="price" value={product.price} onChange={handleChange} />
-            </label>
-            <label>
-                Description:
-                <input type="text" name="description" value={product.description} onChange={handleChange} />
-            </label>
-            <label>
-                Category:
-                <input type="text" name="category" value={product.category} onChange={handleChange} />
-            </label>
-            <label>
-                Quantity:
-                <input type="number" name="quantity" value={product.quantity} onChange={handleChange} />
-            </label>
-            <button type="submit">Update Product</button>
-        </form>
+        <div className="edit-product-container">
+            <form onSubmit={handleSubmit} className="edit-product-form">
+                <label>
+                    Name:
+                    <input type="text" name="name" value={product.name} onChange={handleChange} />
+                </label>
+                <label>
+                    Price:
+                    <input type="number" name="price" value={product.price} onChange={handleChange} />
+                </label>
+                <label>
+                    Description:
+                    <input type="text" name="description" value={product.description} onChange={handleChange} />
+                </label>
+                <label>
+                    Category:
+                    <input type="text" name="category" value={product.category} onChange={handleChange} />
+                </label>
+                <label>
+                    Quantity:
+                    <input type="number" name="quantity" value={product.quantity} onChange={handleChange} />
+                </label>
+                <button type="submit">Update Product</button>
+            </form>
+        </div>
     );
 }
 
