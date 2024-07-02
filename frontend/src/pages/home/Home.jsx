@@ -61,14 +61,14 @@ const Home = () => {
         <h2>Elevate Your Look with Our Signature Features</h2>
         <div className="image-description">
           <div className="image-text">
-            <img src="View1.jpg" alt="Image 1" className="eyeglasses" />
+            <img src="view2.jpg" alt="Image 1" className="eyeglasses" />
             <div className="description1">
               <h3>Ultra-lightweight Frames <br />for Maximum Comfort</h3>
               <Link to="/Sunglasses"><button>View More</button></Link>
             </div>
           </div>
           <div className="image-text">
-            <img src="view2.jpg" alt="Image 2" className="polarized-glasses" />
+            <img src="View1.jpg" alt="Image 2" className="polarized-glasses" />
             <div className="description">
               <h3>Trendy Designs with UV Protection</h3>
               <Link to="/Sunglasses"><button>View More</button></Link>
