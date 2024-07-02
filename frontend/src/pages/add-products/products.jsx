@@ -100,16 +100,25 @@ function AddProducts(){
             </div>
 
             <div className="pro-form-group">
-            <label htmlFor="name">Category : </label>
-            <input 
-            type="text" 
-            id="name" 
-            value={category} 
-            onChange={(e)=>setCategory(e.target.value)} 
-            required 
-            />
-             {error.category && <p className="error-text">{error.category}</p>}
-            </div>
+            <label htmlFor="category">Category: </label>
+            <select
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+            >
+            <option value="">Select a category</option>
+            <option value="prescription">Prescription</option>
+            <option value="reading">Reading</option>
+            <option value="blue-light">Blue Light</option>
+            <option value="progressive">Progressive</option>
+            <option value="sunglassess">Sunglassess</option>
+            <option value="bifocal">Bifocal</option>
+            <option value="sports">Sports</option>
+            <option value="fashion">Fashion</option>
+            </select>
+            {error.category && <p className="error-text">{error.category}</p>}
+        </div>
             
             <div className="pro-form-group">
             <label htmlFor="name">Quantity : </label>

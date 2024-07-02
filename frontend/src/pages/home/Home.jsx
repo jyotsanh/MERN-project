@@ -51,8 +51,8 @@ const Home = () => {
         <Slider {...settings}>
           <div className="slide"><img src="lakpachoice1.jpeg" alt="Slide 1" /></div>
           <div className="slide"><img src="lakpachoice2.jpg" alt="Slide 2" /></div>
-          <div className="slide"><img src="lakpachoice3.jpeg" alt="Slide 3" /></div>
-          <div className="slide"><img src="lakpachoice4.jpeg" alt="Slide 4" /></div>
+          <div className="slide"><img src="lakpachoice3.jpg" alt="Slide 3" /></div>
+          <div className="slide"><img src="lakpachoice4.jpg" alt="Slide 4" /></div>
         </Slider>
       </section>
 
@@ -61,14 +61,14 @@ const Home = () => {
         <h2>Elevate Your Look with Our Signature Features</h2>
         <div className="image-description">
           <div className="image-text">
-            <img src="View1.png" alt="Image 1" className="eyeglasses" />
+            <img src="view2.jpg" alt="Image 1" className="eyeglasses" />
             <div className="description1">
               <h3>Ultra-lightweight Frames <br />for Maximum Comfort</h3>
               <Link to="/Sunglasses"><button>View More</button></Link>
             </div>
           </div>
           <div className="image-text">
-            <img src="view2.png" alt="Image 2" className="polarized-glasses" />
+            <img src="View1.jpg" alt="Image 2" className="polarized-glasses" />
             <div className="description">
               <h3>Trendy Designs with UV Protection</h3>
               <Link to="/Sunglasses"><button>View More</button></Link>
