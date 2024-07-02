@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+   
 }
 
 .admin-title {
@@ -35,21 +36,25 @@
 }
 
 .product-card {
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
+    box-shadow: 5px 5px orange;
     flex-direction: column;
     align-items: center;
 }
 
 .product-image {
     width: 100%;
-    height: auto;
+    height: 250px; 
     border-radius: 10px;
+    object-fit: cover; 
+    object-position: center; 
+    margin-bottom: 10px; 
 }
 
 .product-name {

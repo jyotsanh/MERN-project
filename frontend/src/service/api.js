@@ -35,3 +35,8 @@ export const getAppointments = async () => {
     const response = await axios.get('http://localhost:3000/api/get-appointments');
     return response.data;
 }
+
+export const setAppointments = async (data) => {
+    const response = await axios.post('http://localhost:3000/api/appointment', data);
+    return response.data;  
+}
