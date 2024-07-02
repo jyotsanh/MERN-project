@@ -15,7 +15,7 @@ import Admin from "../src/pages/Admin/admin";
 import Admin_View from "../src/pages/Admin/admin_view"
 import EditProduct from "./pages/edit-products/edit-product";
 import AppointmentView from "./pages/Admin/appointment_view";
-
+import AdminLogIn from "../src/pages/Admin/adminLogIn";
 function App() {
   return (
     <BrowserRouter>
@@ -29,7 +29,8 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/login" element={<Log />} />
         <Route path="/sign" element={<Sign />} /> 
-        <Route path="/add-products" element={<AddProducts />} /> 
+        <Route path="/add-products" element={<AddProducts />} />
+        <Route path="/admin-login" element={<AdminLogIn />} /> 
         <Route path="/admin" element={<Admin />} /> 
         <Route path="/admin-view" element={<Admin_View />} /> 
         <Route path="/edit-product/:id" element={<EditProduct />} />

@@ -40,3 +40,9 @@ export const setAppointments = async (data) => {
     const response = await axios.post('http://localhost:3000/api/appointment', data);
     return response.data;  
 }
+
+
+export const AdminLogin = async (data) => {
+    const response = await axios.post('http://localhost:3000/api/admin-login', data);
+    return response.data;
+}
