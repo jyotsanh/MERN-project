@@ -28,16 +28,19 @@ function Navbar() {
           <input type="text" placeholder="What are you searching for?" />
         </div>
 
-        
-
         <div className="actions">
-          <img src={wishlistIcon} alt="Wishlist Icon" />
-          <NavLink to="/Login">
-            <img src={accountIcon} alt="Account Icon" />
-          </NavLink>
-          <img src={cartIcon} alt="Cart Icon" />
-          {/* <HiOutlineShoppingCart /> */}
-        </div>
+  <div className="action">
+    <NavLink to="/Login">
+      <img src={accountIcon} alt="Account Icon" />
+      <span className='action'>Account</span>
+    </NavLink>
+  </div>
+  <div className="action">
+    <img src={cartIcon} alt="Cart Icon" />
+    <span>Cart</span>
+  </div>
+</div>
+
       </nav>
 
       <ul className="menu">
