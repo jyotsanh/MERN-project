@@ -134,14 +134,15 @@ function AddProducts(){
             </div>
 
         <button type="submit">Upload</button>
+        <NavLink to="/admin" state={{textDecoration: 'none' }}>
+                <button type="submit">Back to Admin</button>
+            </NavLink>
         </form>
         
         {message && <p> {message} </p>}
         {error && <p> {error.msg} </p>}
         <div>
-            <NavLink to="/admin">
-                <button>Back to Admin</button>
-            </NavLink>
+         
         </div>
     </div>
     );

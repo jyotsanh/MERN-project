@@ -1,22 +1,20 @@
+
 import { NavLink } from 'react-router-dom';
+import './admin.css'; 
 
-
-function Admin(){
+function Admin() {
     return (
-        <>
-            <h1>Admin</h1>
-            <br />
-            <NavLink to="/add-products">
-                <button href="/add-products">Add Products</button>
-            </NavLink>
-            
-            <br />
-            <br />
-            <NavLink to="/admin-view">
-                <button href="/admin-view">See the Products</button>
-            </NavLink>
-            
-        </>
+        <div className="admin-container">
+            <h1 className="admin-title">Admin</h1>
+            <div className="admin-buttons">
+                <NavLink to="/add-products">
+                    <button className="admin-button">Add Products</button>
+                </NavLink>
+                <NavLink to="/admin-view">
+                    <button className="admin-button">See the Products</button>
+                </NavLink>
+            </div>
+        </div>
     );
 }
 
