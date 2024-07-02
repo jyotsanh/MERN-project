@@ -3,11 +3,15 @@ const bcrypt = require("bcrypt")
 const AdminLogInController = async (req,res) => {
     try {
         const { email, password } = req.body
+        
         //before creating a new user, check if there is a user in the DB with the same email
         const foundUser = await AdminSchema.findOne({ email: email })
         if (foundUser) {
+            
             const passwordMatch = await bcrypt.compare(password, foundUser.password);
+            
             if (passwordMatch) {
+                
                 delete foundUser.password
                 res.status(200).json({
                     msg: "Logged in successfully",

@@ -20,14 +20,15 @@ function AdminLogIn() {
 
         // Example of submitting the login request
         try {
+            console.log( email, password)
             const response = await AdminLogin({ email, password });
             console.log(response);
             setError({});
             navigate('/admin');
         } catch (error) {
-            console.log(error.response.msg);
+            console.log(error.response.data.msg);
             const {email, password} = error.response
-            setError({ email: email, password: password,msg: error.response.msg });
+            setError({ email: email, password: password,msg: error.response.data.msg });
         }
     };
 

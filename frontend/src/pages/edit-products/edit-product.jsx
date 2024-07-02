@@ -55,7 +55,17 @@ function EditProduct() {
                 </label>
                 <label>
                     Category:
-                    <input type="text" name="category" value={product.category} onChange={handleChange} />
+                    <select name="category" value={product.category} onChange={handleChange}>
+                        <option value="">Select a category</option>
+                        <option value="prescription">Prescription</option>
+                        <option value="reading">Reading</option>
+                        <option value="blue-light">Blue Light</option>
+                        <option value="progressive">Progressive</option>
+                        <option value="sunglasses">Sunglasses</option>
+                        <option value="bifocal">Bifocal</option>
+                        <option value="sports">Sports</option>
+                        <option value="fashion">Fashion</option>
+                    </select>
                 </label>
                 <label>
                     Quantity:
