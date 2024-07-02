@@ -36,9 +36,12 @@ html, body {
 }
 
 .slick-slide img {
-  width: 100%; /* Ensure images use full width */
-  max-height: 350px; /* Limit the height to maintain quality */
-  object-fit: cover;}
+  width: 80%; /* Ensure images use full width */
+  max-height: 450px; /* Limit the height to maintain quality */
+  object-fit: cover;
+  align-items: center;
+  margin-left: 150px;
+}
 
 /* Two-Image Section */
 .two-image-section {
