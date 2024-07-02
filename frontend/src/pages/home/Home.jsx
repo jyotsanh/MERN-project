@@ -113,7 +113,7 @@ const Home = () => {
       </section>
 
       {/* Location Section */}
-      <section className="address">
+      {/* <section className="address">
         <h1>Store Location</h1>
       <div className="location">
       <img></img>
@@ -124,7 +124,7 @@ const Home = () => {
             
        </div>
         
-      </section>
+      </section> */}
     </div>
   );
 };

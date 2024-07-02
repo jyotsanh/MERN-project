@@ -61,7 +61,6 @@ nav .search-bar img {
  
 }
 
-/* Style for the actions section */
 nav .actions {
     flex: 1; /* Take up available space */
     display: flex;
@@ -74,7 +73,32 @@ nav .actions img {
     height: 50px; /* Set the height of the action icons */
     margin: 0 5px; /* Reduce the space between the icons */
     cursor: pointer;
-    opacity: 0.3s;
+    transition: opacity 0.3s;
+}
+
+/* Container for each action */
+nav .actions .action {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the icons and labels */
+    margin:0 10px; /* Add some spacing between actions */
+}
+
+/* Style for the labels */
+nav .actions .action span {
+   /* Add space between icon and label */
+ 
+    color: #333; /* Set the color for the labels */
+    text-align: center; /* Center the text */
+}
+
+/* Override NavLink default styles */
+nav .actions .action a  {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit parent color */
+    text-align: center;
+    /* margin-top:15px ; */
+/* margin-left: 30px;     */
 }
 
 /* Style for the menu */
