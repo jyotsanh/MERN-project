@@ -49,10 +49,10 @@ const Home = () => {
       {/* Image Slider Section */}
       <section className="image-slider">
         <Slider {...settings}>
-          <div className="slide"><img src="Silde1.png" alt="Slide 1" /></div>
-          <div className="slide"><img src="Silde2.png" alt="Slide 2" /></div>
-          <div className="slide"><img src="silde3.png" alt="Slide 3" /></div>
-          <div className="slide"><img src="Silde4.png" alt="Slide 4" /></div>
+          <div className="slide"><img src="lakpachoice1.jpeg" alt="Slide 1" /></div>
+          <div className="slide"><img src="lakpachoice2.jpg" alt="Slide 2" /></div>
+          <div className="slide"><img src="lakpachoice3.jpeg" alt="Slide 3" /></div>
+          <div className="slide"><img src="lakpachoice4.jpeg" alt="Slide 4" /></div>
         </Slider>
       </section>
 
