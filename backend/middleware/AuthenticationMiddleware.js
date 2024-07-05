@@ -15,6 +15,10 @@ const AuthenticationMiddleware = (req, res, next) => {
                 { msg: 'Failed to authenticate token.' }
             );
         }
+        console.log(`Decoded: ${decoded.role}`)
+        if (decoded.role !== 'admin') {
+            return res.status(403).send({ msg: 'You are not authorised' });
+        }
 
         // If everything is good, save the decoded token to the request for use in other routes
         req.userId = decoded.id;

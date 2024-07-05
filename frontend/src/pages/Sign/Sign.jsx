@@ -8,7 +8,8 @@ import google from '../../assets/google.svg';
 import email_photo from '../../assets/email.svg';
 import user from '../../assets/yes.svg';
 import { registerUser } from '../../service/api';
-
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 function Sign() {
 
@@ -20,7 +21,7 @@ function Sign() {
   const [username,setUsername] = useState("");
   const [successMessage, setSuccessMessage] = useState('');
   const [errors, setErrors] = useState({});
-
+  const navigate = useNavigate();
   const handleSubmit = async (e)=>{
     e.preventDefault();
     setSuccessMessage("")
@@ -37,7 +38,25 @@ function Sign() {
     try{
     const response = await registerUser(formdata);
     console.log(response)
+        try{
+          if (response.data.token) {
+              // Set token in cookies
+              Cookies.set('token', response.data.token);
+              // Redirect or update UI
+              console.log('Logged in successfully');
+          }
+        }catch(error){
+          setErrors({"msg":"Cookiee Error occureed"}) // Remove development code
+        }
     setSuccessMessage(response.data.msg);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setPassword2("");
+    setUsername("");
+    navigate('/Login');
+    
 
     }catch(error){
       const {email, password,username,msg} = error.response.data

@@ -11,7 +11,7 @@ export const registerUser = async (formdata) => {
 
 export const LoginUser = async (formdata) => {
     const response = await axios.post(`${URL}/user-login`, formdata);
-    return response;
+    return response.data;
 };
 
 export const UploadProducts = async (formdata,token) => {

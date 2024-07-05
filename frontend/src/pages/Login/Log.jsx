@@ -8,7 +8,7 @@ import google from '../../assets/google.svg';
 import email_photo from '../../assets/email.svg';
 import { LoginUser } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 function Log() {
 
   const [email,setEmail] = useState('');
@@ -28,15 +28,27 @@ function Log() {
     try {
       const response = await LoginUser(formdata);
       console.log(response);
-      setSuccess(response.data.msg);
+      try{
+
+        if(response.token) {
+            // Set token in cookies
+            Cookies.set('token', response.token);
+            // Redirect or update UI
+            console.log('User Logged in successfully');
+            setError('');
+        }
+      }catch(error){
+          setError("Cookiee Error occureed") // Remove development code
+      }
+      setSuccess(response.msg);
       navigate('/');
       
     } catch (error) {
       
       setSuccess('');
       console.log(error.response);
-      if (error.response && error.response.data) {
-          setError(error.response.data.password);
+      if (error.response && error.response) {
+          setError(error.response.password);
       } else {
           setError('An unexpected error occurred');
       }
