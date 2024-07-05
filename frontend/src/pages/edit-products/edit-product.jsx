@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { editProduct, FetchProducts } from '../../service/api';
 import './edit-product.css'; 
+import Cookies from 'js-cookie';
+
 
 function EditProduct() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [Error,SetError] = useState({});
     const [product, setProduct] = useState({
         name: '',
         price: '',
@@ -16,12 +19,14 @@ function EditProduct() {
     });
 
     useEffect(() => {
+        
         const fetchProduct = async () => {
             const productsData = await FetchProducts();
             const productToEdit = productsData.Product.find(p => p._id === id);
             setProduct(productToEdit);
         };
         fetchProduct();
+        
     }, [id]);
 
     const handleChange = (e) => {
@@ -33,9 +38,18 @@ function EditProduct() {
     };
 
     const handleSubmit = async (e) => {
+        const token = Cookies.get('token');
         e.preventDefault();
-        await editProduct(id, product);
-        navigate('/admin-view');
+        try{
+            const response = await editProduct(id, product,token);
+            navigate('/admin-view');
+        }catch(error){
+            console.log(error.response);
+            SetError({
+                msg: error.response.data.msg
+            })
+        }
+        
     };
 
     return (
@@ -72,6 +86,7 @@ function EditProduct() {
                     <input type="number" name="quantity" value={product.quantity} onChange={handleChange} />
                 </label>
                 <button type="submit">Update Product</button>
+                {Error.msg && <p> {Error.msg} </p>}
             </form>
         </div>
     );

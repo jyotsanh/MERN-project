@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AdminLogin } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function AdminLogIn() {
     const navigate = useNavigate();
@@ -22,11 +23,21 @@ function AdminLogIn() {
         try {
             console.log( email, password)
             const response = await AdminLogin({ email, password });
-            console.log(response);
+            console.log(response.token);
+            try{
+                if (response.token) {
+                    // Set token in cookies
+                    Cookies.set('token', response.token);
+                    // Redirect or update UI
+                    console.log('Logged in successfully');
+                }
+            }catch(error){
+                setError({"msg":"Cookiee Error occureed"}) // Remove development code
+            }
             setError({});
             navigate('/admin');
         } catch (error) {
-            console.log(error.response.data.msg);
+            console.log(error.response);
             const {email, password} = error.response
             setError({ email: email, password: password,msg: error.response.data.msg });
         }

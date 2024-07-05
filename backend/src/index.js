@@ -1,9 +1,14 @@
 const express = require("express");
+require('dotenv').config();
+
 app = express()
 const cors = require('cors')
 
+
+
 app.use(express.json())
 app.use(cors())
+
 
 
 const AdminRoutes = require("../routes/adminroutes");
@@ -14,7 +19,7 @@ const BookAppointment = require("../routes/BookAppointmentroutes");
 const connectDb = require("../db/connectdb");
 connectDb();
 
-PORT = 3000
+PORT = process.env.PORT || 3000;
 
 
 app.use("/api",AdminRoutes);

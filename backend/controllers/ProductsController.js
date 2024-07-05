@@ -4,6 +4,7 @@ const ProductSchemadb = require("../schema/ProductSchema");
 
 
 const ProductController = async (req,res)=>{
+    
     const product_data = await ProductSchemadb.find();
     if(product_data){
         return res.send({
@@ -29,7 +30,15 @@ const AddProductController = async (req,res) => {
     const imageUrl = `uploads/Products/${req.file.filename}`;
     console.log(name,price,description,category,quantity,imageUrl)
 
-    const data = await ProductSchemadb.create({name,price,description,category,quantity,imageUrl})
+    const data = await ProductSchemadb.create({
+        name,
+        price,
+        description,
+        category,
+        quantity,
+        imageUrl,
+        createdBy: req.userId
+    })
     console.log(data)
     if(data){
         {
@@ -39,6 +48,7 @@ const AddProductController = async (req,res) => {
         }
     }
     }catch(error){
+        console.log(error)
         return res.status(400).send({
             "msg":"Server here Error",
             "error":error
@@ -56,9 +66,11 @@ const EditProductController = async (req, res) => {
             price,
             description,
             category,
-            quantity
+            quantity,
+            createdBy: req.userId
         };
         if (req.file) {
+            console.log(`Update path  : ${req.file.path}`)
             updatedData.image = req.file.path;
         }
         const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
