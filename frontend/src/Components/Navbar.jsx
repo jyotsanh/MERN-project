@@ -3,16 +3,20 @@ import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo.png';
 import searchIcon from '../assets/Search.png';
-import wishlistIcon from '../assets/wish.png';
-import accountIcon from '../assets/Account.png'; // Correct the image name if there's a typo
+import accountIcon from '../assets/Account.png';
 import cartIcon from '../assets/Cart.png';
-// import { HiOutlineShoppingCart } from "react-icons/hi";
+import { FiMenu, FiX } from 'react-icons/fi'; 
 
 function Navbar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
@@ -23,30 +27,33 @@ function Navbar() {
         </div>
 
         <div className="search-bar">
-        <img src={searchIcon} alt="Search Icon" />
-          {/* <i className="fas fa-search"></i> */}
+          <img src={searchIcon} alt="Search Icon" />
           <input type="text" placeholder="What are you searching for?" />
         </div>
 
         <div className="actions">
-  <div className="action">
-    <NavLink to="/Login">
-      <img src={accountIcon} alt="Account Icon" />
-      <span className='action'>Account</span>
-    </NavLink>
-  </div>
-  <div className="action">
-    <img src={cartIcon} alt="Cart Icon" />
-    <span>Cart</span>
-  </div>
-</div>
+          <div className="action">
+            <NavLink to="/Login">
+              <img src={accountIcon} alt="Account Icon" />
+              <span className="action">Account</span>
+            </NavLink>
+          </div>
+          <div className="action">
+            <NavLink to="/Cart">
+              <img src={cartIcon} alt="Cart Icon" />
+              <span className="action">Cart</span>
+            </NavLink>
+          </div>
+        </div>
 
+        <div className="hamburger" onClick={toggleMenu}>
+          {menuOpen ? <FiX className="hamburger-icon" /> : <FiMenu className="hamburger-icon" />}
+        </div>
       </nav>
 
-      <ul className="menu">
+      <ul className={`menu ${menuOpen ? 'open' : ''}`}>
         <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
         <li><NavLink to="/sunglasses" activeClassName="active">Sunglasses</NavLink></li>
-        {/* <li><NavLink to="/eyeglasses" activeClassName="active">Eyeglasses</NavLink></li> */}
         <li><NavLink to="/contactlens" activeClassName="active">Lens</NavLink></li>
         <li><NavLink to="/book" activeClassName="active">Book Appointment</NavLink></li>
         <li><NavLink to="/faq" activeClassName="active">FAQs</NavLink></li>
