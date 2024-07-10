@@ -1,0 +1,64 @@
+Commands the I learned during Express Journey
+
+# to initialize the directory we use:
+-> npm init -y
+
+# to install expres`s framework we use:
+-> npm install express or npm i express
+ 
+
+ # to install packages that is only needed for development phase for example nodemon we use:
+ -> npm install -D nodemon
+
+ nodemon : brings new changes to while running the server so, that we don't need to stop and run again
+
+ # after sucessfully instll nodemon we need to include the cmd in a "scripts" of   package.json file we use:
+
+ {
+  "name": "learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev":"nodemon ./src/index.js", # -> this cmd is used for development env
+    "start":"node ./src/index.js" # -> for deployment enviroment
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
+
+
+-> npm run start:dev
+
+# In express we reauire keywords to import package, files etc. instead of using require we can also use import statement by 
+# doing little changes in package.json file for example: 
+
+ {
+  "name": "learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev":"nodemon ./src/index.js", 
+    "start":"node ./src/index.js" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "type":"module" # => WE INCLUDE THIS FOR IMPORT STATEMENT
+}

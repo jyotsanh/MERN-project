@@ -1,48 +1,72 @@
 import axios from 'axios';
 
+const URL = import.meta.env.VITE_BASE_URL;
+
+
+
 export const registerUser = async (formdata) => {
-    const response = await axios.post('http://localhost:3000/api/user-register', formdata);
+    const response = await axios.post(`${URL}/user-register`, formdata);
     return response;
 };
 
 export const LoginUser = async (formdata) => {
-    const response = await axios.post('http://localhost:3000/api/user-login', formdata);
-    return response;
+    const response = await axios.post(`${URL}/user-login`, formdata);
+    return response.data;
 };
 
-export const UploadProducts = async (formdata) => {
-    const response = await axios.post('http://localhost:3000/api/add-products', formdata);
+export const UploadProducts = async (formdata,token) => {
+    const response = await axios.post(`${URL}/add-products`, formdata,
+        {
+            headers: {
+                'Authorization': token
+            }
+        }
+    );
     return response;
 };
 
 export const FetchProducts = async () => {
-    const response = await axios.get('http://localhost:3000/api/products');
+   
+    const response = await axios.get(`${URL}/products`);
     return response.data;
 };
 
-export const deleteProduct = async (id) => {
-    const response = await axios.delete(`http://localhost:3000/api/delete-product/${id}`);
+export const deleteProduct = async (id,token) => {
+    const response = await axios.delete(`${URL}/delete-product/${id}`,
+        {
+            headers: {
+                'Authorization': token
+            }
+        }
+    );
     return response;
 };
 
-export const editProduct = async (id, updatedData) => {
-    const response = await axios.put(`http://localhost:3000/api/edit-product/${id}`, updatedData);
+export const editProduct = async (id, updatedData,token) => {
+    const response = await axios.put(`${URL}/edit-product/${id}`, updatedData,
+        {
+            headers: {
+                'Authorization': token
+            }
+        }
+    );
     return response;
 };
 
 
 export const getAppointments = async () => {
-    const response = await axios.get('http://localhost:3000/api/get-appointments');
+    const response = await axios.get(`${URL}/get-appointments`);
     return response.data;
 }
 
 export const setAppointments = async (data) => {
-    const response = await axios.post('http://localhost:3000/api/appointment', data);
+    const response = await axios.post(`${URL}/appointment`, data);
     return response.data;  
 }
 
 
 export const AdminLogin = async (data) => {
-    const response = await axios.post('http://localhost:3000/api/admin-login', data);
+    console.log(data)
+    const response = await axios.post(`${URL}/admin-login`, data);
     return response.data;
 }

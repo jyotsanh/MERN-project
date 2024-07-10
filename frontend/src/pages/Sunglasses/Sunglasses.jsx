@@ -12,9 +12,11 @@ function Sunglasses() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
         const productsData = await FetchProducts();
-        console.log("productsData", productsData);
+        
         const { Product } = productsData;
+        
         setProducts(Product);
         setFilteredProducts(Product); // Initialize filteredProducts with all products
       } catch (error) {

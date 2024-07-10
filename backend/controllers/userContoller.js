@@ -1,6 +1,10 @@
 const UserSchema = require("../schema/userSchema");
-const bcrypt = require("bcrypt")
-
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const SECRET_KEY = process.env.SECRET_KEY
+const generateToken = (user) => {
+    return jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+  };
 const UserLogInController = async (req,res)=>{
     try {
         const { email, password } = req.body
@@ -9,13 +13,15 @@ const UserLogInController = async (req,res)=>{
         if (foundUser) {
             const passwordMatch = await bcrypt.compare(password, foundUser.password);
             if (passwordMatch) {
-                delete foundUser.password
+                const token = generateToken(foundUser);
+                delete foundUser.password;
                 res.status(200).json({
                     msg: "Logged in successfully",
                     id: foundUser._id,
                     email: foundUser.email,
                     phoneNumber: foundUser.phoneNumber,
-                    userRole: foundUser.role
+                    userRole: foundUser.role,
+                    token: token
                 })
             } else {
                 res.status(401).json({
@@ -57,11 +63,14 @@ const UserRegisterController = async (req,res) => {
             const encryptedPassword = await bcrypt.hash(req.body.password, 10)
             req.body.password = encryptedPassword
             // if the email is not found in DB, create a user using that email
-            const data = await UserSchema.create(req.body)
+            const newUser = new UserSchema(req.body);
+            const data = await newUser.save();
             if (data) {
+                const token = generateToken(newUser);
                 res.status(200).json({
                     msg: "User registered",
-                    email: req.body.email
+                    email: req.body.email,
+                    token: token
                 })
                 // if no response from DB, send error res to teh front end
             } else {

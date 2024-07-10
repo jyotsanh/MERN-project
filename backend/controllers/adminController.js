@@ -1,41 +1,47 @@
 const AdminSchema = require("../schema/adminSchema");
-const bcrypt = require("bcrypt")
-const AdminLogInController = async (req,res) => {
-    try {
-        const { email, password } = req.body
-        
-        //before creating a new user, check if there is a user in the DB with the same email
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const SECRET_KEY = process.env.SECRET_KEY
+const generateToken = (user) => {
+    return jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+  };
+
+const LoginAdmin = async (req, res) => {
+    try{
+        const { email, password } = req.body;
+        console.log(email, password)
         const foundUser = await AdminSchema.findOne({ email: email })
-        if (foundUser) {
+        if (!foundUser) {
+                return res.status(400).send({
+                    "msg":"Email or Password doesn't match"
+                });
+        } else{
+    
+                const validPassword = bcrypt.compareSync(password, foundUser.password);
+                if (!validPassword) {
+                        return res.status(400).send({
+                            "msg":"Email or Password doesn't match"
+                        });
+                }
             
-            const passwordMatch = await bcrypt.compare(password, foundUser.password);
-            
-            if (passwordMatch) {
-                
+                const token = generateToken(foundUser);
                 delete foundUser.password
-                res.status(200).json({
+                res.send({
+                    
                     msg: "Logged in successfully",
+                    "token": token,
                     id: foundUser._id,
-                    email: foundUser.email,
-                    phoneNumber: foundUser.phoneNumber,
-                    userRole: foundUser.role
-                })
-            } else {
-                res.status(401).json({
-                    msg: "Password invalid",
-                })
-            }
+                    email: foundUser.email
 
-        } else {
-            res.status(404).json({
-                msg: "Email doesn't exists"
-            })
+                });
         }
-
-    } catch (error) {
-        console.log("Server error")
+    }catch(error){
+        return res.status(400).send({
+            "msg":"Server here Error",
+            "error":error
+        })
     }
-}
+};
 
 const AdminRegisterController = async (req,res)=>{
     try {
@@ -82,5 +88,6 @@ const AdminRegisterController = async (req,res)=>{
     }
 }
 
-exports.AdminLogInController = AdminLogInController;
+
 exports.AdminRegisterController = AdminRegisterController;
+exports.LoginAdmin = LoginAdmin;

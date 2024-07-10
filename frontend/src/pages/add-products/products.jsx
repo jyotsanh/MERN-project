@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {UploadProducts} from "../../service/api";
 import './products.css'
+import Cookies from 'js-cookie';
 
 import { NavLink } from 'react-router-dom';
 
@@ -15,7 +16,7 @@ function AddProducts(){
         const [description, setDescription] = useState('');
         const [category, setCategory] = useState('');
         const [quantity, setQuantity] = useState('');
-        const [error,SetError] = useState({});
+        const [Error,SetError] = useState({});
 
 
         const handleSubmit = async (e) => {
@@ -35,7 +36,9 @@ function AddProducts(){
         console.log(formData)
 
           try {
-            const response = await UploadProducts(formData);
+            const token = Cookies.get('token');
+            console.log(`token : ${token}`)
+            const response = await UploadProducts(formData,token);
             console.log(response);
             SetError('')
             setMessage(response.data.msg)
@@ -48,11 +51,11 @@ function AddProducts(){
             setQuantity("");
             
           } catch (error) {
-            console.log("------------------------------------error------");
-            setMessage('');
-            console.log(error.response);
-            const {name,price, description,category,quantity} = error.response.data
-            SetError({ name: name, price: price, description: description,category:category,quantity:quantity });
+                console.log("------------------------------------error------");
+                setMessage('');
+                console.log(error);
+                const {name,price, description,category,quantity} = error.response.data
+                SetError({ name: name, price: price, description: description,category:category,quantity:quantity,msg: error.response.data.msg });
           }
 
 
@@ -72,7 +75,7 @@ function AddProducts(){
             onChange={(e)=>setName(e.target.value)} 
             required 
             />
-            {error.name && <p className="error-text">{error.name}</p>}
+            {Error.name && <p className="error-text">{Error.name}</p>}
         </div>
 
             <div className="pro-form-group">
@@ -84,7 +87,7 @@ function AddProducts(){
                 onChange={(e)=>setDescription(e.target.value)} 
                 required 
                 />
-                {error.description && <p className="error-text">{error.description}</p>}
+                {Error.description && <p className="error-text">{Error.description}</p>}
             </div>
 
             <div className="pro-form-group">
@@ -96,7 +99,7 @@ function AddProducts(){
             onChange={(e)=>setPrice(e.target.value)} 
             required 
             />
-             {error.price && <p className="error-text">{error.price}</p>}
+             {Error.price && <p className="error-text">{Error.price}</p>}
             </div>
 
             <div className="pro-form-group">
@@ -117,7 +120,7 @@ function AddProducts(){
             <option value="sports">Sports</option>
             <option value="fashion">Fashion</option>
             </select>
-            {error.category && <p className="error-text">{error.category}</p>}
+            {Error.category && <p className="error-text">{Error.category}</p>}
         </div>
             
             <div className="pro-form-group">
@@ -129,7 +132,7 @@ function AddProducts(){
             onChange={(e)=>{setQuantity(e.target.value)}} 
             required 
             />
-        {error.quantity && <p className="error-text">{error.quantity}</p>}
+        {Error.quantity && <p className="error-text">{Error.quantity}</p>}
             </div>
 
             <div className="pro-form-group">
@@ -149,7 +152,7 @@ function AddProducts(){
         </form>
         
         {message && <p> {message} </p>}
-        {error && <p> {error.msg} </p>}
+        {Error.msg && <p> {Error.msg} </p>}
         <div>
          
         </div>

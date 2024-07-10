@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FetchProducts, deleteProduct } from '../../service/api';
 import './admin_view.css';
+import Cookies from 'js-cookie';
 
 function Admin_View() {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
+    const [Error,SetError] = useState({});
     useEffect(() => {
+        SetError({});
         const fetchData = async () => {
             try {
                 const productsData = await FetchProducts();
@@ -29,10 +32,16 @@ function Admin_View() {
 
     const handleDelete = async (id) => {
         try {
-            await deleteProduct(id);
+            const token = Cookies.get('token');
+            const response = await deleteProduct(id,token);
             setProducts(products.filter(product => product._id !== id));
+            SetError({});
         } catch (error) {
             console.error('Error deleting product:', error);
+            console.log(error.response);
+            SetError({
+                msg: error.response.data.msg
+            })
         }
     };
 
@@ -63,6 +72,7 @@ function Admin_View() {
                     ))
                 )}
             </div>
+            {Error.msg && <p> {Error.msg} </p>}
         </div>
     );
 }
