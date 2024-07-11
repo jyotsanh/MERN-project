@@ -16,6 +16,7 @@
     "dotenv": "^16.4.5",
     "google-maps-react": "^2.0.6",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18.3.1",

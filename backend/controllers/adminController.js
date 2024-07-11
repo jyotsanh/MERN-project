@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = process.env.SECRET_KEY
 const generateToken = (user) => {
-    return jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+    return jwt.sign({ id: user.id, role: user.role,username:user.username }, SECRET_KEY, { expiresIn: '1h' });
   };
 
 const LoginAdmin = async (req, res) => {

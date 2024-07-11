@@ -11,7 +11,8 @@ const AdminSchema = ({
     },
 
     username:{
-        type: String
+        type: String,
+        unique: true
     },
 
     role: {

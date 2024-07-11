@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = process.env.SECRET_KEY
 const generateToken = (user) => {
-    return jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+    return jwt.sign({ id: user.id, role: user.role,username:user.username }, SECRET_KEY, { expiresIn: '1h' });
   };
 const UserLogInController = async (req,res)=>{
     try {
@@ -25,13 +25,13 @@ const UserLogInController = async (req,res)=>{
                 })
             } else {
                 res.status(401).json({
-                    password: "Password invalid",
+                    password: "Email or Password doesn't match",
                 })
             }
 
         } else {
             res.status(404).json({
-                password: "Email doesn't exists"
+                password: "Email or Passowrd doesn't match"
             })
         }
 

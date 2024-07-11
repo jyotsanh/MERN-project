@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 import logo from '../assets/logo.png';
 import searchIcon from '../assets/Search.png';
 import wishlistIcon from '../assets/wish.png';
@@ -10,7 +12,26 @@ import cartIcon from '../assets/Cart.png';
 
 function Navbar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
-
+  const [jwt, setJwt] = useState(null);
+  const [username,setUsername] = useState("");
+  useEffect(() => {
+    const token = Cookies.get('token'); // replace 'jwt' with the name of your JWT cookie
+    setJwt(token);
+    if(token){
+      try {
+          const decoded = jwtDecode(token);
+          console.log(decoded) // REMOVE THIS LINE WHEN DEPLOYING
+          if (decoded.username) {
+              setUsername(decoded.username);
+          } else {
+            setUsername("No name");
+          }
+      } catch (error) {
+            console.error('Invalid token:', error);
+            navigate('/');
+      }
+    }
+  }, []);
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
   };
@@ -23,23 +44,38 @@ function Navbar() {
         </div>
 
         <div className="search-bar">
-        <img src={searchIcon} alt="Search Icon" />
+          <img src={searchIcon} alt="Search Icon" />
           {/* <i className="fas fa-search"></i> */}
           <input type="text" placeholder="What are you searching for?" />
         </div>
 
         <div className="actions">
-  <div className="action">
-    <NavLink to="/Login">
-      <img src={accountIcon} alt="Account Icon" />
-      <span className='action'>Account</span>
-    </NavLink>
-  </div>
-  <div className="action">
-    <img src={cartIcon} alt="Cart Icon" />
-    <span>Cart</span>
-  </div>
-</div>
+
+          
+
+          {jwt ? (
+                    <div className="action">
+                      <NavLink to="/Profile">
+                        <img src={accountIcon} alt="Account Icon" />
+                        <span className='action'>{username}</span>
+                      </NavLink>
+                    </div>
+                  ) : (
+                    <div className="action">
+                      <NavLink to="/Login">
+                        <img src={accountIcon} alt="Account Icon" />
+                        <span className='action'>Sign-In</span>
+                      </NavLink>
+                    </div>
+                    )
+                    }
+
+          <div className="action">
+            <img src={cartIcon} alt="Cart Icon" />
+            <span>Cart</span>
+          </div>
+
+        </div>
 
       </nav>
 

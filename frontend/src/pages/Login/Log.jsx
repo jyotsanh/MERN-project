@@ -46,9 +46,9 @@ function Log() {
     } catch (error) {
       
       setSuccess('');
-      console.log(error.response);
+      console.log(error.response.data);
       if (error.response && error.response) {
-          setError(error.response.password);
+          setError(error.response.data.password);
       } else {
           setError('An unexpected error occurred');
       }
