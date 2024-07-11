@@ -11,6 +11,7 @@ import cartIcon from '../assets/Cart.png';
 // import { HiOutlineShoppingCart } from "react-icons/hi";
 
 function Navbar() {
+  
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [jwt, setJwt] = useState(null);
   const [username,setUsername] = useState("");
@@ -34,6 +35,11 @@ function Navbar() {
   }, []);
   const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
+  };
+
+  const LoggingOut = () => {
+    Cookies.remove('token');
+    window.location.reload();
   };
 
   return (
@@ -73,6 +79,11 @@ function Navbar() {
           <div className="action">
             <img src={cartIcon} alt="Cart Icon" />
             <span>Cart</span>
+          </div>
+
+          <div className="action">
+            <img src={cartIcon} alt="Cart Icon" />
+            <button onClick={LoggingOut}><span>Log out</span></button>
           </div>
 
         </div>
