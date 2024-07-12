@@ -25,9 +25,9 @@ const TopProductController = async (req,res) => {
 
 const AddProductController = async (req,res) => {
     try{
-    const {name,price,description,category,quantity} = req.body;
+    const {name,price,description,category,quantity,frame_material,lens_material,frame_shape} = req.body;
     console.log(req.body)
-    const imageUrl = `uploads/Products/${req.file.filename}`;
+    const imageUrl = `uploads/Products/${name}/${req.file.filename}`;
     console.log(name,price,description,category,quantity,imageUrl)
 
     const data = await ProductSchemadb.create({
@@ -36,6 +36,9 @@ const AddProductController = async (req,res) => {
         description,
         category,
         quantity,
+        frame_material,
+        lens_material,
+        frame_shape,
         imageUrl,
         createdBy: req.userId
     })
@@ -60,13 +63,16 @@ const AddProductController = async (req,res) => {
 const EditProductController = async (req, res) => {
     try {
         const productId = req.params.id;
-        const { name, price, description, category, quantity } = req.body;
+        const { name, price, description, category, quantity ,frame_material,lens_material,frame_shape} = req.body;
         const updatedData = {
             name,
             price,
             description,
             category,
             quantity,
+            frame_material,
+            lens_material,
+            frame_shape,
             createdBy: req.userId
         };
         if (req.file) {

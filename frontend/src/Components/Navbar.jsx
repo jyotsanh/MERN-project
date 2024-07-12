@@ -56,16 +56,20 @@ function Navbar() {
         </div>
 
         <div className="actions">
+            {jwt ? (  <>
+                      <div className="action">
+                        <NavLink to="/Profile">
+                          <img src={accountIcon} alt="Account Icon" />
+                          <span className='action'>{username}</span>
+                        </NavLink>
+                      </div>
 
-          
-
-          {jwt ? (
-                    <div className="action">
-                      <NavLink to="/Profile">
-                        <img src={accountIcon} alt="Account Icon" />
-                        <span className='action'>{username}</span>
-                      </NavLink>
-                    </div>
+                      
+                      <div className="action">
+                        <img src={cartIcon} alt="Cart Icon" />
+                        <button onClick={LoggingOut}><span>Log out</span></button>
+                      </div>
+                    </>
                   ) : (
                     <div className="action">
                       <NavLink to="/Login">
@@ -74,19 +78,13 @@ function Navbar() {
                       </NavLink>
                     </div>
                     )
-                    }
+              }
 
-          <div className="action">
-            <img src={cartIcon} alt="Cart Icon" />
-            <span>Cart</span>
+              <div className="action">
+                <img src={cartIcon} alt="Cart Icon" />
+                <span>Cart</span>
+              </div>
           </div>
-
-          <div className="action">
-            <img src={cartIcon} alt="Cart Icon" />
-            <button onClick={LoggingOut}><span>Log out</span></button>
-          </div>
-
-        </div>
 
       </nav>
 

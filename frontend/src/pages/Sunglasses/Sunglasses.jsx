@@ -160,9 +160,9 @@ function Sunglasses() {
                 <div className="product-card" key={product._id}>
                   <img src={product.imageUrl} alt={product.name} className="product-image" />
                   <h2 className="product-name">{product.name}</h2>
-                  <p className="product-price">Price: {product.price}</p>
-                  <p className="product-description">Description: {product.description}</p>
-                  <p className="product-category">Category: {product.category}</p>
+                  <p className="product-price">Price: Rs.{product.price}</p>
+                  {/* <p className="product-description">Description: {product.description}</p>
+                  <p className="product-category">Category: {product.category}</p> */}
                 </div>
               ))}
             </div>

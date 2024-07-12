@@ -1,14 +1,24 @@
 const express = require("express");
 router = express.Router();
-
+const path = require('path'); // for path of folder
+const fs = require('fs'); //for folder creation
 const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
+      const {name} = req.body;
+      const uploadPath = path.join(__dirname, `../../frontend/public/uploads/Prescription/${name}/`);
+      fs.mkdir(uploadPath, { recursive: true }, (err) => {
 
-      cb(null, '../frontend/public/uploads/Prescription/');
+        if (err) {
+          return cb(err);
+        } else {
+          cb(null, uploadPath);
+        }
 
-    },
+      }); // makdirectory
+
+    }, // destination
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}_${file.originalname}`);
     }
