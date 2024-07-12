@@ -30,6 +30,7 @@ backend/package-lock.json/
 venv/
 
 
+
 # C extensions
 *.so
 

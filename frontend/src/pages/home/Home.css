@@ -175,7 +175,6 @@ background-color: rgb(240, 227, 204);*/
 }
 /*arrow styling*/
 /* Custom styles for the slick arrows */
-
 .top-trending-products .slick-prev,
 .top-trending-products .slick-next {
   width: 40px;
@@ -219,10 +218,22 @@ background-color: rgb(240, 227, 204);*/
   justify-content: center;
   
 }
+.top-trending-products h3{
+  text-align: center;
+  margin-bottom:10px;
+  margin-top:30px;
+  font-size:20px;
+  
+  text-transform: uppercase;
+}
 
 .top-trending-products h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-family: Arial,sans-serif;
+  text-transform:uppercase;
+  
 }
 
 .products {
@@ -230,11 +241,14 @@ background-color: rgb(240, 227, 204);*/
   justify-content: space-around;
   flex-wrap: wrap;
   text-align: center;
+  overflow: hidden;
  
 }
 
 .product {
   text-align: center;
+  position:relative;
+  overflow:hidden;
   /* max-width: 60%; */
  
 }
@@ -250,7 +264,7 @@ background-color: rgb(240, 227, 204);*/
   /* box-shadow:0 4px 20px 0 rgba(0,0,0,0.3),0 6px 20px 0 rgba(0,0,0,0.3) ; */
   box-shadow: 5px 5px orange;
   border: 1px solid #000000;
-  /* overflow: hidden; */
+  overflow: hidden; 
   object-fit: contain;
 
 }
@@ -270,12 +284,76 @@ background-color: rgb(240, 227, 204);*/
   height: 255px; /* Set a fixed height */
   object-fit: cover;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .product a {
   text-decoration: none; /* Remove underline from links */
   color: inherit; /* Inherit color from parent (black in this case) */
 }
+.image-container {
+  position: relative;
+  overflow: hidden;
+  width:100%;
+}
+
+
+.product:hover  .overlay {
+  opacity: 1;
+ 
+ 
+}
+
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 150px;
+  right: 0;
+  bottom: 0;
+  background: rgba(224, 220, 220, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #100b0b;
+  width: 255px;
+  object-fit: cover;
+  margin-right:20px 0;
+  
+}
+
+
+/* Additional styles for icons */
+
+
+
+.icon{
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  position: absolute;
+  right: 10px;
+  top: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon li {
+  display: block;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 1.7em;
+}
+
+.icon li:hover {
+color: #f50800;;
+}
+
+
 /*location*/
 .address h1{
   text-align: center;

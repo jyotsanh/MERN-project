@@ -7,7 +7,7 @@ const AppointmentController = async (req,res)=>{
     try{
     console.log("request body : ",req.body)
     const {name,address,phone,prefered_date,prefered_time,location} = req.body;
-    const prescription = `uploads/Prescription/${req.file.filename}`
+    const prescription = `uploads/Prescription/${name}/${req.file.filename}`
     const data = await AppointmentSchemadb.create({name,address,phone,prefered_date,prefered_time,location,prescription});
     
     if (data){

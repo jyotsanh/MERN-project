@@ -17,6 +17,18 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    frame_material: {
+        type: String,
+        required: true
+    },
+    lens_material: {
+        type: String,
+        required: true
+    },
+    frame_shape: {
+        type: String,
+        required: true
+    },
     imageUrl: {
         type: String,
         required: true
