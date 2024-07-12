@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import {AiOutlineHeart} from 'react-icons/ai';
+import{useCart}from'../../context/CartContext';
 
 
 const NextArrow = ({ onClick }) => {
@@ -23,13 +24,15 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 const Home = () => {
+  const{dispatch}=useCart();
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: true, 
     autoplaySpeed: 2000,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -43,6 +46,9 @@ const Home = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
+  const handleAddToCart =(product)=>{
+    dispatch({type:'ADD_TO_CART',payload:product});
+  }
 
   return (
     <div className="home">
@@ -79,36 +85,89 @@ const Home = () => {
 
       {/* Top Trending Products Section */}
       <section className="top-trending-products">
+        <h3>Top Products</h3>
         <h2>Top Trending Products</h2>
         <Slider {...multipleItemsSettings}>
-          <div className="product">
-            <Link to="/Sunglasses">
-              <img src="p1.png" alt="Product 1" />
-              <p>Product 1</p>
+        <div className="product">
+          <div className="image-container">
+       
+       
+          <img src="p1.png" alt="Product 1" />
+          
+            <Link to="/ProductPage">
+          <div className="overlay">
+              <div className="icon">
+            <Link to="/cart">
+            <li onClick={() => handleAddToCart({ id: 1, name: 'Product 1', price: 500,image: 'p1.png'})}><AiOutlineHeart/></li>
             </Link>
-            <p className="price">Rs 500</p>
+            </div>
           </div>
+          </Link>
+          </div>
+          <p>Product 1</p>
+          <p className="price">Rs 500</p>
+          </div>
+          
           <div className="product">
-            <Link to="/Eyeglasses">
+          <div className="image-container">
               <img src="p2.png" alt="Product 2" />
-              <p className='Prod'>Product 2</p>
+            
+            <div className="overlay">
+              <div className="icon">
+            <Link to="/cart">
+            <li onClick={() => handleAddToCart({ id: 2, name: 'Product 2', price: 500,image: 'p2.png'})}><AiOutlineHeart/></li>
             </Link>
-            <p className="price">Rs 500</p>
+            </div>
+          </div>
+   
+          </div>
+          <p>Product 2</p>
+          <p className="price">Rs 500</p>
           </div>
           <div className="product">
-            <Link to="/Contactlens">
-              <img src="P3.png" alt="Product 3" />
-              <p>Product 3</p>
-            </Link>
-            <p className="price">Rs 500</p>
-          </div>
-          <div className="product">
+          <div className="image-container">
+            
+        
             <Link to="/Sunglasses">
-              <img src="p4.png" alt="Product 4" />
-              <p>Product 4</p>
+              <img src=" P3.png" alt="Product 3" />
+         
             </Link>
-            <p className="price">Rs 500</p>
+            <div className="overlay">
+              <div className="icon">
+            <Link to="/cart">
+            <li onClick={() => handleAddToCart({ id: 3, name: 'Product 3', price: 500,image: 'P3.png'})}><AiOutlineHeart/></li>
+            </Link>
+            </div>
           </div>
+   
+          </div>
+          <p>Product 3</p>
+          <p className="price">Rs 500</p>
+
+          </div>
+
+          <div className="product">
+          <div className="image-container">
+            
+        
+            
+              <img src="p4.png" alt="Product 4" />
+             
+          
+            <Link to="/ProductPage">
+            <div className="overlay">
+              <div className="icon">
+            <Link to="/cart">
+            <li onClick={() => handleAddToCart({ id: 4, name: 'Product 4', price: 500,image: 'p4.png'})}><AiOutlineHeart/></li>
+            </Link>
+            </div>
+          </div>
+          </Link>
+          </div>
+          <p>Product 4</p>
+          <p className="price">Rs 500</p>
+          </div>
+
         </Slider>
       </section>
 
