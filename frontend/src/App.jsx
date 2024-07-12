@@ -22,23 +22,23 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sunglasses" element={<Sunglasses />} />
-        <Route path="/eyeglasses" element={<EyeGlasses />} />
-        <Route path="/contactlens" element={<Contactlens />} />
-        <Route path="/book" element={<Book />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/login" element={<Log />} />
-        <Route path="/sign" element={<Sign />} /> 
-        <Route path="/add-products" element={<AddProducts />} />
-        <Route path="/admin-login" element={<AdminLogIn />} /> 
-        <Route path="/admin" element={<Admin />} /> 
-        <Route path="/admin-view" element={<Admin_View />} /> 
-        <Route path="/edit-product/:id" element={<EditProduct />} />
-        <Route path="/appointments" element={<AppointmentView />} />
-        <Route path='/about' element={<About />}/>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sunglasses" element={<Sunglasses />} />
+          <Route path="/eyeglasses" element={<EyeGlasses />} />
+          <Route path="/contactlens" element={<Contactlens />} />
+          <Route path="/book" element={<Book />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/login" element={<Log />} />
+          <Route path="/sign" element={<Sign />} /> 
+          <Route path="/add-products" element={<AddProducts />} />
+          <Route path="/admin-login" element={<AdminLogIn />} /> 
+          <Route path="/admin" element={<Admin />} /> 
+          <Route path="/admin-view" element={<Admin_View />} /> 
+          <Route path="/edit-product/:id" element={<EditProduct />} />
+          <Route path="/appointments" element={<AppointmentView />} />
+          <Route path='/about' element={<About />}/>
+        </Routes>
       <Footer />
     </BrowserRouter>
   );

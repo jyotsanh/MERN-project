@@ -17,8 +17,9 @@ function Navbar() {
   const [username,setUsername] = useState("");
   useEffect(() => {
     const token = Cookies.get('token'); // replace 'jwt' with the name of your JWT cookie
-    setJwt(token);
+    
     if(token){
+      setJwt(token);
       try {
           const decoded = jwtDecode(token);
           console.log(decoded) // REMOVE THIS LINE WHEN DEPLOYING
@@ -39,6 +40,7 @@ function Navbar() {
 
   const LoggingOut = () => {
     Cookies.remove('token');
+    setJwt("")
     window.location.reload();
   };
 
