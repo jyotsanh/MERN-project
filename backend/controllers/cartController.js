@@ -8,6 +8,7 @@ const AddToCart = async (req,res) => {
         if(cart_data){
             return res.status(200).send({
                 "Cart":cart_data,
+                "status":"data added successfully",
                 "msg":"data in db"
             })
         }else{

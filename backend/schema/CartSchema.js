@@ -11,11 +11,6 @@ const CartSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ProductSchemadb', //should match the exports schema name
             required: true
-        },
-        quantity: {
-            type: Number,
-            required: true,
-            min: 1
         }
     }],
     createdAt: {
