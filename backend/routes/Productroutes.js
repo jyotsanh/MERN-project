@@ -27,14 +27,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 //Controller : 
-const {ProductController, TopProductController, AddProductController, EditProductController, DeleteProductController} = require("../controllers/ProductsController");
+const {ProductController,ProductDetailsId,UserProductsController, TopProductController, AddProductController, EditProductController, DeleteProductController} = require("../controllers/ProductsController");
 
 // Products Middleware
 const AddProductMiddleware = require("../middleware/addProductMiddleware");
 const AuthenticationMiddleware = require("../middleware/AuthenticationMiddleware");
 
-router.get("/products", ProductController);
-router.get("/top-products", TopProductController);
+router.get("/products", ProductController); // admin can see al product details
+router.get("/top-products", TopProductController); // top products for User
+router.get("/products/:id", ProductDetailsId); // Product info with id endpoint
+router.get("/user-products", UserProductsController); // all product info for User
 
 
 // adding,editing and deleting products requires authentication : 'AuthenticationMiddleware'
