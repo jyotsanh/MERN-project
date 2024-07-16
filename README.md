@@ -1,6 +1,6 @@
 # EyeMate
 
-`<img align = "right" src="https://user-images.githubusercontent.com/74038190/212750996-938b257b-266c-45a7-9af7-655341c0f58b.gif" width="500" height="500">`
+<img align = "right" src="https://user-images.githubusercontent.com/74038190/212750996-938b257b-266c-45a7-9af7-655341c0f58b.gif" width="500" height="500">
 
 <p align="left">
   EyeMate is an e-commerce platform dedicated to providing a seamless experience for buying and selling eyeglasses and sunglasses. With features like prescription customization and appointment booking, EyeMate aims to revolutionize the way people shop for eyewear online.</p>
@@ -83,4 +83,4 @@ For any questions, issues, or inquiries regarding EyeMate, please contact the ma
 ## Contributing
 
 We welcome contributions from the community to enhance the EyeMate platform. Whether it's fixing bugs, implementing new features, or improving performance, your contributions are valuable. Please feel free to fork the repository, make your changes, and submit a pull request for review.
-`<img align = "right" src="./media/banner.png" width="1000" height="200">`
+<img align = "right" src="https://private-user-images.githubusercontent.com/74038190/240304586-d48893bd-0757-481c-8d7e-ba3e163feae7.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjExNDg4MDYsIm5iZiI6MTcyMTE0ODUwNiwicGF0aCI6Ii83NDAzODE5MC8yNDAzMDQ1ODYtZDQ4ODkzYmQtMDc1Ny00ODFjLThkN2UtYmEzZTE2M2ZlYWU3LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA3MTYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNzE2VDE2NDgyNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJlZTY1MzQ1N2JlYWU1NmU2OTI5MzNlOTk5NmQ2YjIzNTk1Y2NiNmJiOGVmNGZhYTBjMGJiZGFkZmVhZWVmMzcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.8PScHy0-N38QEyEQMhLOyJdkyrEwHCMogz1b5JCdpGc" width="1000" height="200">
