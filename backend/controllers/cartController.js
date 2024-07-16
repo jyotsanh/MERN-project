@@ -27,7 +27,27 @@ const AddToCart = async (req,res) => {
 const GetCartItems = async (req,res) => {
     try{
 
-        const cart_data = await CartSchemadb.findById(req.userId);
+        const cart_data = await CartSchemadb.find({ userId: req.userId });
+        if(cart_data){
+            return res.send({
+                "Cart":cart_data
+            })
+        }else{
+            return res.send({
+                "msg":"no data in db"
+            })
+        }
+    }catch(err){
+        return res.send({
+            msg:"server error",
+            error:err
+        })
+    }
+}
+
+const DelCartItems = async (req,res) => {
+    try{
+        const cart_data = await CartSchemadb.findByIdAndDelete(req.params.id);
         if(cart_data){
             return res.send({
                 "Cart":cart_data
@@ -47,3 +67,4 @@ const GetCartItems = async (req,res) => {
 
 exports.AddToCart=AddToCart;
 exports.GetCartItems=GetCartItems;
+exports.DelCartItems=DelCartItems;

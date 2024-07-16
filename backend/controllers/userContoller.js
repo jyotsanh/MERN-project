@@ -40,6 +40,7 @@ const UserLogInController = async (req,res)=>{
     } catch (error) {
         res.status(401).json({
             msg: "Internal Server Error",
+            err:error
         })
     }
 }
