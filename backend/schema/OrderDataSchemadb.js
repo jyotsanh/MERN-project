@@ -1,35 +1,30 @@
 const mongoose = require('mongoose');
 
 
-const OrderSchema = new mongoose.Schema({
+const OrderDataSchema = new mongoose.Schema({
 
   user_id: { 
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User' ,
-    required: true
+    ref: 'User' 
     },
 
   products: [
     {
       product_id: { 
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'ProductSchemadb',
-        required: true
+        ref: 'ProductSchemadb' 
         },
       quantity: {
-        type:Number,
-        required: true
+        type:Number
         },
       price: {
-        type : Number,
-        required: true
+        type : Number
       }
-    },
+    }
   ],
 
   total_price: {
-    type : Number,
-    required: true
+    type : Number
   },
 
   status: { 
@@ -59,12 +54,12 @@ const OrderSchema = new mongoose.Schema({
 
 
 // Pre-save middleware to update the updatedAt field
-OrderSchema.pre('save', function(next) {
+OrderDataSchema.pre('save', function(next) {
     this.updatedAt = Date.now();
     next();
 });
 
-const OrderSchemadb = mongoose.model("Order", OrderSchema);
+const OrderDataSchemadb = mongoose.model("OrderData", OrderDataSchema);
 
-module.exports = OrderSchemadb;
+module.exports = OrderDataSchemadb;
 

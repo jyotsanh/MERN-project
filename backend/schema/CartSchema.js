@@ -11,8 +11,16 @@ const CartSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ProductSchemadb', //should match the exports schema name
             required: true
-        }
+        },
+        price: {
+            type: Number,
+            required: true
+        },
     }],
+    total_price: {
+        type: Number,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

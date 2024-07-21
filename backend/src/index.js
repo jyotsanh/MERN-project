@@ -34,6 +34,10 @@ const CartRoutes = require("../routes/cartRoutes");
 app.use("/api",CartRoutes);
 
 
+// For Order
+const OrderRoutes = require("../routes/OrderRoutes");
+app.use("/api",OrderRoutes);
+
 PORT = process.env.PORT || 3000;
 
 

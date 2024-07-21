@@ -3,7 +3,14 @@ const CartSchemadb = require("../schema/CartSchema");
 
 const AddToCart = async (req,res) => {
     try{
-        
+        const items = req.body.items
+        let total_price = 0;
+        for (const item of items) {
+            const price = item.price;
+            total_price = total_price + price;
+        }
+        req.body.total_price = total_price;
+        console.log(`Here is the CartSchemadb ${req.body}`); // remove while deployment 
         const cart_data = await CartSchemadb.create(req.body);
         if(cart_data){
             return res.status(200).send({
@@ -12,12 +19,12 @@ const AddToCart = async (req,res) => {
                 "msg":"data in db"
             })
         }else{
-            return res.send({
+            return res.status(400).send({
                 "msg":"no data in db"
             })
         }
     }catch(err){
-        return res.status(400).send({
+        return res.status(500).send({
             msg:"server error",
             error:err
         })
