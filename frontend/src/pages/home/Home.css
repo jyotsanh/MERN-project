@@ -166,6 +166,7 @@ background-color: rgb(240, 227, 204);*/
   background-color: #007bff;
   color: white;
   border: none;
+  border-radius: 50px;
   cursor: pointer;
   
 }
@@ -262,7 +263,7 @@ background-color: rgb(240, 227, 204);*/
   background-color: white;
   border-radius: 15px;
   /* box-shadow:0 4px 20px 0 rgba(0,0,0,0.3),0 6px 20px 0 rgba(0,0,0,0.3) ; */
-  box-shadow: 5px 5px orange;
+  box-shadow: 15px 15px 15px rgb(255, 228, 176);
   border: 1px solid #000000;
   overflow: hidden; 
   object-fit: contain;

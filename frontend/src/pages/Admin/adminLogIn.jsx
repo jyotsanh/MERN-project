@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AdminLogin } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import './adminLogin.css'; // Import the CSS file
 
 function AdminLogIn() {
     const navigate = useNavigate();
@@ -32,19 +33,19 @@ function AdminLogIn() {
                     console.log('Logged in successfully');
                 }
             }catch(error){
-                setError({"msg":"Cookiee Error occureed"}) // Remove development code
+                setError({"msg":"Cookie Error occurred"}) // Remove development code
             }
             setError({});
             navigate('/admin');
         } catch (error) {
             console.log(error.response);
             const {email, password} = error.response
-            setError({ email: email, password: password,msg: error.response.data.msg });
+            setError({ email: email, password: password, msg: error.response.data.msg });
         }
     };
 
     return (
-        <>
+        <div className="admin-login-container">
             <h1>Admin LogIn</h1> 
             <form onSubmit={handleSubmit}>
                 <div>
@@ -66,11 +67,11 @@ function AdminLogIn() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                </div>
+                </div> 
                 {error.msg && <p style={{ color: 'red' }}>{error.msg}</p>}
                 <button type="submit">Log In</button>
             </form>    
-        </>
+        </div>
     );
 }   
 
