@@ -3,6 +3,34 @@ const bcrypt = require("bcrypt")
 const ProductSchemadb = require("../schema/ProductSchema");
 
 
+const ProductDetailsId = async (req,res) => {
+    console.log(req.params.id);
+    const product_data = await ProductSchemadb.findById(req.params.id);
+    console.log(product_data);
+    if(product_data){
+        return res.send({
+            "Product":product_data
+        })
+    }else{
+        return res.send({
+            "msg":"no data in db"
+        })
+    }
+}
+
+const UserProductsController = async (req,res) => {
+    const product_data = await ProductSchemadb.find().select('name price category price imageUrl'); //fetch only those data i selected.
+    if(product_data){
+        return res.send({
+            "Product":product_data
+        })
+    }else{
+        return res.send({
+            "msg":"no data in db"
+        })
+    }
+}
+
 const ProductController = async (req,res)=>{
     
     const product_data = await ProductSchemadb.find();
@@ -125,3 +153,5 @@ exports.TopProductController = TopProductController;
 exports.AddProductController = AddProductController;
 exports.EditProductController = EditProductController;
 exports.DeleteProductController = DeleteProductController;
+exports.UserProductsController = UserProductsController;
+exports.ProductDetailsId = ProductDetailsId;

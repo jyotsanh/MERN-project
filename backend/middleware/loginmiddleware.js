@@ -14,6 +14,9 @@ const LoginMiddleware   = (request,response,next)=>{
                 "msg":"password key is not provide"
             })
         }
+        if (Number.isInteger(password)) { // checks if the password is Integer , true : changes to string , else:next()
+            request.body.password = password.toString();
+        }
         next();
     }else{
         return response.status(400).send({

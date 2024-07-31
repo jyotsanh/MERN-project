@@ -8,10 +8,12 @@ const generateToken = (user) => {
 const UserLogInController = async (req,res)=>{
     try {
         const { email, password } = req.body
+        
         //before creating a new user, check if there is a user in the DB with the same email
         const foundUser = await UserSchema.findOne({ email: email })
         if (foundUser) {
             const passwordMatch = await bcrypt.compare(password, foundUser.password);
+            console.log(password) // remove this line while deploying
             if (passwordMatch) {
                 const token = generateToken(foundUser);
                 delete foundUser.password;
@@ -36,7 +38,10 @@ const UserLogInController = async (req,res)=>{
         }
 
     } catch (error) {
-        console.log("Server error")
+        res.status(401).json({
+            msg: "Internal Server Error",
+            err:error
+        })
     }
 }
 

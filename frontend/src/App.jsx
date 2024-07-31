@@ -26,8 +26,10 @@ function App() {
     <BrowserRouter>
       <Navbar />
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/sunglasses" element={<Sunglasses />} />
+          <Route path="/product/:id" element={<ProductPage />} /> {/* Product Page when clicked will show product data */}
           <Route path="/eyeglasses" element={<EyeGlasses />} />
           <Route path="/contactlens" element={<Contactlens />} />
           <Route path="/book" element={<Book />} />
@@ -42,7 +44,7 @@ function App() {
           <Route path="/appointments" element={<AppointmentView />} />
           <Route path='/about' element={<About />}/>
           <Route path='/cart' element={<Cart/>}/>
-          <Route path='/productpage' element={<ProductPage/>}/>
+          
         </Routes>
       <Footer />
     </BrowserRouter>

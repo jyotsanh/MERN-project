@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Sunglasses.css';
-import { FetchProducts } from '../../service/api';
+import { FetchProductsUser } from '../../service/api';
+import {Link } from 'react-router-dom';
+
 
 function Sunglasses() {
   const [visibleSubOptions, setVisibleSubOptions] = useState({});
@@ -13,7 +15,7 @@ function Sunglasses() {
     const fetchData = async () => {
       try {
         
-        const productsData = await FetchProducts();
+        const productsData = await FetchProductsUser();
         
         const { Product } = productsData;
         
@@ -149,27 +151,22 @@ function Sunglasses() {
               <button onClick={applyFilters}>Filter</button>
             </div>
           </div>
-        </div>
+        </div> {/* Side-Navbar div */}
 
         <div className="product-list-container">
-          {filteredProducts.length === 0 ? (
-            <p>No products available</p>
-          ) : (
-            <div className="product-list">
-              {filteredProducts.map((product) => (
-                <div className="product-card" key={product._id}>
-                  <img src={product.imageUrl} alt={product.name} className="product-image" />
-                  <h2 className="product-name">{product.name}</h2>
-                  <p className="product-price">Price: Rs.{product.price}</p>
-                  {/* <p className="product-description">Description: {product.description}</p>
-                  <p className="product-category">Category: {product.category}</p> */}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+          {filteredProducts.map((product) => (
+                <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
+                    <div className="product-card">
+                        <img src={product.imageUrl} alt={product.name} className="product-image" />
+                        <h2 className="product-name">{product.name}</h2>
+                        <p className="product-price">Price: Rs.{product.price}</p>
+                    </div>
+                </Link>
+            ))}
+            
+        </div> {/* Product-list div */}
+      </div> {/* Container */}
+    </div> 
   );
 }
 
