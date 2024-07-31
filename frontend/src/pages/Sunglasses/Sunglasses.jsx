@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Sunglasses.css';
 import { FetchProductsUser } from '../../service/api';
-import {Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 function Sunglasses() {
   const [visibleSubOptions, setVisibleSubOptions] = useState({});
@@ -10,24 +9,22 @@ function Sunglasses() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 8;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
         const productsData = await FetchProductsUser();
-        
         const { Product } = productsData;
-        
         setProducts(Product);
-        setFilteredProducts(Product); // Initialize filteredProducts with all products
+        setFilteredProducts(Product);
       } catch (error) {
         setProducts([]);
         setFilteredProducts([]);
         console.error('Error fetching products:', error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -67,12 +64,29 @@ function Sunglasses() {
     }
 
     setFilteredProducts(filtered);
+    setCurrentPage(1); // Reset to first page after applying filters
   };
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(filteredProducts.length / productsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
     <div className="container">
       <h1>Sunglasses</h1>
-      <div style={{ display: 'flex', flex: 1 }}>
+      <div className="main-content">
         <div className="side-navbar">
           <div className="side-options">
             <div className="side-option" onClick={() => toggleSubOptions('price')}>
@@ -154,19 +168,28 @@ function Sunglasses() {
         </div> {/* Side-Navbar div */}
 
         <div className="product-list-container">
-          {filteredProducts.map((product) => (
-                <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
-                    <div className="product-card">
-                        <img src={product.imageUrl} alt={product.name} className="product-image" />
-                        <h2 className="product-name">{product.name}</h2>
-                        <p className="product-price">Price: Rs.{product.price}</p>
-                    </div>
-                </Link>
+          <div className="product-list">
+            {currentProducts.map((product) => (
+              <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
+                <div className="product-card">
+                  <img src={product.imageUrl} alt={product.name} className="product-image" />
+                  <h2 className="product-name">{product.name}</h2>
+                  <p className="product-price">Price: Rs.{product.price}</p>
+                </div>
+              </Link>
             ))}
-            
+          </div>
+          <div className="pagination">
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <button onClick={handleNextPage} disabled={currentPage >= Math.ceil(filteredProducts.length / productsPerPage)}>
+              Next
+            </button>
+          </div>
         </div> {/* Product-list div */}
-      </div> {/* Container */}
-    </div> 
+      </div> {/* Main-content */}
+    </div>
   );
 }
 

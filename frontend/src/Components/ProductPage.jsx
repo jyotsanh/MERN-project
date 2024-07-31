@@ -3,10 +3,9 @@ import './ProductPage.css';
 import { useCart } from '../context/CartContext';
 import { useParams } from 'react-router-dom';
 import { FetchProductWithId } from '../service/api';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ProductPage = () => {
-
   const { id } = useParams();
   const [product, setProduct] = useState("");
 
@@ -15,7 +14,7 @@ const ProductPage = () => {
     const fetchProduct = async () => {
       try {
         const response = await FetchProductWithId(id);
-        const {Product} = response
+        const { Product } = response;
         setProduct(Product);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -24,17 +23,18 @@ const ProductPage = () => {
 
     fetchProduct();
   }, [id]);
+
   const addToCart = () => {
     const data = {
-      userId:id,
+      userId: id,
       items: [
         {
           productId: id,
           quantity: 1
         }
       ]
-    }
-    console.log(data)
+    };
+    console.log(data);
   };
 
   if (!product) {
@@ -42,21 +42,26 @@ const ProductPage = () => {
   }
 
   return (
-    <div className="product-info">
-      <img src={`../../public/${product.imageUrl}`} alt={product.name} className="product-image" />
-      <h2 className="product-name">{product.name}</h2>
-      <p className='product-frame'>Frame Material : {product.frame_material}</p>
-      <p className='product-lens'>Lens Material : {product.lens_material}</p>
-      <p className='product-shape'>Frame Shape : {product.frame_shape}</p>
-      <p className="product-price">Price: Rs.{product.price}</p>
-      <p className="product-description">Description: {product.description}</p>
-      <p className="product-category">Category: {product.category}</p>
-      <Link to={`/cart`}>
-        <button onClick={() => addToCart(product)}>
-          Add to Cart
-        </button>
-      </Link>
+    <div className="product-page">
+      <div className="product-image-container">
+        <img src={`../../public/${product.imageUrl}`} alt={product.name} className="product-image" />
+      </div>
+      <div className="product-details">
       
+        <h2 className="product-name">{product.name}</h2>
+        <p className="product-price"><strong>Price:</strong> Rs.{product.price}</p>
+        <p className='product-frame'><strong>Frame Material:</strong> {product.frame_material}</p>
+        <p className='product-lens'><strong>Lens Material:</strong> {product.lens_material}</p>
+        <p className='product-shape'><strong>Frame Shape:</strong> {product.frame_shape}</p>
+
+        <p className="product-description"><strong>Description:</strong> {product.description}</p>
+        <p className="product-category"><strong>Category:</strong> {product.category}</p>
+        <Link to={`/cart`}>
+          <button onClick={() => addToCart(product)} className="add-to-cart-button">
+            Add to Cart
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
