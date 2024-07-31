@@ -31,7 +31,7 @@ const {ProductController,ProductDetailsId,UserProductsController, TopProductCont
 
 // Products Middleware
 const AddProductMiddleware = require("../middleware/addProductMiddleware");
-const AuthenticationMiddleware = require("../middleware/AuthenticationMiddleware");
+const {AuthenticationMiddleware,CheckIncomingOrderMiddleWare,UserAuthenticationMiddleware} = require("../middleware/AuthenticationMiddleware");
 
 router.get("/products", ProductController); // admin can see al product details
 router.get("/top-products", TopProductController); // top products for User
