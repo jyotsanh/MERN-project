@@ -136,6 +136,8 @@ const CheckIncomingOrderMiddleWare = async (req, res, next) => {
 };
 
 
-module.exports = AuthenticationMiddleware;
-module.exports = UserAuthenticationMiddleware;
-module.exports = CheckIncomingOrderMiddleWare;
+module.exports = {
+    AuthenticationMiddleware,
+   UserAuthenticationMiddleware,
+    CheckIncomingOrderMiddleWare,
+};
