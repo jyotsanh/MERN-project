@@ -5,8 +5,7 @@
     border: 1px solid #000000;
     border-radius: 8px;
     background-color: #f9f9f9;
-    /* box-shadow: 5px 5px orange; */
-    margin-top:30px ;
+    margin-top: 30px;
     margin-bottom: 30px;
 }
 
@@ -37,7 +36,24 @@
 }
 
 .pro-form-group input[type='file'] {
-    padding: 8px; 
+    padding: 8px;
+}
+
+.pro-form-group label[for='images'] {
+    font-size: 16px;
+    color: #555;
+}
+
+.pro-form-group input[type='file']::file-selector-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pro-form-group input[type='file']::file-selector-button:hover {
+    background: #45a049;
 }
 
 button[type='submit'] {
@@ -57,8 +73,33 @@ button[type='submit']:hover {
     background-color: #45a049;
 }
 
+button[type='button'] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type='button']:hover {
+    background-color: #c62828;
+}
+
 .pro-error-text {
     color: #d32f2f;
     margin-top: 5px;
     font-size: 14px;
 }
+
+.pro-selected-files {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+
