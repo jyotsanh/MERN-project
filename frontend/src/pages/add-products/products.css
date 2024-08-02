@@ -102,4 +102,18 @@ button[type='button']:hover {
     color: #555;
 }
 
+.pro-form-group select[multiple] {
+    height: auto;
+    min-height: 100px;
+}
 
+.pro-upload-product-container p {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #28a745;
+}
+
+.pro-upload-product-container p.pro-error-text {
+    color: red;
+}

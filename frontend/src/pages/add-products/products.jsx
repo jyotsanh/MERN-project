@@ -8,21 +8,19 @@ function AddProducts() {
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [images, setImages] = useState([]); // Array to store file objects
+    const [images, setImages] = useState([]); 
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState(''); 
     const [quantity, setQuantity] = useState('');
     const [frame_material, setFrame_material] = useState('');
     const [lens_material, setLens_material] = useState('');
     const [frame_shape, setFrame_shape] = useState('');
     const [Error, SetError] = useState({});
-    const [imageNames, setImageNames] = useState([]); // Array to store file names
+    const [imageNames, setImageNames] = useState([]);
 
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         setImages(prevImages => [...prevImages, ...files]);
-
-        // Update the names of the selected files
         const fileNames = files.map(file => file.name);
         setImageNames(prevNames => [...prevNames, ...fileNames]);
     };
@@ -35,7 +33,8 @@ function AddProducts() {
         formData.append('name', name);
         formData.append('price', price);
         formData.append('description', description);
-        formData.append('category', category);
+        const categoriesArray = category.split(',').map(cat => cat.trim());
+        categoriesArray.forEach(cat => formData.append('category', cat));
         formData.append('quantity', quantity);
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i]);
@@ -54,7 +53,7 @@ function AddProducts() {
             setDescription("");
             setCategory("");
             setQuantity("");
-            setImageNames([]); // Clear image names after successful upload
+            setImageNames([]);
         } catch (error) {
             const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = error.response.data;
             SetError({
@@ -174,22 +173,14 @@ function AddProducts() {
 
                 <div className="pro-form-group">
                     <label htmlFor="category">Category: </label>
-                    <select
+                    <input
+                        type="text"
                         id="category"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
+                        placeholder="Enter categories separated by commas"
                         required
-                    >
-                        <option value="">Select a category</option>
-                        <option value="prescription">Prescription</option>
-                        <option value="reading">Reading</option>
-                        <option value="blue-light">Blue Light</option>
-                        <option value="progressive">Progressive</option>
-                        <option value="sunglasses">Sunglasses</option>
-                        <option value="bifocal">Bifocal</option>
-                        <option value="sports">Sports</option>
-                        <option value="fashion">Fashion</option>
-                    </select>
+                    />
                     {Error.category && <p className="pro-error-text">{Error.category}</p>}
                 </div>
 
@@ -214,22 +205,26 @@ function AddProducts() {
                         onChange={handleImageChange}
                         required
                     />
-                    {/* Display selected file names */}
+                    {Error.images && <p className="pro-error-text">{Error.images}</p>}
                     {imageNames.length > 0 && (
-                        <p className="pro-selected-files">
-                            {`Selected files: ${imageNames.join(', ')}`}
-                        </p>
+                        <div className="pro-selected-files">
+                            <p>Selected files:</p>
+                            <ul>
+                                {imageNames.map((name, index) => (
+                                    <li key={index}>{name}</li>
+                                ))}
+                            </ul>
+                        </div>
                     )}
                 </div>
 
                 <button type="submit">Upload</button>
-                <NavLink to="/admin" style={{ textDecoration: 'none' }}>
+                <NavLink to="/admin/products">
                     <button type="button">Back to Admin</button>
                 </NavLink>
+                {Error.msg && <p className="pro-error-text">{Error.msg}</p>}
+                {message && <p>{message}</p>}
             </form>
-
-            {message && <p>{message}</p>}
-            {Error.msg && <p>{Error.msg}</p>}
         </div>
     );
 }

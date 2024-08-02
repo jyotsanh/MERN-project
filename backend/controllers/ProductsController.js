@@ -82,7 +82,7 @@ const AddProductController = async (req, res) => {
             error: error
         });
     }
-};x
+};
 const EditProductController = async (req, res) => {
     try {
         const productId = req.params.id;

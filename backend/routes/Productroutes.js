@@ -4,6 +4,7 @@ const fs = require('fs'); // for folder creation
 const multer = require('multer');
 const path = require('path');
 
+// Storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
       const { name } = req.body;
@@ -22,12 +23,19 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage }).array('images', 10); // Adjust the field name and maximum number of files
+// Middleware to handle file uploads
+const upload = multer({ storage: storage });
 
-module.exports = upload;
-
-// Controller:
-const { ProductController, ProductDetailsId, UserProductsController, TopProductController, AddProductController, EditProductController, DeleteProductController } = require("../controllers/ProductsController");
+// Controller
+const { 
+  ProductController, 
+  ProductDetailsId, 
+  UserProductsController, 
+  TopProductController, 
+  AddProductController, 
+  EditProductController, 
+  DeleteProductController 
+} = require("../controllers/ProductsController");
 
 // Products Middleware
 const AddProductMiddleware = require("../middleware/addProductMiddleware");

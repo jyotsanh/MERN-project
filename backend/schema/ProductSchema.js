@@ -13,10 +13,10 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
+    category: [{
         type: String,
         required: true
-    },
+    }],
     frame_material: {
         type: String,
         required: true
