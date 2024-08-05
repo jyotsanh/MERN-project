@@ -20,6 +20,7 @@ import {CartProvider} from './context/CartContext';
 import Cart from './pages/cart/cart';
 import ProductPage from './Components/ProductPage';
 import AdminLogIn from "../src/pages/Admin/adminLogIn";
+import Checkout from "../src/pages/checkout/checkout"
 function App() {
   return (
    <CartProvider>
@@ -44,7 +45,7 @@ function App() {
           <Route path="/appointments" element={<AppointmentView />} />
           <Route path='/about' element={<About />}/>
           <Route path='/cart' element={<Cart/>}/>
-          
+          <Route path='/checkout' element={<Checkout/>}/>
         </Routes>
       <Footer />
     </BrowserRouter>
