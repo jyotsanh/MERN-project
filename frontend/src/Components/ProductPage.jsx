@@ -10,7 +10,6 @@ const ProductPage = () => {
   const { dispatch } = useCart();
 
   useEffect(() => {
-    // Fetch product details from your API
     const fetchProduct = async () => {
       try {
         const response = await FetchProductWithId(id);
@@ -35,7 +34,7 @@ const ProductPage = () => {
   return (
     <div className="product-page">
       <div className="product-image-container">
-        <img src={`../../public/${product.imageUrl}`} alt={product.name} className="product-image" />
+        <img src={product.imageUrl} alt={product.name} className="product-image" />
       </div>
       <div className="product-details">
         <h2 className="product-name">{product.name}</h2>

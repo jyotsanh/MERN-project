@@ -32,7 +32,7 @@ const Cart = () => {
         <div>
           {cart.items.map((item) => (
             <div key={item.id} className="cart-item">
-              <img src={item.image} alt={item.name} />
+              <img src={item.imageUrl} alt={item.name} />
         
              <button className="removebutton" onClick={() => handleRemove(item.id)}>   
                  <span className="x-icon">x</span>
