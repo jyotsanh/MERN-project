@@ -51,47 +51,42 @@ const TopProductController = async (req,res) => {
     })
 }
 
-const AddProductController = async (req,res) => {
-    try{
-    const {name,price,description,category,quantity,frame_material,lens_material,frame_shape} = req.body;
-    console.log(req.body)
-    const imageUrl = `uploads/Products/${name}/${req.file.filename}`;
-    console.log(name,price,description,category,quantity,imageUrl)
+const AddProductController = async (req, res) => {
+    try {
+        const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
+        const imageUrls = req.files.map(file => `uploads/Products/${name}/${file.filename}`);
+        console.log(name, price, description, category, quantity, imageUrls);
 
-    const data = await ProductSchemadb.create({
-        name,
-        price,
-        description,
-        category,
-        quantity,
-        frame_material,
-        lens_material,
-        frame_shape,
-        imageUrl,
-        createdBy: req.userId
-    })
-    console.log(data)
-    if(data){
-        {
+        const data = await ProductSchemadb.create({
+            name,
+            price,
+            description,
+            category,
+            quantity,
+            frame_material,
+            lens_material,
+            frame_shape,
+            imageUrls,
+            createdBy: req.userId
+        });
+        console.log(data);
+        if (data) {
             return res.status(200).send({
-                "msg":"Product Added Successfully"
-            })
+                msg: "Product Added Successfully"
+            });
         }
-    }
-    }catch(error){
-        console.log(error)
+    } catch (error) {
+        console.log(error);
         return res.status(400).send({
-            "msg":"Server here Error",
-            "error":error
-        })
+            msg: "Server Error",
+            error: error
+        });
     }
-}
-
-
+};
 const EditProductController = async (req, res) => {
     try {
         const productId = req.params.id;
-        const { name, price, description, category, quantity ,frame_material,lens_material,frame_shape} = req.body;
+        const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
         const updatedData = {
             name,
             price,
@@ -103,9 +98,9 @@ const EditProductController = async (req, res) => {
             frame_shape,
             createdBy: req.userId
         };
-        if (req.file) {
-            console.log(`Update path  : ${req.file.path}`)
-            updatedData.image = req.file.path;
+        if (req.files) {
+            const imageUrls = req.files.map(file => `uploads/Products/${name}/${file.filename}`);
+            updatedData.imageUrls = imageUrls;
         }
         const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
         if (updatedProduct) {
@@ -125,6 +120,8 @@ const EditProductController = async (req, res) => {
         });
     }
 };
+
+
 
 const DeleteProductController = async (req, res) => {
     try {
