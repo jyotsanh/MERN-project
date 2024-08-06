@@ -1,54 +1,53 @@
-
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const ProductSchemadb = require("../schema/ProductSchema");
+const fs = require('fs');
+const path = require('path');
 
-
-const ProductDetailsId = async (req,res) => {
+const ProductDetailsId = async (req, res) => {
     console.log(req.params.id);
     const product_data = await ProductSchemadb.findById(req.params.id);
     console.log(product_data);
-    if(product_data){
+    if (product_data) {
         return res.send({
-            "Product":product_data
-        })
-    }else{
+            "Product": product_data
+        });
+    } else {
         return res.send({
-            "msg":"no data in db"
-        })
+            "msg": "no data in db"
+        });
     }
 }
 
-const UserProductsController = async (req,res) => {
-    const product_data = await ProductSchemadb.find().select('name price category price imageUrl'); //fetch only those data i selected.
-    if(product_data){
+const UserProductsController = async (req, res) => {
+    const product_data = await ProductSchemadb.find().select('name price category price imageUrl');
+    if (product_data) {
         return res.send({
-            "Product":product_data
-        })
-    }else{
+            "Product": product_data
+        });
+    } else {
         return res.send({
-            "msg":"no data in db"
-        })
+            "msg": "no data in db"
+        });
     }
 }
 
-const ProductController = async (req,res)=>{
-    
+const ProductController = async (req, res) => {
     const product_data = await ProductSchemadb.find();
-    if(product_data){
+    if (product_data) {
         return res.send({
-            "Product":product_data
-        })
-    }else{
+            "Product": product_data
+        });
+    } else {
         return res.send({
-            "msg":"no data in db"
-        })
+            "msg": "no data in db"
+        });
     }
 }
 
-const TopProductController = async (req,res) => {
+const TopProductController = async (req, res) => {
     return res.send({
-        "msg":"Top Product Details"
-    })
+        "msg": "Top Product Details"
+    });
 }
 
 const AddProductController = async (req, res) => {
@@ -83,6 +82,7 @@ const AddProductController = async (req, res) => {
         });
     }
 };
+
 const EditProductController = async (req, res) => {
     try {
         const productId = req.params.id;
@@ -121,15 +121,25 @@ const EditProductController = async (req, res) => {
     }
 };
 
-
-
 const DeleteProductController = async (req, res) => {
     try {
         const productId = req.params.id;
-        const deletedProduct = await ProductSchemadb.findByIdAndDelete(productId);
-        if (deletedProduct) {
+        const product = await ProductSchemadb.findById(productId);
+
+        if (product) {
+            // Delete associated images
+            product.imageUrls.forEach(imageUrl => {
+                const imagePath = path.join(__dirname, '..', imageUrl);
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                }
+            });
+
+            // Delete the product from the database
+            await ProductSchemadb.findByIdAndDelete(productId);
+
             res.status(200).json({
-                msg: "Product deleted successfully"
+                msg: "Product and associated images deleted successfully"
             });
         } else {
             res.status(404).json({
@@ -143,7 +153,6 @@ const DeleteProductController = async (req, res) => {
         });
     }
 };
-
 
 exports.ProductController = ProductController;
 exports.TopProductController = TopProductController;
