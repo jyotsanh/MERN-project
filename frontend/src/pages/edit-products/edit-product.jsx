@@ -12,7 +12,7 @@ function EditProduct() {
         name: '',
         price: '',
         description: '',
-        category: '',
+        category: [], // Initialize as an empty array
         quantity: '',
         frame_material: '',
         lens_material: '',
@@ -26,39 +26,51 @@ function EditProduct() {
             console.log('Products data:', productsData); // Debugging statement
             const productToEdit = productsData.Product.find(p => p._id === id);
             console.log('Product to edit:', productToEdit); // Debugging statement
-            setProduct(productToEdit);
+            if (productToEdit) {
+                setProduct(productToEdit);
+            }
         };
         fetchProduct();
     }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setProduct({
-            ...product,
-            [name]: name === 'category' ? value.split(',').map(item => item.trim()) : value
-        });
+        setProduct(prevProduct => ({
+            ...prevProduct,
+            [name]: name === 'category'
+                ? value.split(',').map(item => item.trim())
+                : value
+        }));
     };
 
     const handleSubmit = async (e) => {
-        const token = Cookies.get('token');
         e.preventDefault();
+        const token = Cookies.get('token');
         try {
-            const productData = { ...product, category: product.category.split(',').map(item => item.trim()) };
+            const productData = {
+                ...product,
+                category: Array.isArray(product.category)
+                    ? product.category
+                    : product.category.split(',').map(item => item.trim())
+            };
             await editProduct(id, productData, token);
             navigate('/admin-view');
         } catch (error) {
-            console.error('Error:', error.response.data); // Debugging statement
-            const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = error.response.data;
+            console.error('Error:', error);
+    
+            const errorMsg = error.response?.data?.msg || 'An unexpected error occurred';
+            const errorDetails = error.response?.data || {};
+    
             SetError({
-                name,
-                price,
-                description,
-                category,
-                quantity,
-                frame_material,
-                lens_material,
-                frame_shape,
-                msg: error.response.data.msg
+                name: errorDetails.name || '',
+                price: errorDetails.price || '',
+                description: errorDetails.description || '',
+                category: errorDetails.category || '',
+                quantity: errorDetails.quantity || '',
+                frame_material: errorDetails.frame_material || '',
+                lens_material: errorDetails.lens_material || '',
+                frame_shape: errorDetails.frame_shape || '',
+                msg: errorMsg
             });
         }
     };
