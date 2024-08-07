@@ -7,6 +7,7 @@ import { FetchProductWithId } from '../service/api';
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [selectedImage, setSelectedImage] = useState('');
   const { dispatch } = useCart();
 
   useEffect(() => {
@@ -15,6 +16,9 @@ const ProductPage = () => {
         const response = await FetchProductWithId(id);
         const { Product } = response;
         setProduct(Product);
+        if (Product.imageUrls && Product.imageUrls.length > 0) {
+          setSelectedImage(`/${Product.imageUrls[0]}`);
+        }
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -27,6 +31,10 @@ const ProductPage = () => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(`/${imageUrl}`);
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -34,7 +42,18 @@ const ProductPage = () => {
   return (
     <div className="product-page">
       <div className="product-image-container">
-        <img src={product.imageUrl} alt={product.name} className="product-image" />
+        <img src={selectedImage} alt={product.name} className="product-image" />
+        <div className="thumbnail-container">
+          {product.imageUrls && product.imageUrls.map((imageUrl, index) => (
+            <img
+              key={index}
+              src={`/${imageUrl}`}
+              alt={product.name}
+              className={`thumbnail ${selectedImage === `/${imageUrl}` ? 'selected' : ''}`}
+              onClick={() => handleImageClick(imageUrl)}
+            />
+          ))}
+        </div>
       </div>
       <div className="product-details">
         <h2 className="product-name">{product.name}</h2>

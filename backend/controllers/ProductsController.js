@@ -1,62 +1,56 @@
-
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const ProductSchemadb = require("../schema/ProductSchema");
 
-
-const ProductDetailsId = async (req,res) => {
-    console.log(req.params.id);
-    const product_data = await ProductSchemadb.findById(req.params.id);
-    console.log(product_data);
-    if(product_data){
-        return res.send({
-            "Product":product_data
-        })
-    }else{
-        return res.send({
-            "msg":"no data in db"
-        })
+const ProductDetailsId = async (req, res) => {
+    try {
+        const product_data = await ProductSchemadb.findById(req.params.id);
+        if (product_data) {
+            return res.send({ "Product": product_data });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
     }
-}
+};
 
-const UserProductsController = async (req,res) => {
-    const product_data = await ProductSchemadb.find().select('name price category price imageUrl'); //fetch only those data i selected.
-    if(product_data){
-        return res.send({
-            "Product":product_data
-        })
-    }else{
-        return res.send({
-            "msg":"no data in db"
-        })
+const UserProductsController = async (req, res) => {
+    try {
+        const product_data = await ProductSchemadb.find().select('name price category imageUrls');
+        if (product_data) {
+            return res.send({ "Product": product_data });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return res.status(500).send({ "msg": "Server error" });
     }
-}
+};
 
-const ProductController = async (req,res)=>{
-    
-    const product_data = await ProductSchemadb.find();
-    if(product_data){
-        return res.send({
-            "Product":product_data
-        })
-    }else{
-        return res.send({
-            "msg":"no data in db"
-        })
+const ProductController = async (req, res) => {
+    try {
+        const product_data = await ProductSchemadb.find();
+        if (product_data) {
+            return res.send({ "Product": product_data });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return res.status(500).send({ "msg": "Server error" });
     }
-}
+};
 
-const TopProductController = async (req,res) => {
-    return res.send({
-        "msg":"Top Product Details"
-    })
-}
+const TopProductController = async (req, res) => {
+    return res.send({ "msg": "Top Product Details" });
+};
 
 const AddProductController = async (req, res) => {
     try {
         const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
         const imageUrls = req.files.map(file => `uploads/Products/${name}/${file.filename}`);
-        console.log(name, price, description, category, quantity, imageUrls);
-
         const data = await ProductSchemadb.create({
             name,
             price,
@@ -69,20 +63,15 @@ const AddProductController = async (req, res) => {
             imageUrls,
             createdBy: req.userId
         });
-        console.log(data);
         if (data) {
-            return res.status(200).send({
-                msg: "Product Added Successfully"
-            });
+            return res.status(200).send({ msg: "Product Added Successfully" });
         }
     } catch (error) {
-        console.log(error);
-        return res.status(400).send({
-            msg: "Server Error",
-            error: error
-        });
+        console.error("Error adding product:", error);
+        return res.status(400).send({ msg: "Server Error", error: error });
     }
 };
+
 const EditProductController = async (req, res) => {
     try {
         const productId = req.params.id;
@@ -104,46 +93,30 @@ const EditProductController = async (req, res) => {
         }
         const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
         if (updatedProduct) {
-            res.status(200).json({
-                msg: "Product updated successfully",
-                product: updatedProduct
-            });
+            res.status(200).json({ msg: "Product updated successfully", product: updatedProduct });
         } else {
-            res.status(404).json({
-                msg: "Product not found"
-            });
+            res.status(404).json({ msg: "Product not found" });
         }
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: "Server error"
-        });
+        console.error("Error updating product:", error);
+        res.status(500).json({ msg: "Server error" });
     }
 };
-
-
 
 const DeleteProductController = async (req, res) => {
     try {
         const productId = req.params.id;
         const deletedProduct = await ProductSchemadb.findByIdAndDelete(productId);
         if (deletedProduct) {
-            res.status(200).json({
-                msg: "Product deleted successfully"
-            });
+            res.status(200).json({ msg: "Product deleted successfully" });
         } else {
-            res.status(404).json({
-                msg: "Product not found"
-            });
+            res.status(404).json({ msg: "Product not found" });
         }
     } catch (error) {
         console.error("Error deleting product:", error);
-        res.status(500).json({
-            msg: "Server error"
-        });
+        res.status(500).json({ msg: "Server error" });
     }
 };
-
 
 exports.ProductController = ProductController;
 exports.TopProductController = TopProductController;

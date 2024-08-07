@@ -6,7 +6,7 @@ const Cart = () => {
   const { cart, dispatch } = useCart();
 
   const handleAddToCart = (product) => {
-    dispatch({ type: 'ADD_TO_CART', payload: { ...product, image: product.image } });
+    dispatch({ type: 'ADD_TO_CART', payload: { ...product, image: product.images } });
   };
 
   const handleRemove = (id) => {
@@ -32,7 +32,7 @@ const Cart = () => {
         <div>
           {cart.items.map((item) => (
             <div key={item.id} className="cart-item">
-              <img src={item.imageUrl} alt={item.name} />
+              <img src={item.imageUrls} alt={item.name} />
         
              <button className="removebutton" onClick={() => handleRemove(item.id)}>   
                  <span className="x-icon">x</span>
