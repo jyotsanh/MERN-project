@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const ProductSchemadb = require("../schema/ProductSchema");
+const fs = require('fs');
+const path = require('path');
 
 const ProductDetailsId = async (req, res) => {
     try {
@@ -44,8 +46,10 @@ const ProductController = async (req, res) => {
 };
 
 const TopProductController = async (req, res) => {
-    return res.send({ "msg": "Top Product Details" });
-};
+    return res.send({
+        "msg": "Top Product Details"
+    });
+}
 
 const AddProductController = async (req, res) => {
     try {
@@ -106,9 +110,23 @@ const EditProductController = async (req, res) => {
 const DeleteProductController = async (req, res) => {
     try {
         const productId = req.params.id;
-        const deletedProduct = await ProductSchemadb.findByIdAndDelete(productId);
-        if (deletedProduct) {
-            res.status(200).json({ msg: "Product deleted successfully" });
+        const product = await ProductSchemadb.findById(productId);
+
+        if (product) {
+            // Delete associated images
+            product.imageUrls.forEach(imageUrl => {
+                const imagePath = path.join(__dirname, '..', imageUrl);
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                }
+            });
+
+            // Delete the product from the database
+            await ProductSchemadb.findByIdAndDelete(productId);
+
+            res.status(200).json({
+                msg: "Product and associated images deleted successfully"
+            });
         } else {
             res.status(404).json({ msg: "Product not found" });
         }

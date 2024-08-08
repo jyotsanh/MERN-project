@@ -18,6 +18,7 @@ function Sunglasses() {
         const productsData = await FetchProductsUser();
         const { Product } = productsData;
         setProducts(Product);
+        console.log(Product)
         setFilteredProducts(Product);
       } catch (error) {
         setProducts([]);

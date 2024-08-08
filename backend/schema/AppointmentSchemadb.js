@@ -29,6 +29,11 @@ const AppointmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        enum: ['uncomplete', 'ongoing', 'completed'],
+        default: 'uncomplete'
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -42,6 +47,12 @@ const AppointmentSchema = new mongoose.Schema({
 // Pre-save middleware to update the updatedAt field
 AppointmentSchema.pre('save', function(next) {
     this.updatedAt = Date.now();
+    next();
+});
+
+// Pre-findOneAndUpdate middleware to update the updatedAt field
+AppointmentSchema.pre('findOneAndUpdate', function(next) {
+    this.set({ updatedAt: Date.now() });
     next();
 });
 
