@@ -4,16 +4,15 @@ import { editProduct, FetchProducts } from '../../service/api';
 import './edit-product.css'; 
 import Cookies from 'js-cookie';
 
-
 function EditProduct() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [Error,SetError] = useState({});
+    const [Error, SetError] = useState({});
     const [product, setProduct] = useState({
         name: '',
         price: '',
         description: '',
-        category: '',
+        category: [], // Initialize as an empty array
         quantity: '',
         frame_material: '',
         lens_material: '',
@@ -22,48 +21,58 @@ function EditProduct() {
     });
 
     useEffect(() => {
-        
         const fetchProduct = async () => {
             const productsData = await FetchProducts();
-            const productToEdit = productsData.Product.find(p => p._id == id);
-            setProduct(productToEdit);
-            
+            console.log('Products data:', productsData); // Debugging statement
+            const productToEdit = productsData.Product.find(p => p._id === id);
+            console.log('Product to edit:', productToEdit); // Debugging statement
+            if (productToEdit) {
+                setProduct(productToEdit);
+            }
         };
         fetchProduct();
-       
     }, [id]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setProduct({
-            ...product,
-            [name]: value
-        });
+        setProduct(prevProduct => ({
+            ...prevProduct,
+            [name]: name === 'category'
+                ? value.split(',').map(item => item.trim())
+                : value
+        }));
     };
 
     const handleSubmit = async (e) => {
-        const token = Cookies.get('token');
         e.preventDefault();
-        try{
-            console.log(`Products data ${product.category}`)
-            const response = await editProduct(id, product,token);
+        const token = Cookies.get('token');
+        try {
+            const productData = {
+                ...product,
+                category: Array.isArray(product.category)
+                    ? product.category
+                    : product.category.split(',').map(item => item.trim())
+            };
+            await editProduct(id, productData, token);
             navigate('/admin-view');
-        }catch(error){
-            console.log(error.response);
-            const {name,price, description,category,quantity,frame_material,lens_material,frame_shape} = error.response.data
-
+        } catch (error) {
+            console.error('Error:', error);
+    
+            const errorMsg = error.response?.data?.msg || 'An unexpected error occurred';
+            const errorDetails = error.response?.data || {};
+    
             SetError({
-                name: name, 
-                price: price, 
-                description: description,
-                category:category,
-                quantity:quantity,
-                frame_material:frame_material,
-                lens_material:lens_material,
-                frame_shape:frame_shape,
-                msg: error.response.data.msg
-            })
+                name: errorDetails.name || '',
+                price: errorDetails.price || '',
+                description: errorDetails.description || '',
+                category: errorDetails.category || '',
+                quantity: errorDetails.quantity || '',
+                frame_material: errorDetails.frame_material || '',
+                lens_material: errorDetails.lens_material || '',
+                frame_shape: errorDetails.frame_shape || '',
+                msg: errorMsg
+            });
         }
-        
     };
 
     return (
@@ -73,41 +82,32 @@ function EditProduct() {
                     Name:
                     <input type="text" name="name" value={product.name} onChange={handleChange} />
                 </label>
+                {Error.name && <p className="error-text">{Error.name}</p>}
                 <label>
                     Price:
                     <input type="number" name="price" value={product.price} onChange={handleChange} />
                 </label>
+                {Error.price && <p className="error-text">{Error.price}</p>}
                 <label>
                     Description:
                     <input type="text" name="description" value={product.description} onChange={handleChange} />
                 </label>
-                <label htmlFor="frame-material">Frame Material: </label>
-                    <select
-                        id="frame-material"
-                        name='frame_material'
-                        value={product.frame_material}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select a Frame Category</option>
-                        <option value="Aluminium">Aluminium</option>
-                        <option value="Titanium">Titanium</option>
-                        <option value="Stainless Steel">Stainless Steel</option>
-                        <option value="Plastic">Plastic</option>
-                        <option value="Carbon Fiber">Carbon Fiber</option>
-                        <option value="Wood">Wood</option>
-                        <option value="Leather">Leather</option>
-                        <option value="TR-90">TR-90</option>
-                    </select>
-                    {Error.frame_material && <p className="error-text">{Error.frame_material}</p>}
-                <label htmlFor="frame-shape">Frame Shape: </label>
-                    <select
-                        name='frame_shape'
-                        id="frame-shape"
-                        value={product.frame_shape}
-                        onChange={handleChange}
-                        required
-                    >
+                {Error.description && <p className="error-text">{Error.description}</p>}
+                <label htmlFor="frame-material">Frame Material:</label>
+                <select id="frame-material" name="frame_material" value={product.frame_material} onChange={handleChange} required>
+                    <option value="">Select a Frame Material</option>
+                    <option value="Aluminium">Aluminium</option>
+                    <option value="Titanium">Titanium</option>
+                    <option value="Stainless Steel">Stainless Steel</option>
+                    <option value="Plastic">Plastic</option>
+                    <option value="Carbon Fiber">Carbon Fiber</option>
+                    <option value="Wood">Wood</option>
+                    <option value="Leather">Leather</option>
+                    <option value="TR-90">TR-90</option>
+                </select>
+                {Error.frame_material && <p className="error-text">{Error.frame_material}</p>}
+                <label htmlFor="frame-shape">Frame Shape:</label>
+                <select name="frame_shape" id="frame-shape" value={product.frame_shape} onChange={handleChange} required>
                     <option value="">Select a Frame Shape</option>
                     <option value="Rectangular">Rectangular</option>
                     <option value="Round">Round</option>
@@ -120,47 +120,33 @@ function EditProduct() {
                     <option value="Oversized">Oversized</option>
                     <option value="Geometric">Geometric</option>
                     <option value="Rimless">Rimless</option>
-                    </select>
-                    {Error.frame_shape && <p className="error-text">{Error.frame_shape}</p>}
-                <label htmlFor="lens-material">Lens Material: </label>
-                    <select
-                        id="lens-material"
-                        value={product.lens_material}
-                        onChange={handleChange}
-                        name='lens_material'
-                        required
-                    >
+                </select>
+                {Error.frame_shape && <p className="error-text">{Error.frame_shape}</p>}
+                <label htmlFor="lens-material">Lens Material:</label>
+                <select id="lens-material" value={product.lens_material} onChange={handleChange} name="lens_material" required>
                     <option value="">Select a Lens Material</option>
                     <option value="Polycarbonate">Polycarbonate</option>
                     <option value="Glass">Glass</option>
                     <option value="Plastic">Plastic</option>
-                    </select>
-                    {Error.lens_material && <p className="error-text">{Error.lens_material}</p>}
-                <label htmlFor="Category">Category:</label>
-                <select 
-                    name="category" 
-                    value={product.category} 
+                </select>
+                {Error.lens_material && <p className="error-text">{Error.lens_material}</p>}
+                <label htmlFor="category">Category:</label>
+                <input
+                    type="text"
+                    name="category"
+                    value={Array.isArray(product.category) ? product.category.join(', ') : product.category}
                     onChange={handleChange}
+                    placeholder="Enter categories separated by commas"
                     required
-                >
-                    <option value="">Select a category</option>
-                    <option value="prescription">Prescription</option>
-                    <option value="reading">Reading</option>
-                    <option value="blue-light">Blue Light</option>
-                    <option value="progressive">Progressive</option>
-                    <option value="sunglasses">Sunglasses</option>
-                    <option value="bifocal">Bifocal</option>
-                    <option value="sports">Sports</option>
-                    <option value="fashion">Fashion</option>
-                    </select>
-                    {Error.category && <p className="error-text">{Error.category}</p>}
+                />
+                {Error.category && <p className="error-text">{Error.category}</p>}
                 <label>
                     Quantity:
                     <input type="number" name="quantity" value={product.quantity} onChange={handleChange} />
                 </label>
                 {Error.quantity && <p className="error-text">{Error.quantity}</p>}
                 <button type="submit">Update Product</button>
-                {Error.msg && <p> {Error.msg} </p>}
+                {Error.msg && <p className="error-text"> {Error.msg} </p>}
             </form>
         </div>
     );

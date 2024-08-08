@@ -89,3 +89,18 @@ export const FetchProductWithId = async (id) => {
     const response = await axios.get(`${URL}/products/${id}`);
     return response.data;
 }
+
+export const updateAppointmentStatus = async (id, status) => {
+    const response = await axios.put('/api/appointments/status', { id, status });
+    return response.data.appointment;
+};
+
+export const deleteAppointment = async (id) => {
+    try {
+        const response = await axios.delete(`${URL}/appointments/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting appointment:', error);
+        throw error;
+    }
+};
