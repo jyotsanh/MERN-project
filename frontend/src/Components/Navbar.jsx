@@ -47,6 +47,11 @@ function Navbar() {
     const toggleMenu = () => {
       setMenuOpen(!menuOpen);
     };
+    const CartIcon = () => {
+      const { cart } = useCart();
+    
+      const itemCount = cart.items.reduce((count, item) => count + item.quantity, 0);
+    };
 
     return (
       <div>

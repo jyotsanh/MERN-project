@@ -9,7 +9,7 @@ const CartMiddleWare = async (req, res, next) => {
         console.log("Cart MiddleWare")
         
         const {userId,items}= req.body; // take the user id, items he wants to add in cart
-       
+        console.log(items)
         try{
             const userExists = await userSchema.findById(userId); // see if the user exists
             if (!userExists) {
@@ -19,11 +19,13 @@ const CartMiddleWare = async (req, res, next) => {
                     }
                 );
             } // if user exists
+          
         }catch(err){
             return res.status(400).send({
                 msg:"Invalid UserId",
                 
             })
+            
         }
 
         try{

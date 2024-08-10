@@ -1,27 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import './cart.css';
+import { getCartItems, deleteCartItem } from '../../service/api';
+import Cookies from 'js-cookie';
 
 const Cart = () => {
   const { cart, dispatch } = useCart();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleAddToCart = (product) => {
-    dispatch({ type: 'ADD_TO_CART', payload: { ...product, image: product.images } });
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const token = Cookies.get('token');
+        if (!token) {
+          setError('No token found');
+          setLoading(false);
+          return;
+        }
+        const data = await getCartItems(token);
+        dispatch({ type: 'SET_CART_ITEMS', payload: data.items });
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+
+        if (error.response) {
+          console.error('Response Data:', error.response.data);
+          console.error('Response Status:', error.response.status);
+          console.error('Response Headers:', error.response.headers);
+          setError('Error fetching cart items. Please try again later.');
+        } else if (error.request) {
+          console.error('Error request:', error.request);
+          setError('No response received from the server.');
+        } else {
+          console.error('Error message:', error.message);
+          setError('Error setting up request.');
+        }
+
+        setLoading(false);
+      }
+    };
+
+    fetchCartItems();
+  }, [dispatch]);
+
+  const handleRemove = async (productId) => {
+    try {
+      const token = Cookies.get('token');
+      if (!token) {
+        setError('No token found');
+        return;
+      }
+      await deleteCartItem(productId, token);
+      dispatch({ type: 'REMOVE_FROM_CART', payload: productId });
+    } catch (error) {
+      console.error('Error deleting cart item:', error);
+
+      if (error.response) {
+        console.error('Response Data:', error.response.data);
+        console.error('Response Status:', error.response.status);
+        console.error('Response Headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
+
+      setError('An error occurred while deleting the item. Please try again later.');
+    }
   };
 
-  const handleRemove = (id) => {
-    dispatch({ type: 'REMOVE_FROM_CART', payload: id });
-  };
-
-  const handleUpdateQuantity = (id, quantity) => {
+  const handleUpdateQuantity = (productId, quantity) => {
     if (quantity < 1) return;
-    dispatch({ type: 'UPDATE_CART_ITEM', payload: { id, quantity } });
+    dispatch({ type: 'UPDATE_CART_ITEM', payload: { id: productId, quantity } });
   };
 
-  // Calculate total price
-  const totalPrice = cart.items.reduce((total, item) => {
-    return total + item.price * item.quantity;
-  }, 0);
+  const totalPrice = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div className="cart">
@@ -31,22 +93,19 @@ const Cart = () => {
       ) : (
         <div>
           {cart.items.map((item) => (
-            <div key={item.id} className="cart-item">
-              <img src={item.imageUrls} alt={item.name} />
-        
-             <button className="removebutton" onClick={() => handleRemove(item.id)}>   
-                 <span className="x-icon">x</span>
-                 </button>
-             
+            <div key={item.productId} className="cart-item">
+              <img src={item.imageUrls[0]} alt={item.name} className="cart-item-image" />
+              <button className="removebutton" onClick={() => handleRemove(item.productId)}>
+                <span className="x-icon">x</span>
+              </button>
               <div className="item-details">
                 <h2>{item.name}</h2>
                 <p>Price: Rs {item.price}</p>
                 <div className="quantity">
-                  <button onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+                  <button onClick={() => handleUpdateQuantity(item.productId, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <button onClick={() => handleUpdateQuantity(item.productId, item.quantity + 1)}>+</button>
                 </div>
-                
               </div>
             </div>
           ))}
