@@ -4,19 +4,23 @@ const CartSchemadb = require("../schema/CartSchema");
 const AddToCart = async (req,res) => {
     try{
         const items = req.body.items
+        console.log(items)
         let total_price = 0;
         for (const item of items) {
             const price = item.price;
             total_price = total_price + price;
         }
         req.body.total_price = total_price;
-        console.log(`Here is the CartSchemadb ${req.body}`); // remove while deployment 
+        
+        console.log(`Here is the CartSchemadb: ${JSON.stringify(req.body)}`);
+ // remove while deployment 
         const cart_data = await CartSchemadb.create(req.body);
+        console.log("cart data added successfully")
         if(cart_data){
             return res.status(200).send({
                 "Cart":cart_data,
                 "status":"data added successfully",
-                "msg":"data in db"
+                
             })
         }else{
             return res.status(400).send({
@@ -34,10 +38,12 @@ const AddToCart = async (req,res) => {
 const GetCartItems = async (req,res) => {
     try{
 
-        const cart_data = await CartSchemadb.find({ userId: req.userId });
+        const cart_data = await CartSchemadb.find({ userId: req.body.userId });
         if(cart_data){
+            console.log("data is fetched")
+            console.log(cart_data[0])
             return res.send({
-                "Cart":cart_data
+                "Cart":cart_data[0]
             })
         }else{
             return res.send({

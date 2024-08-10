@@ -101,9 +101,10 @@ export const deleteAppointment = async (id) => {
 // Add a product to the cart
 export const addToCart = async (payload, token) => {
     try {
+        // console.log(`api ${token} : ${payload}`)
         const response = await axios.post(`${URL}/add-to-cart`, payload, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `${token}`,
                 'Content-Type': 'application/json',
             },
         });
@@ -118,7 +119,7 @@ export const addToCart = async (payload, token) => {
 export const getCartItems = async (token) => {
     try {
         const response = await axios.get(`${URL}/get-cart-items`, {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `${token}` },
         });
         return response.data;
     } catch (error) {

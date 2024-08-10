@@ -13,14 +13,16 @@ const ProductPage = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const [error, setError] = useState(null);
   const { dispatch } = useCart();
-  const { token } = useContext(AuthContext); // Retrieve token from AuthContext
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        console.log(id)
         const response = await FetchProductWithId(id);
+        
         const { Product } = response;
         setProduct(Product);
+        console.log(`Products  :${Product}`)
         if (Product.imageUrls && Product.imageUrls.length > 0) {
           setSelectedImage(`/${Product.imageUrls[0]}`);
         }
@@ -35,21 +37,22 @@ const ProductPage = () => {
 
   const addToCart = async (product) => {
     try {
+      console.log(`small product : ${product.price}`)
+      const token = Cookies.get('token');
       if (!token) {
         throw new Error('No token found');
       }
 
       const payload = {
-        userId: "66aa2756f702a41c82b7d06e", // Replace this with the actual user ID
         items: [
           {
-            productId: product.id,
+            productId: product._id,
             price: product.price
           }
-        ],
-        total_price: product.price
+        ]
       };
-
+      console.log(`payload :${payload}`)
+     
       await apiAddToCart(payload, token); // Pass both the payload and token to the API
       dispatch({ type: 'ADD_TO_CART', payload: product });
     } catch (error) {

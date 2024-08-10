@@ -18,8 +18,19 @@ const Cart = () => {
           setLoading(false);
           return;
         }
-        const data = await getCartItems(token);
-        dispatch({ type: 'SET_CART_ITEMS', payload: data.items });
+        const response = await getCartItems(token);
+        const {Cart } = response
+        
+        console.log(`Cart items: ${JSON.stringify(Cart.items, null, 2)}`);
+
+        if (Array.isArray(Cart.items)) {
+            for (const item of Cart.items) {
+                console.log(item); // Log each item in the Cart.items array
+            }
+        } else {
+            console.error('Cart.items is not an array');
+        }
+        dispatch({ type: 'SET_CART_ITEMS', payload: response });
         setLoading(false);
       } catch (error) {
         console.error('Error fetching cart items:', error);
