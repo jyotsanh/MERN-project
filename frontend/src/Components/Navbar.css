@@ -7,7 +7,7 @@
   
   /* Set the font family and background color for the body */
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif; /* For body text */
     background-color: white;
   }
   
@@ -19,6 +19,7 @@
     height: 70px;
     padding: 0 20px;
     background-color: white;
+    
   }
   
   /* Style for the logo */
@@ -69,7 +70,7 @@
   
   /* Style for the action icons */
   nav .actions img {
-    height: 50px;
+    height: 35px;
     margin: 0 5px;
     cursor: pointer;
     transition: opacity 0.3s;
@@ -107,6 +108,7 @@
     display: flex;
     justify-content: center;
     transition: all 0.3s ease-in-out;
+    font-family:'Roboto', sans-serif; /* For body text */
   }
   
   /* Style for menu items */
@@ -143,7 +145,7 @@
   }
   
   .hamburger-icon {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   
   /* Media Queries */

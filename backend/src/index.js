@@ -1,36 +1,41 @@
 const express = require("express");
 require('dotenv').config();
 
-app = express()
-const cors = require('cors')
+const app = express();
+const cors = require('cors');
 
-
-
-app.use(express.json())
-app.use(cors())
-
-
-
-const AdminRoutes = require("../routes/adminroutes");
-const UserRoutes = require("../routes/UserRoutes");
-const ProductRoutes = require("../routes/Productroutes");
-const BookAppointment = require("../routes/BookAppointmentroutes");
+app.use(express.json());
+app.use(cors());
 
 const connectDb = require("../db/connectdb");
 connectDb();
 
-PORT = process.env.PORT || 3000;
+// For Admin
+const AdminRoutes = require("../routes/adminroutes");
+app.use("/api", AdminRoutes);
 
+// For User
+const UserRoutes = require("../routes/UserRoutes");
+app.use("/api", UserRoutes);
 
-app.use("/api",AdminRoutes);
-app.use("/api",UserRoutes);
-app.use("/api",ProductRoutes);
-app.use("/api",BookAppointment);
+// For Product
+const ProductRoutes = require("../routes/Productroutes");
+app.use("/api", ProductRoutes);
 
+// For Appointment
+const BookAppointment = require("../routes/BookAppointmentroutes");
+app.use("/api", BookAppointment);
 
+// For Cart
+const CartRoutes = require("../routes/cartRoutes");
+app.use("/api", CartRoutes);
 
+// For Order
+const OrderRoutes = require("../routes/OrderRoutes");
+app.use("/api", OrderRoutes);
 
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT,()=>{
-    console.log(`Listening to ${PORT}`)
-})
+app.listen(PORT, () => {
+    console.log(`Listening to ${PORT}`);
+});

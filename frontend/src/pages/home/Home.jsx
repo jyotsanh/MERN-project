@@ -116,8 +116,10 @@ const Home = () => {
                 </div>
               </Link>
             </div>
+          
             <p>Product 1</p>
             <p className="price">Rs 500</p>
+           
           </div>
 
           <div className="product">
@@ -133,8 +135,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+           
             <p>Product 2</p>
             <p className="price">Rs 500</p>
+            
           </div>
 
           <div className="product">
@@ -152,8 +156,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+           
             <p>Product 3</p>
             <p className="price">Rs 500</p>
+            
           </div>
 
           <div className="product">

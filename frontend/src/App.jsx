@@ -20,14 +20,17 @@ import {CartProvider} from './context/CartContext';
 import Cart from './pages/cart/cart';
 import ProductPage from './Components/ProductPage';
 import AdminLogIn from "../src/pages/Admin/adminLogIn";
+import Checkout from "../src/pages/checkout/checkout"
 function App() {
   return (
    <CartProvider>
     <BrowserRouter>
       <Navbar />
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/sunglasses" element={<Sunglasses />} />
+          <Route path="/product/:id" element={<ProductPage />} /> {/* Product Page when clicked will show product data */}
           <Route path="/eyeglasses" element={<EyeGlasses />} />
           <Route path="/contactlens" element={<Contactlens />} />
           <Route path="/book" element={<Book />} />
@@ -42,7 +45,7 @@ function App() {
           <Route path="/appointments" element={<AppointmentView />} />
           <Route path='/about' element={<About />}/>
           <Route path='/cart' element={<Cart/>}/>
-          <Route path='/productpage' element={<ProductPage/>}/>
+          <Route path='/checkout' element={<Checkout/>}/>
         </Routes>
       <Footer />
     </BrowserRouter>

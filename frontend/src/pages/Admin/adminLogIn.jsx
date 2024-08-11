@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AdminLogin } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import './adminLogin.css'; // Import the CSS file
+import './adminlogin.css';
 
 function AdminLogIn() {
     const navigate = useNavigate();
@@ -16,63 +16,62 @@ function AdminLogIn() {
 
         // Basic validation
         if (!email || !password) {
-            setError({"msg":'Please enter both email and password'});
+            setError({ "msg": 'Please enter both email and password' });
             return;
         }
 
         // Example of submitting the login request
         try {
-            console.log( email, password)
             const response = await AdminLogin({ email, password });
-            console.log(response.token);
-            try{
-                if (response.token) {
-                    // Set token in cookies
-                    Cookies.set('token', response.token);
-                    // Redirect or update UI
-                    console.log('Logged in successfully');
-                }
-            }catch(error){
-                setError({"msg":"Cookie Error occurred"}) // Remove development code
+            if (response.token) {
+                // Set token in cookies
+                Cookies.set('token', response.token);
+                // Redirect or update UI
+                console.log('Logged in successfully');
+                navigate('/admin');
             }
-            setError({});
-            navigate('/admin');
         } catch (error) {
-            console.log(error.response);
-            const {email, password} = error.response
-            setError({ email: email, password: password, msg: error.response.data.msg });
+            setError({ msg: error.response?.data?.msg || 'Login failed' });
         }
     };
 
     return (
         <div className="admin-login-container">
-            <h1>Admin LogIn</h1> 
-            <form onSubmit={handleSubmit}>
-                <div>
+            <h1 className="admin-login-title">Admin Login</h1>
+            <form onSubmit={handleSubmit} className="admin-login-form">
+                <div className="input-container">
                     <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                    <div className="input-wrapper">
+                        <i className="fas fa-envelope input-icon"></i>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
                 </div>
-                <div>
+                <div className="input-container">
                     <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div> 
-                {error.msg && <p style={{ color: 'red' }}>{error.msg}</p>}
-                <button type="submit">Log In</button>
-            </form>    
+                    <div className="input-wrapper">
+                        <i className="fas fa-lock input-icon"></i>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+                {error.msg && <p className="error-msg">{error.msg}</p>}
+                <button type="submit" className="admin-login-button">Log In</button>
+            </form>
         </div>
     );
-}   
+}
 
 export default AdminLogIn;
