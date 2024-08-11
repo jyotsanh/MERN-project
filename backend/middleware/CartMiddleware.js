@@ -52,7 +52,7 @@ const CartMiddleWare = async (req, res, next) => {
 
         try{ // In this try block a same user won't be able to add same product more than once
             const cart_data = await CartSchemadb.find({ userId: userId });   
-            console.log(cart_data[0].total_price)
+            
             if (cart_data.length>0){ // checks if the user with this id has any cart in schema or not
 
                 Schema_items = cart_data[0].items

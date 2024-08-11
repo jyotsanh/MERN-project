@@ -1,3 +1,4 @@
+// Cart.js
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import './cart.css';
@@ -19,35 +20,12 @@ const Cart = () => {
           return;
         }
         const response = await getCartItems(token);
-        const {Cart } = response
-        
-        console.log(`Cart items: ${JSON.stringify(Cart.items, null, 2)}`);
-
-        if (Array.isArray(Cart.items)) {
-            for (const item of Cart.items) {
-                console.log(item); // Log each item in the Cart.items array
-            }
-        } else {
-            console.error('Cart.items is not an array');
-        }
-        dispatch({ type: 'SET_CART_ITEMS', payload: response });
+        const { Cart } = response;
+        dispatch({ type: 'ADD_TO_CART', payload: response });
         setLoading(false);
       } catch (error) {
         console.error('Error fetching cart items:', error);
-
-        if (error.response) {
-          console.error('Response Data:', error.response.data);
-          console.error('Response Status:', error.response.status);
-          console.error('Response Headers:', error.response.headers);
-          setError('Error fetching cart items. Please try again later.');
-        } else if (error.request) {
-          console.error('Error request:', error.request);
-          setError('No response received from the server.');
-        } else {
-          console.error('Error message:', error.message);
-          setError('Error setting up request.');
-        }
-
+        setError('Error fetching cart items. Please try again later.');
         setLoading(false);
       }
     };
@@ -66,17 +44,6 @@ const Cart = () => {
       dispatch({ type: 'REMOVE_FROM_CART', payload: productId });
     } catch (error) {
       console.error('Error deleting cart item:', error);
-
-      if (error.response) {
-        console.error('Response Data:', error.response.data);
-        console.error('Response Status:', error.response.status);
-        console.error('Response Headers:', error.response.headers);
-      } else if (error.request) {
-        console.error('Error request:', error.request);
-      } else {
-        console.error('Error message:', error.message);
-      }
-
       setError('An error occurred while deleting the item. Please try again later.');
     }
   };
@@ -98,33 +65,30 @@ const Cart = () => {
 
   return (
     <div className="cart">
-      <h1>Your Shopping Cart</h1>
-      {cart.items.length === 0 ? (
-        <p>No items in your cart.</p>
-      ) : (
-        <div>
-          {cart.items.map((item) => (
-            <div key={item.productId} className="cart-item">
-              <img src={item.imageUrls[0]} alt={item.name} className="cart-item-image" />
-              <button className="removebutton" onClick={() => handleRemove(item.productId)}>
-                <span className="x-icon">x</span>
-              </button>
-              <div className="item-details">
-                <h2>{item.name}</h2>
-                <p>Price: Rs {item.price}</p>
-                <div className="quantity">
-                  <button onClick={() => handleUpdateQuantity(item.productId, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => handleUpdateQuantity(item.productId, item.quantity + 1)}>+</button>
-                </div>
+      <div className="cart-items">
+        {cart.items.map((item) => (
+          <div key={item.productId} className="cart-item">
+            <img src={item.imageUrls[0]} alt={item.name} className="cart-item-image" />
+            <div className="cart-item-details">
+              <h2>{item.name}</h2>
+              <p>Price: Rs {item.price}</p>
+              <div className="cart-quantity">
+                <button onClick={() => handleUpdateQuantity(item.productId, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+                <span>{item.quantity}</span>
+                <button onClick={() => handleUpdateQuantity(item.productId, item.quantity + 1)}>+</button>
               </div>
             </div>
-          ))}
-          <div className="total-price">
-            <p>Total Price: Rs {totalPrice}</p>
+            <button className="cart-removebutton" onClick={() => handleRemove(item.productId)}>
+              <span className="cart-x-icon">🗑️</span>
+            </button>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+      <div className="cart-summary">
+        <p>Subtotal ({cart.items.length} items)</p>
+        <p>Rs{totalPrice}</p>
+        <button className="cart-buy-now-button">Proceed To Checkout</button>
+      </div>
     </div>
   );
 };
