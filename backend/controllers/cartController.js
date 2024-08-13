@@ -12,21 +12,26 @@ const AddToCart = async (req,res) => {
         }
         req.body.total_price = total_price;
         
-        console.log(`Here is the CartSchemadb: ${JSON.stringify(req.body)}`);
+        console.log(`request body is ${req.body}`);
  // remove while deployment 
-        const cart_data = await CartSchemadb.create(req.body);
-        console.log("cart data added successfully")
-        if(cart_data){
-            return res.status(200).send({
-                "Cart":cart_data,
-                "status":"data added successfully",
-                
-            })
-        }else{
-            return res.status(400).send({
-                "msg":"no data in db"
+        try{
+            const cart_data = await CartSchemadb.create(req.body);
+            if(cart_data){
+                return res.status(200).send({
+                    "Cart":cart_data,
+                    "status":"data added successfully",
+                    
+                })
+            }
+            console.log("cart data added successfully")
+        }catch(err){
+            console.log(err)
+            return res.status(500).send({
+                msg:"Insertion in Database error",
+                error:err
             })
         }
+        
     }catch(err){
         return res.status(500).send({
             msg:"server error",

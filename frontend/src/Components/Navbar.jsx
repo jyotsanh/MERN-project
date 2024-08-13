@@ -21,7 +21,7 @@ function Navbar() {
       setJwt(token);
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded) // REMOVE THIS LINE WHEN DEPLOYING
+       
         if (decoded.username) {
           setUsername(decoded.username);
         } else {

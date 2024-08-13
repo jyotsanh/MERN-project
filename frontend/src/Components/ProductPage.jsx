@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
-import { FetchProductWithId } from '../service/api';
-import { addToCart as apiAddToCart } from '../service/api';
+import { FetchProductWithId, addToCart as apiAddToCart } from '../service/api';
 import { useCart } from '../context/CartContext';
 import Cookies from 'js-cookie';
 
@@ -30,7 +29,7 @@ const ProductPage = () => {
     fetchProduct();
   }, [id]);
 
-  const addToCart = async (product) => {
+  const addToCart = async () => {
     try {
       const token = Cookies.get('token');
       if (!token) {
@@ -41,27 +40,17 @@ const ProductPage = () => {
         items: [
           {
             productId: product._id,
-            price: product.price
+            price: product.price,
+            imageUrl: product.imageUrls[0],
+            name: product.name
           }
         ]
       };
-     
+
       await apiAddToCart(payload, token);
       dispatch({ type: 'ADD_TO_CART', payload: product });
     } catch (error) {
-      if (error.response) {
-        if (error.response.data.message === 'userId doesnt exist') {
-          setError('User does not exist.');
-        } else if (error.response.status === 403) {
-          setError('Authorization error. Please check your credentials.');
-        } else {
-          setError('An error occurred while adding to cart. Please try again later.');
-        }
-      } else if (error.request) {
-        setError('No response received from server.');
-      } else {
-        setError('Error setting up request.');
-      }
+      setError(error.response?.data?.message || 'An error occurred while adding to cart. Please try again later.');
     }
   };
 
@@ -104,19 +93,11 @@ const ProductPage = () => {
         <div className="pro-cart-actions">
           <p className="pro-product-status"><strong>Status:</strong> In Stock</p>
           <select className="pro-quantity-selector">
-            <option value="1">1</option>
-            <option value="1">2</option>
-            <option value="1">3</option>
-            <option value="1">4</option>
-            <option value="1">5</option>
-            <option value="1">6</option>
-            <option value="1">7</option>
-            <option value="1">8</option>
-            <option value="1">9</option>
-            <option value="1">10</option>
-            {/* Add more options as needed */}
+            {[...Array(10).keys()].map(num => (
+              <option key={num + 1} value={num + 1}>{num + 1}</option>
+            ))}
           </select>
-          <button onClick={() => addToCart(product)} className="pro-add-to-cart-button">
+          <button onClick={addToCart} className="pro-add-to-cart-button">
             Add to Cart
           </button>
         </div>
