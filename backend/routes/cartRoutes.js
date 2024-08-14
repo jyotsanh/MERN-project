@@ -8,5 +8,6 @@ const { GetCartItems,AddToCart,DelCartItems } = require('../controllers/cartCont
 router.post('/add-to-cart',UserAuthenticationMiddleware,CartMiddleWare,AddToCart);
 router.get('/get-cart-items',UserAuthenticationMiddleware,GetCartItems);
 router.get('/del-cart-items/:id',UserAuthenticationMiddleware,DelCartItems);
+router.post('/del-cart-items',UserAuthenticationMiddleware,DelCartItems);
 
 module.exports = router;

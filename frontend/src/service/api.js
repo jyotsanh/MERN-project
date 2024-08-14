@@ -131,8 +131,8 @@ export const getCartItems = async (token) => {
 // Delete cart item
 export const deleteCartItem = async (productId, token) => {
     try {
-        const response = await axios.delete(`${URL}/del-cart-items/${productId}`, {
-            headers: { Authorization: `Bearer ${token}` },
+        const response = await axios.post(`${URL}/del-cart-items`,  {productId},{
+            headers: { Authorization: `${token}` },
         });
         return response.data;
     } catch (error) {
