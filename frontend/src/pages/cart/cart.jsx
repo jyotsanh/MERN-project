@@ -3,11 +3,14 @@ import './cart.css';
 import { getCartItems } from '../../service/api';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
+  const [datalist, setDatalist] = useState([]);
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -23,7 +26,6 @@ const Cart = () => {
         const response = await getCartItems(token);
         const { Cart } = response;
         const { items } = Cart;
-        console.log(items);
 
         // Initialize quantity for each item
         const itemsWithQuantity = items.map((item) => ({
@@ -43,6 +45,8 @@ const Cart = () => {
     fetchCartItems();
   }, []);
 
+  
+
   const updateQuantity = (productId, newQuantity) => {
     setCart((prevCart) => {
       const updatedItems = prevCart.items.map((item) => {
@@ -51,7 +55,7 @@ const Cart = () => {
           ? { ...item, quantity: validQuantity }
           : item;
       });
-  
+
       return { ...prevCart, items: updatedItems };
     });
   };
@@ -69,7 +73,9 @@ const Cart = () => {
   }
 
   const totalPrice = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
-
+  const handleProceedToCheckout = () => {
+    navigate('/checkout', { state: { cartItems: cart.items,totalPrice: totalPrice } });
+  };
   return (
     <div className="cart">
       <h2>Your Cart</h2>
@@ -98,8 +104,9 @@ const Cart = () => {
                   type="number"
                   value={item.quantity}
                   min="1"
+                  max="5"
                   className="quantity-input"
-                  onChange={(e) => updateQuantity(item.productId, parseInt(e.target.value))}
+                  onChange={(e) => updateQuantity(item.productId, e.target.value)}
                 />
               </td>
               <td>Rs. {item.quantity * item.price}</td>
@@ -113,15 +120,13 @@ const Cart = () => {
         <button className="apply-coupon-button">Apply coupon</button>
       </div>
       
-        <div className="cart-summary">
-          <p>Subtotal: Rs {totalPrice}</p>
-          <p>Shipping: Shipping options will be updated during checkout.</p>
-          <p>Total: Rs {totalPrice}</p>
-          <Link to={`/checkout`} className="product-name">
-            <button className="checkout-button">Proceed to Checkout</button>
-          </Link>
-        </div>
-      
+      <div className="cart-summary">
+        <p>Subtotal: Rs {totalPrice}</p>
+        <p>Shipping: Shipping options will be updated during checkout.</p>
+        <p>Total: Rs {totalPrice}</p>
+        
+        <button className="checkout-button" onClick={handleProceedToCheckout}>Proceed to Checkout</button>
+      </div>
     </div>
   );
 };

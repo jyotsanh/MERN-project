@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './checkout.css';
-
+import { useLocation } from 'react-router-dom';
 const CheckoutForm = () => {
+  const location = useLocation();
+  const { cartItems } = location.state || {}; // Get cart items from state
+  const { totalPrice } = location.state || {}; // Get cart items from state
+  console.log("cart-items")
+  console.log(totalPrice)
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -89,27 +94,14 @@ const CheckoutForm = () => {
             <div className="order-header-product">Product</div>
             <div className="order-header-subtotal">Subtotal</div>
           </div>
-
-          {/* Order Item */}
-          <div className="order-item">
-            <div className="order-product">
-              Newmew Matte Silver Gun Metal Eyeglass × 1
+          {cartItems.map((item) => (
+            <div className="order-item">
+              <div className="order-product">
+                {item.name} × {item.quantity}
+              </div>
+              <div className="order-subtotal">{item.price*item.quantity}</div>
             </div>
-            <div className="order-subtotal">Rs 2,160</div>
-          </div>
-
-          <div className="order-item">
-            <div className="order-product">
-              Newmew Hexagon Transparent Grey Acetate Eyeglass × 1
-            </div>
-            <div className="order-subtotal">Rs 1,620</div>
-          </div>
-
-          {/* Subtotal */}
-          <div className="order-item order-summary-item">
-            <div className="order-product">Subtotal</div>
-            <div className="order-subtotal">Rs 3,780</div>
-          </div>
+          ))}
 
           {/* Shipping */}
           <div className="order-item order-summary-item">
@@ -120,7 +112,7 @@ const CheckoutForm = () => {
           {/* Total */}
           <div className="order-item order-summary-item">
             <div className="order-product order-total">Total</div>
-            <div className="order-subtotal order-total">Rs 3,780</div>
+            <div className="order-subtotal order-total">Rs {totalPrice}</div>
           </div>
         </div>
 
