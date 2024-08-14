@@ -83,26 +83,48 @@ const CheckoutForm = () => {
 
       <div className="order-summary">
         <h2>Your Order</h2>
-        <div className="order-item">
-          <div>Product</div>
-          <div>Subtotal</div>
+  
+        <div className="order-items">
+          <div className="order-header">
+            <div className="order-header-product">Product</div>
+            <div className="order-header-subtotal">Subtotal</div>
+          </div>
+
+          {/* Order Item */}
+          <div className="order-item">
+            <div className="order-product">
+              Newmew Matte Silver Gun Metal Eyeglass × 1
+            </div>
+            <div className="order-subtotal">Rs 2,160</div>
+          </div>
+
+          <div className="order-item">
+            <div className="order-product">
+              Newmew Hexagon Transparent Grey Acetate Eyeglass × 1
+            </div>
+            <div className="order-subtotal">Rs 1,620</div>
+          </div>
+
+          {/* Subtotal */}
+          <div className="order-item order-summary-item">
+            <div className="order-product">Subtotal</div>
+            <div className="order-subtotal">Rs 3,780</div>
+          </div>
+
+          {/* Shipping */}
+          <div className="order-item order-summary-item">
+            <div className="order-product">Shipping</div>
+            <div className="order-subtotal">Free shipping</div>
+          </div>
+
+          {/* Total */}
+          <div className="order-item order-summary-item">
+            <div className="order-product order-total">Total</div>
+            <div className="order-subtotal order-total">Rs 3,780</div>
+          </div>
         </div>
-        <div className="order-item">
-          <div>EYemate</div>
-          <div>Rs 1260</div>
-        </div>
-        <div className="order-item">
-          <div>Subtotal</div>
-          <div>Rs 1260</div>
-        </div>
-        <div className="order-item">
-          <div>Shipping</div>
-          <div>Free shipping</div>
-        </div>
-        <div className="order-item">
-          <div>Total</div>
-          <div>Rs 1260</div>
-        </div>
+
+        {/* Payment Method */}
         <div className="payment-method">
           <h3>Payment Method</h3>
           <label>
@@ -118,8 +140,10 @@ const CheckoutForm = () => {
             Visa / Master Card
           </label>
         </div>
-        <button type="submit">Place Order</button>
+
+        <button type="submit" className="order-submit-button">Proceed to Payment</button>
       </div>
+
     </div>
   );
 };

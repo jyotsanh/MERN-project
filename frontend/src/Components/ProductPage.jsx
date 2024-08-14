@@ -33,7 +33,8 @@ const ProductPage = () => {
     try {
       const token = Cookies.get('token');
       if (!token) {
-        throw new Error('No token found');
+        setError("Please login to add to cart");
+        return;
       }
 
       const payload = {

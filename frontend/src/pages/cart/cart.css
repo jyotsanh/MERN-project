@@ -1,87 +1,90 @@
-/* cart.css */
 .cart {
-  display: flex;
-  justify-content: space-between;
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.cart-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-}
-
-.cart-item-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  margin-right: 20px;
-}
-
-.cart-item-details {
-  flex: 1;
-}
-
-.cart-removebutton {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: red;
-  margin-left: 10px;
-}
-
-.cart-quantity {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.cart-quantity button {
-  background: #f0f0f0;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.cart-quantity span {
-  margin: 0 10px;
+h2 {
   font-weight: bold;
 }
 
-.cart-total-price {
-  text-align: right;
-  font-size: 18px;
-  margin-top: 20px;
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-.cart-buy-now-button {
-  background: #000;
+.cart-table th, .cart-table td {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px;
+  text-align: left;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.product-name {
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.quantity-input {
+  width: 50px;
+}
+
+.remove-item-button {
+  background: none;
+  border: none;
+  color: #f00;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.coupon-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.coupon-input {
+  width: 200px;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+
+.apply-coupon-button {
+  padding: 5px 10px;
+  background-color: #333;
   color: #fff;
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
-  margin-top: 20px;
-  width: 100%;
 }
 
 .cart-summary {
-  border: 1px solid #ddd;
+  border: 1px solid #e0e0e0;
   padding: 20px;
   width: 300px;
-  margin-left: 20px;
 }
 
 .cart-summary p {
-  margin: 10px 0;
+  margin: 0 0 10px;
   font-weight: bold;
 }
 
-.cart-summary button {
-  background: #000;
-  color: #fff;
+.checkout-button {
   padding: 10px 20px;
+  background-color: #00bfff;
+  color: #fff;
   border: none;
   cursor: pointer;
   width: 100%;
