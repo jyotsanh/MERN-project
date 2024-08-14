@@ -37,7 +37,7 @@ function AdminLogIn() {
 
     return (
         <div className="admin-login-container">
-            <h1 className="admin-login-title">Admin Login</h1>
+            <h1 className="admin-login-title">Admin LogIn</h1>
             <form onSubmit={handleSubmit} className="admin-login-form">
                 <div className="input-container">
                     <label htmlFor="email">Email:</label>

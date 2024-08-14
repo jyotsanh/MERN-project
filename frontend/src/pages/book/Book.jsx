@@ -54,6 +54,7 @@ function Book() {
   return (
     <div>
       <h1 className='book-h1'>Appointment Booking</h1>
+      <div className="booking">
       <form className="book-appointment" onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
         <input 
@@ -140,6 +141,7 @@ function Book() {
         {error.msg && <p className="error-text">{error.msg}</p>}
         {isSubmitted && <p className="success-text">Form submitted successfully!</p>}
       </form>
+      </div>
     </div>
   );
 }
