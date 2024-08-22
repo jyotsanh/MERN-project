@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AdminLogin } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import './adminlogin.css';
+import './adminLogin.css';
 
 function AdminLogIn() {
     const navigate = useNavigate();

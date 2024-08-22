@@ -1,94 +1,69 @@
-body {
-    background-color: #f7f7f7;
-    font-family: Arial, sans-serif;
-  }
-  
-  .admin-login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 30px;
-    background: #fff;
-    border-radius: 8px;
+
+
+.admin-login-container {
+    background-color: #fff;
+    padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .admin-login-title {
+    border-radius: 8px;
+    width: 300px;
     text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .admin-login-form {
+    border-radius: 20px;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
-  }
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 30px;
+    width: 450px;
+    margin-left: 500px;
+    border-radius: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
   
-  .input-container {
+}
+
+.admin-login-container h1 {
     margin-bottom: 20px;
-  }
-  
-  .input-wrapper {
-    position: relative;
+}
+
+.admin-login-container form {
     display: flex;
-    align-items: center;
-  }
-  
-  label {
-    display: block;
+    flex-direction: column;
+}
+
+.admin-login-container label {
+    text-align: center;
     margin-bottom: 5px;
-    color: #666;
-  }
-  
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.admin-login-container input {
     padding: 10px;
-    padding-left: 30px;
-    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  input[type="email"]::placeholder,
-  input[type="password"]::placeholder {
-    color: #aaa;
-  }
-  
-  .input-icon {
-    position: absolute;
-    left: 10px;
-    color: #aaa;
-  }
-  
-  input[type="email"]:focus,
-  input[type="password"]:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  button[type="submit"],
-  .admin-login-button {
-    width: 100%;
+}
+
+.admin-login-container button {
     padding: 10px;
-    background-color: #007bff;
-    color: white;
     border: none;
     border-radius: 4px;
+    background-color: #007bff;
+    color: white;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  button[type="submit"]:hover,
-  .admin-login-button:hover {
+}
+
+.admin-login-container button:hover {
     background-color: #0056b3;
-  }
-  
-  .error-msg {
+}
+
+.admin-login-container p {
+    margin-top: 10px;
     color: red;
-    font-size: 14px;
-    margin-top: -15px;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  
+}
