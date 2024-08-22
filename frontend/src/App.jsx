@@ -8,7 +8,6 @@ import Contactlens from "./pages/contactlens/Contactlens";
 import Book from "./pages/book/Book";
 import FAQ from "./pages/Faq/FAQ";
 import Log from './pages/Login/Log';
-// import Sign from "./pages/Sign/Sign";
 import Sign from './pages/Sign/Sign';
 import AddProducts from '../src/pages/add-products/products';
 import Admin from "../src/pages/Admin/admin";
@@ -16,16 +15,17 @@ import Admin_View from "../src/pages/Admin/admin_view"
 import EditProduct from "./pages/edit-products/edit-product";
 import AppointmentView from "./pages/Admin/appointment_view";
 import About from './pages/about-page/about';
-import {CartProvider} from './context/CartContext';
+import { CartProvider } from './context/CartContext';
 import Cart from './pages/cart/cart';
 import ProductPage from './Components/ProductPage';
 import AdminLogIn from "../src/pages/Admin/adminLogIn";
-import Checkout from "../src/pages/checkout/checkout"
+import Checkout from "../src/pages/checkout/checkout";
+
 function App() {
   return (
-   <CartProvider>
-    <BrowserRouter>
-      <Navbar />
+    <CartProvider>
+      <BrowserRouter>
+        <Navbar />
         <Routes>
           
           <Route path="/" element={<Home />} />
@@ -43,13 +43,13 @@ function App() {
           <Route path="/admin-view" element={<Admin_View />} /> 
           <Route path="/edit-product/:id" element={<EditProduct />} />
           <Route path="/appointments" element={<AppointmentView />} />
-          <Route path='/about' element={<About />}/>
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/checkout' element={<Checkout/>}/>
+          <Route path='/about' element={<About />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/checkout' element={<Checkout />} />
         </Routes>
-      <Footer />
-    </BrowserRouter>
-    </CartProvider> 
+        <Footer />
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 

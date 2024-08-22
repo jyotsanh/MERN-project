@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { AdminLogin } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+<<<<<<< HEAD
 import './adminLogin.css';
+=======
+import './loginAdmin.css';
+>>>>>>> da3b827b71916db10803bbf5d2e0784305d8002a
 
 function AdminLogIn() {
     const navigate = useNavigate();
@@ -37,7 +41,7 @@ function AdminLogIn() {
 
     return (
         <div className="admin-login-container">
-            <h1 className="admin-login-title">Admin Login</h1>
+            <h1 className="admin-login-title">Admin LogIn</h1>
             <form onSubmit={handleSubmit} className="admin-login-form">
                 <div className="input-container">
                     <label htmlFor="email">Email:</label>

@@ -18,6 +18,7 @@ function Sunglasses() {
         const productsData = await FetchProductsUser();
         const { Product } = productsData;
         setProducts(Product);
+        console.log(Product)
         setFilteredProducts(Product);
       } catch (error) {
         setProducts([]);
@@ -172,7 +173,11 @@ function Sunglasses() {
             {currentProducts.map((product) => (
               <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
                 <div className="product-card">
-                  <img src={product.imageUrl} alt={product.name} className="product-image" />
+                  {product.imageUrls && product.imageUrls.length > 0 ? (
+                    <img src={`/${product.imageUrls[0]}`} alt={product.name} className="product-image" />
+                  ) : (
+                    <img src="/path/to/default-image.jpg" alt="Default" className="product-image" />
+                  )}
                   <h2 className="product-name">{product.name}</h2>
                   <p className="product-price">Price: Rs.{product.price}</p>
                 </div>

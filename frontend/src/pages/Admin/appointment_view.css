@@ -1,7 +1,7 @@
 .appointment-view-container {
     text-align: center;
-    margin-top: 20px; 
-    padding: 0 20px; 
+    margin-top: 20px;
+    padding: 0 20px;
 }
 
 .back-button {
@@ -11,7 +11,8 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px; 
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .back-button:hover {
@@ -19,15 +20,16 @@
 }
 
 .appointments-list {
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
 .appointments-list ul {
     list-style-type: none;
     padding: 0;
-    max-width: 600px; 
-    margin: 0 auto; 
+    max-width: 600px;
+    margin: 0 auto;
 }
+
 .appointment-item {
     display: flex;
     flex-direction: column;
@@ -35,30 +37,68 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
-    margin-bottom: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    text-align: left;
+    margin-bottom: 20px; /* Increased margin for better separation */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Increased shadow for better depth */
+    background-color: #ffffff; /* Changed background for better contrast */
+    text-align: center; /* Center align text for better presentation */
+    transition: transform 0.3s ease; /* Added transition for scaling effect */
+}
+
+.appointment-item:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
 }
 
 .appointment-img {
     border-radius: 5px;
-    margin-bottom: 10px; 
-    width: 300px; 
-    height: 250px;
+    margin-bottom: 20px; /* Increased margin for better spacing */
+    width: 100%; /* Ensure image fits container width */
+    max-width: 300px; /* Set maximum width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure image covers the element box */
 }
 
 .appointment-details {
-    flex: 1;
-    text-align: center; 
+    width: 100%;
+    text-align: left;
 }
 
 .appointment-name {
     margin-top: 0;
-    font-size: 20px;
+    font-size: 24px; /* Increased font size for emphasis */
+    color: #333; /* Darker color for better readability */
 }
 
 .appointment-details p {
     margin: 5px 0;
     font-size: 16px;
+    color: #555; /* Slightly lighter color for secondary text */
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Margin to separate from other elements */
+}
+
+button:hover {
+    background-color: #c82333;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

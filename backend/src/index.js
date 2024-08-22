@@ -3,13 +3,20 @@ require('dotenv').config();
 
 const app = express();
 const cors = require('cors');
+const path = require('path');
 
+// Middleware
 app.use(express.json());
 app.use(cors());
 
+// Connect to the database
 const connectDb = require("../db/connectdb");
 connectDb();
 
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Routes
 // For Admin
 const AdminRoutes = require("../routes/adminroutes");
 app.use("/api", AdminRoutes);
@@ -34,8 +41,8 @@ app.use("/api", CartRoutes);
 const OrderRoutes = require("../routes/OrderRoutes");
 app.use("/api", OrderRoutes);
 
+// Start the server
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
     console.log(`Listening to ${PORT}`);
 });

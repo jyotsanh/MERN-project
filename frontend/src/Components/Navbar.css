@@ -7,8 +7,10 @@
   
   /* Set the font family and background color for the body */
   body {
-    font-family: 'Roboto', sans-serif; /* For body text */
+    /*font-family: 'Roboto', sans-serif; /* For body text */
     background-color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+   
   }
   
   /* Style for the navigation bar */
@@ -108,7 +110,8 @@
     display: flex;
     justify-content: center;
     transition: all 0.3s ease-in-out;
-    font-family:'Roboto', sans-serif; /* For body text */
+    /*font-family:'Roboto', sans-serif; /* For body text */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   
   /* Style for menu items */

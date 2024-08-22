@@ -8,13 +8,12 @@ function Admin_View() {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
-    const [Error,SetError] = useState({});
+    const [Error, SetError] = useState({});
     useEffect(() => {
         SetError({});
         const fetchData = async () => {
             try {
                 const productsData = await FetchProducts();
-                console.log("productsData", productsData);
                 const { Product } = productsData;
                 setProducts(Product);
             } catch (error) {
@@ -31,17 +30,18 @@ function Admin_View() {
     };
 
     const handleDelete = async (id) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await deleteProduct(id,token);
-            setProducts(products.filter(product => product._id !== id));
-            SetError({});
-        } catch (error) {
-            console.error('Error deleting product:', error);
-            console.log(error.response);
-            SetError({
-                msg: error.response.data.msg
-            })
+        if (window.confirm("Are you sure you want to delete this product? This action cannot be undone.")) {
+            try {
+                const token = Cookies.get('token');
+                await deleteProduct(id, token);
+                setProducts(products.filter(product => product._id !== id));
+                SetError({});
+            } catch (error) {
+                console.error('Error deleting product:', error);
+                SetError({
+                    msg: error.response.data.msg
+                });
+            }
         }
     };
 
@@ -58,7 +58,7 @@ function Admin_View() {
                 ) : (
                     products.map(product => (
                         <div className="product-card" key={product._id}>
-                            <img src={`${product.imageUrl}`} alt={product.name} className="product-image" />
+                            <img src={`${product.imageUrls}`} alt={product.name} className="product-image" />
                             <h2 className="product-name">{product.name}</h2>
                             <p className="product-price">Price: {product.price}</p>
                             <p className="product-description">Description: {product.description}</p>
@@ -72,7 +72,7 @@ function Admin_View() {
                     ))
                 )}
             </div>
-            {Error.msg && <p> {Error.msg} </p>}
+            {Error.msg && <p>{Error.msg}</p>}
         </div>
     );
 }
