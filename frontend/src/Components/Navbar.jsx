@@ -94,7 +94,7 @@ function Navbar() {
             <div className="action">
               <NavLink to="/cart">
                 <img src={cartIcon} alt="Cart Icon" />
-                <span>Cart</span>
+                <span className='action'>Cart</span>
               </NavLink>
             </div>
           </div>

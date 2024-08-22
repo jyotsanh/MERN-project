@@ -107,6 +107,8 @@ const EditProductController = async (req, res) => {
     }
 };
 
+
+
 const DeleteProductController = async (req, res) => {
     try {
         const productId = req.params.id;
