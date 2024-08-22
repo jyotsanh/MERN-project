@@ -18,7 +18,7 @@ export const LoginUser = async (formdata) => {
 export const UploadProducts = async (formdata, token) => {
     const response = await axios.post(`${URL}/add-products`, formdata, {
         headers: {
-            'Authorization': `Bearer ${token}` // Ensure token is prefixed with 'Bearer '
+            'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
         }
     });
     return response;
@@ -34,7 +34,7 @@ export const FetchProducts = async () => {
 export const deleteProduct = async (id, token) => {
     const response = await axios.delete(`${URL}/delete-product/${id}`, {
         headers: {
-            'Authorization': `Bearer ${token}` // Ensure token is prefixed with 'Bearer '
+            'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
         }
     });
     return response;
@@ -44,7 +44,7 @@ export const deleteProduct = async (id, token) => {
 export const editProduct = async (id, updatedData, token) => {
     const response = await axios.put(`${URL}/edit-product/${id}`, updatedData, {
         headers: {
-            'Authorization': `Bearer ${token}` // Ensure token is prefixed with 'Bearer '
+            'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
         }
     });
     return response;

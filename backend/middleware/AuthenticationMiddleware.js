@@ -12,6 +12,7 @@ const AuthenticationMiddleware = (req, res, next) => {
 
         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
             if (err) {
+                console.log(err)
                 return res.status(500).send(
                     { msg: 'Failed to authenticate token.' }
                 );
@@ -54,7 +55,8 @@ const UserAuthenticationMiddleware = (req, res, next) => {
             }
             console.log(`Decoded: ${decoded.role}`)
             if (decoded.role !== 'user') {
-                return res.status(403).send({ msg: 'Not a User' });
+                console.log("Admin is not supposed to add to cart")
+                return res.status(403).send({ msg: 'Admin is not supposed to add to cart' });
             }
 
             // If everything is good, save the decoded token to the request for use in other routes
