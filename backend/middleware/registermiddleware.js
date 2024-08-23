@@ -1,4 +1,5 @@
 const RegisterMiddleware  = (request,response,next)=>{
+    try{
     if (request.body){
 
         const {email,password,password2,username} = request.body;
@@ -32,6 +33,11 @@ const RegisterMiddleware  = (request,response,next)=>{
             "msg":"request.body error"
         })
     }
+}catch(error){
+    return response.status(400).send({
+        "msg":"request.body error"
+    })
+}
 }
 
 module.exports = RegisterMiddleware;

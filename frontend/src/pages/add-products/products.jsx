@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { UploadProducts } from "../../service/api";
+import { jwtDecode } from "jwt-decode";
 import './products.css';
 import Cookies from 'js-cookie';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate } from 'react-router-dom';
 
 function AddProducts() {
+    const navigate = useNavigate();
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
@@ -17,6 +19,30 @@ function AddProducts() {
     const [frame_shape, setFrame_shape] = useState('');
     const [Error, SetError] = useState({});
     const [imageNames, setImageNames] = useState([]);
+
+
+    const [isAdmin, setIsAdmin] = useState(false);
+    useEffect(() => {
+        const token = Cookies.get('token');
+        console.log(token) // remove when deploying to production
+        if (!token) {
+            navigate('/');
+        } else {
+            try {
+                const decoded = jwtDecode(token);
+                if (decoded.role === 'admin') {
+                    setIsAdmin(true);
+                } else {
+                    navigate('/');
+                }
+            } catch (error) {
+                console.error('Invalid token:', error);
+                navigate('/');
+            }
+        
+        }
+    }, [navigate]);
+
 
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
@@ -68,6 +94,13 @@ function AddProducts() {
                 msg: error.response.data.msg
             });
         }
+    }
+
+    if (!isAdmin) {
+        return (
+            <>
+            </>
+        );
     }
 
     return (

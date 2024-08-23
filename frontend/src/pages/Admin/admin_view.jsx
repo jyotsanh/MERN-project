@@ -3,14 +3,39 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { FetchProducts, deleteProduct } from '../../service/api';
 import './admin_view.css';
 import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 function Admin_View() {
+    const [isAdmin, setIsAdmin] = useState(false);
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
     const [Error, SetError] = useState({});
     useEffect(() => {
-        SetError({});
+        const token = Cookies.get('token');
+        console.log(token); // remove when deploying to production
+    
+        if (!token) {
+            navigate('/');
+            return; // prevent further execution if no token
+        }
+    
+        try {
+            const decoded = jwtDecode(token);
+            if (decoded.role === 'admin') {
+                setIsAdmin(true);
+            } else {
+                navigate('/');
+                return; // prevent further execution if not an admin
+            }
+        } catch (error) {
+            console.error('Invalid token:', error);
+            navigate('/');
+            return; // prevent further execution if token is invalid
+        }
+    
+        SetError({}); // make sure this is required here
+    
         const fetchData = async () => {
             try {
                 const productsData = await FetchProducts();
@@ -21,9 +46,10 @@ function Admin_View() {
                 console.error('Error fetching products:', error);
             }
         };
-
+    
         fetchData();
-    }, []);
+    }, [navigate, setIsAdmin, setProducts]);
+    
 
     const handleEdit = (id) => {
         navigate(`/edit-product/${id}`);
@@ -44,7 +70,12 @@ function Admin_View() {
             }
         }
     };
-
+    if (!isAdmin) {
+        return (
+            <>
+            </>
+        );
+    }
     return (
         <div className="admin-view-container">
             <h1 className="admin-title">Admin View</h1>

@@ -1,13 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate } from 'react-router-dom';
 import './appointment_view.css';
-
+import Cookies from 'js-cookie';
 import { getAppointments, updateAppointmentStatus, deleteAppointment } from '../../service/api';
+import { jwtDecode } from "jwt-decode";
 
 function AppointmentView() {
+    const [isAdmin, setIsAdmin] = useState(false);
     const [appointments, setAppointments] = useState([]);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
+        const token = Cookies.get('token');
+        console.log(token) // remove when deploying to production
+        if (!token) {
+            navigate('/');
+        } else {
+            try {
+                const decoded = jwtDecode(token);
+                if (decoded.role === 'admin') {
+                    setIsAdmin(true);
+                } else {
+                    navigate('/');
+                }
+            } catch (error) {
+                console.error('Invalid token:', error);
+                navigate('/');
+            }
+        
+        }
         const fetchData = async () => {
             try {
                 const appointmentsData = await getAppointments();
@@ -39,6 +61,13 @@ function AppointmentView() {
             console.error('Error deleting appointment:', error);
         }
     };
+
+    if (!isAdmin) {
+        return (
+            <>
+            </>
+        );
+    }
 
     return (
         <div className="appointment-view-container">
