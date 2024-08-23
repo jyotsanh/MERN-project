@@ -14,7 +14,6 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
-    "google-maps-react": "^2.0.6",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
