@@ -18,7 +18,6 @@ function Sunglasses() {
         const productsData = await FetchProductsUser();
         const { Product } = productsData;
         setProducts(Product);
-        console.log(Product)
         setFilteredProducts(Product);
       } catch (error) {
         setProducts([]);
@@ -41,6 +40,7 @@ function Sunglasses() {
   };
 
   const handleCategoryChange = (e) => {
+    console.log(e.target.value);
     setSelectedCategory(e.target.value);
   };
 
@@ -149,7 +149,7 @@ function Sunglasses() {
                   onChange={handleCategoryChange}
                 >
                   <option value="">Select a category</option>
-                  <option value="prescription">Prescription</option>
+                  <option value="prescription">prescription</option>
                   <option value="reading">Reading</option>
                   <option value="blue-light">Blue Light</option>
                   <option value="progressive">Progressive</option>

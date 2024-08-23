@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './checkout.css';
-
+import { useLocation } from 'react-router-dom';
 const CheckoutForm = () => {
+  const location = useLocation();
+  const { cartItems } = location.state || {}; // Get cart items from state
+  const { totalPrice } = location.state || {}; // Get cart items from state
+  console.log("cart-items")
+  console.log(totalPrice)
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -83,26 +88,35 @@ const CheckoutForm = () => {
 
       <div className="order-summary">
         <h2>Your Order</h2>
-        <div className="order-item">
-          <div>Product</div>
-          <div>Subtotal</div>
+  
+        <div className="order-items">
+          <div className="order-header">
+            <div className="order-header-product">Product</div>
+            <div className="order-header-subtotal">Subtotal</div>
+          </div>
+          {cartItems.map((item) => (
+            <div className="order-item">
+              <div className="order-product">
+                {item.name} × {item.quantity}
+              </div>
+              <div className="order-subtotal">{item.price*item.quantity}</div>
+            </div>
+          ))}
+
+          {/* Shipping */}
+          <div className="order-item order-summary-item">
+            <div className="order-product">Shipping</div>
+            <div className="order-subtotal">Free shipping</div>
+          </div>
+
+          {/* Total */}
+          <div className="order-item order-summary-item">
+            <div className="order-product order-total">Total</div>
+            <div className="order-subtotal order-total">Rs {totalPrice}</div>
+          </div>
         </div>
-        <div className="order-item">
-          <div>EYemate</div>
-          <div>Rs 1260</div>
-        </div>
-        <div className="order-item">
-          <div>Subtotal</div>
-          <div>Rs 1260</div>
-        </div>
-        <div className="order-item">
-          <div>Shipping</div>
-          <div>Free shipping</div>
-        </div>
-        <div className="order-item">
-          <div>Total</div>
-          <div>Rs 1260</div>
-        </div>
+
+        {/* Payment Method */}
         <div className="payment-method">
           <h3>Payment Method</h3>
           <label>
@@ -118,8 +132,10 @@ const CheckoutForm = () => {
             Visa / Master Card
           </label>
         </div>
-        <button type="submit">Place Order</button>
+
+        <button type="submit" className="order-submit-button">Proceed to Payment</button>
       </div>
+
     </div>
   );
 };

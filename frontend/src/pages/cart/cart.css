@@ -1,108 +1,91 @@
-/* cart.css */
 .cart {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .cart h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .cart-item {
-    display: flex;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    border:1px solid rgb(106, 102, 102);
-    overflow: hidden;
-
-  }
-  
-  .cart-item img {
-    width: 100px;
-    height: 100px;
-    margin-right: 20px;
-  }
-  
-  .item-details {
-    flex-grow: 1;
-  }
-  
-  .item-details h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .item-details p {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .quantity {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .quantity button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .quantity button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  .removebutton {
-    position: relative;
-    margin-top: 5px;
-    left: 600px; /* Adjust left position as needed */
-    cursor: pointer;
-    height:20px;
-    transition: opacity 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.removebutton:hover {
-    opacity: 0.8;
-    color: #c82333; /* Text color change on hover */
+h2 {
+  font-weight: bold;
 }
 
-.x-icon {
-    transition: color 0.3s ease; /* Smooth transition for color change */
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-.removebutton:hover .x-icon {
-    color: #c82333; /* Change color of 'x' when button is hovered */
+.cart-table th, .cart-table td {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px;
+  text-align: left;
 }
 
-  
-  .quantity span {
-    margin: 0 10px;
-    font-size: 16px;
-  }
-  
-  button.remove {
-    background-color: #dc3545;
-  }
-  
-  button.remove:hover {
-    background-color: #c82333;
-  }
-  .total-price p{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size:20px;
-    text-transform: uppercase;
-    font-weight: 200;
-  }
-  /* Media query for responsiveness */
-  @media (max-width: 768px) {
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-    }
-  }
+.product-info {
+  display: flex;
+  align-items: center;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.product-name {
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.quantity-input {
+  width: 50px;
+}
+
+.remove-item-button {
+  background: none;
+  border: none;
+  color: #f00;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.coupon-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.coupon-input {
+  width: 200px;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+
+.apply-coupon-button {
+  padding: 5px 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.cart-summary {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  width: 300px;
+}
+
+.cart-summary p {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.checkout-button {
+  padding: 10px 20px;
+  background-color: #00bfff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}

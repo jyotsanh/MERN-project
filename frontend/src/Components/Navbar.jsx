@@ -21,7 +21,7 @@ function Navbar() {
       setJwt(token);
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded) // REMOVE THIS LINE WHEN DEPLOYING
+       
         if (decoded.username) {
           setUsername(decoded.username);
         } else {
@@ -46,6 +46,11 @@ function Navbar() {
   }
     const toggleMenu = () => {
       setMenuOpen(!menuOpen);
+    };
+    const CartIcon = () => {
+      const { cart } = useCart();
+    
+      const itemCount = cart.items.reduce((count, item) => count + item.quantity, 0);
     };
 
     return (
@@ -89,7 +94,7 @@ function Navbar() {
             <div className="action">
               <NavLink to="/cart">
                 <img src={cartIcon} alt="Cart Icon" />
-                <span>Cart</span>
+                <span className='action'>Cart</span>
               </NavLink>
             </div>
           </div>

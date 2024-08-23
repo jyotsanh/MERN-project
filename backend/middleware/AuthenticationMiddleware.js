@@ -12,6 +12,7 @@ const AuthenticationMiddleware = (req, res, next) => {
 
         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
             if (err) {
+                console.log(err)
                 return res.status(500).send(
                     { msg: 'Failed to authenticate token.' }
                 );
@@ -44,21 +45,23 @@ const UserAuthenticationMiddleware = (req, res, next) => {
                 { msg: 'No token provided.' } // for deployment : { msg: 'You are not authorized' }
             );
         }
-
+        console.log(`Now here`)
         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
             if (err) {
+                console.log(`Error : ${err}`)
                 return res.status(500).send(
                     { msg: 'Failed to authenticate token.' } // for deployment : { msg: 'You are not authorized' }
                 );
             }
             console.log(`Decoded: ${decoded.role}`)
             if (decoded.role !== 'user') {
-                return res.status(403).send({ msg: 'Not a User' });
+                console.log("Admin is not supposed to add to cart")
+                return res.status(403).send({ msg: 'Admin is not supposed to add to cart' });
             }
 
             // If everything is good, save the decoded token to the request for use in other routes
-            req.userId = decoded.id;
-            console.log(`Decoded ID by MiddleWare: ${req.userId}`)
+            req.body.userId = decoded.id;
+            console.log(`Decoded ID by MiddleWare: ${req.body.userId}`)
             next();
         });
     }catch(err){

@@ -5,7 +5,8 @@ const CartContext = createContext();
 
 // Define the initial state of the cart
 const initialState = {
-  items: []
+  items: [],
+  itemCount: 0,
 };
 
 // Define a reducer to manage the cart state
@@ -19,26 +20,35 @@ const cartReducer = (state, action) => {
           ...state,
           items: state.items.map(item => 
             item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item
-          )
+          ),
+          itemCount: state.itemCount + 1,
         };
       } else {
         return {
           ...state,
-          items: [...state.items, { ...action.payload, quantity: 1 }]
+          items: [...state.items, { ...action.payload, quantity: 1 }],
+          itemCount: state.itemCount + 1,
         };
       }
+      
     case 'REMOVE_FROM_CART':
+      const itemToRemove = state.items.find(item => item.id === action.payload);
       return {
         ...state,
-        items: state.items.filter(item => item.id !== action.payload)
+        items: state.items.filter(item => item.id !== action.payload),
+        itemCount: state.itemCount - itemToRemove.quantity,
       };
+
     case 'UPDATE_CART_ITEM':
+      const quantityDifference = action.payload.quantity - state.items.find(item => item.id === action.payload.id).quantity;
       return {
         ...state,
         items: state.items.map(item =>
           item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
-        )
+        ),
+        itemCount: state.itemCount + quantityDifference,
       };
+
     default:
       return state;
   }
