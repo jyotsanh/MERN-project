@@ -1,13 +1,17 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const ConnectDb = () => {
+  const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/EyeMate";
 
-  try {
-    mongoose.set('strictQuery', true);
-    const data = mongoose.connect("mongodb://localhost:27017/EyeMate");
-    if (data) console.log(`connected to MongoDb`)
-  } catch (err) {
-    console.log("Db Connection error", err)
-  }
+  mongoose.set('strictQuery', true);
+  
+  mongoose.connect(mongoURI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("Db Connection error:", err));
 }
-module.exports = ConnectDb
+
+module.exports = ConnectDb;
+
