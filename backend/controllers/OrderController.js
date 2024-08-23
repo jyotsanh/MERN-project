@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const OrderSchemadb = require("../schema/OrderSchema");
+const OrderSchemadb = require("../schema/orderSchema");
 const OrderDataSchemadb = require("../schema/OrderDataSchemadb");
 
 const AddOrderController = async (req,res) => {
