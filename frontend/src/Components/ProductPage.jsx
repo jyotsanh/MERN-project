@@ -19,7 +19,7 @@ const ProductPage = () => {
         const { Product } = response;
         setProduct(Product);
         if (Product.imageUrls && Product.imageUrls.length > 0) {
-          setSelectedImage(`/${Product.imageUrls[0]}`);
+          setSelectedImage(`${Product.imageUrls[0]}`);
         }
       } catch (error) {
         setError('Error fetching product. Please try again later.');
@@ -56,7 +56,7 @@ const ProductPage = () => {
   };
 
   const handleImageClick = (imageUrl) => {
-    setSelectedImage(`/${imageUrl}`);
+    setSelectedImage(`${imageUrl}`);
   };
 
   if (error) {
@@ -75,9 +75,9 @@ const ProductPage = () => {
           {product.imageUrls && product.imageUrls.map((imageUrl, index) => (
             <img
               key={index}
-              src={`/${imageUrl}`}
+              src={`${imageUrl}`}
               alt={product.name}
-              className={`pro-thumbnail ${selectedImage === `/${imageUrl}` ? 'pro-selected' : ''}`}
+              className={`pro-thumbnail ${selectedImage === `${imageUrl}` ? 'pro-selected' : ''}`}
               onClick={() => handleImageClick(imageUrl)}
             />
           ))}

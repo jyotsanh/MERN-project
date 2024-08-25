@@ -5,8 +5,20 @@ const AppointmentController = async (req, res) => {
     try {
         console.log("request body : ", req.body);
         const { name, address, phone, prefered_date, prefered_time, location } = req.body;
-        const prescription = `uploads/Prescription/${name}/${req.file.filename}`;
-        const data = await AppointmentSchemadb.create({ name, address, phone, prefered_date, prefered_time, location, prescription });
+
+        // Cloudinary URL of the prescription
+        const prescription = req.file ? req.file.path : ''; // Cloudinary URL
+
+        // Create the appointment record
+        const data = await AppointmentSchemadb.create({ 
+            name, 
+            address, 
+            phone, 
+            prefered_date, 
+            prefered_time, 
+            location, 
+            prescription 
+        });
 
         if (data) {
             return res.status(200).send({ msg: "Data added successfully" });
@@ -14,9 +26,11 @@ const AppointmentController = async (req, res) => {
             return res.status(400).send({ msg: "Data schema error" });
         }
     } catch (error) {
+        console.error("Error adding appointment:", error);
         return res.status(400).send({ msg: "Server Error", error });
     }
 };
+
 
 const updateAppointmentStatus = async (req, res) => {
     try {

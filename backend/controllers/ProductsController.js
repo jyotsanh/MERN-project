@@ -54,7 +54,11 @@ const TopProductController = async (req, res) => {
 const AddProductController = async (req, res) => {
     try {
         const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
-        const imageUrls = req.files.map(file => `uploads/Products/${name}/${file.filename}`);
+
+        // Extract Cloudinary URLs from the uploaded files
+        const imageUrls = req.files.map(file => file.path); // Cloudinary stores the URL in `file.path`
+
+        // Create the product with the Cloudinary URLs
         const data = await ProductSchemadb.create({
             name,
             price,
@@ -64,9 +68,10 @@ const AddProductController = async (req, res) => {
             frame_material,
             lens_material,
             frame_shape,
-            imageUrls,
+            imageUrls,  // Saving Cloudinary URLs
             createdBy: req.userId
         });
+
         if (data) {
             return res.status(200).send({ msg: "Product Added Successfully" });
         }
@@ -75,6 +80,7 @@ const AddProductController = async (req, res) => {
         return res.status(400).send({ msg: "Server Error", error: error });
     }
 };
+
 
 const EditProductController = async (req, res) => {
     try {
