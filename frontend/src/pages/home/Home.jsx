@@ -57,16 +57,16 @@ const Home = () => {
       <section className="image-slider">
         <Slider {...settings}>
           <div className="slide">
-            <img src="/webp/lakpachoice1.jpeg" alt="Slide 1" />
+            <img src="/webp/lakpachoice1.webp" alt="Slide 1" />
           </div>
           <div className="slide">
-            <img src="/webp/lakpachoice2.jpg " alt="Slide 2" />
+            <img src="/webp/lakpachoice2.webp" alt="Slide 2" />
           </div>
           <div className="slide">
-            <img src="/webp/lakpachoice3.jpg" alt="Slide 3" />
+            <img src="/webp/lakpachoice3.webp" alt="Slide 3" />
           </div>
           <div className="slide">
-            <img src="/webp/lakpachoice4.jpg" alt="Slide 4" />
+            <img src="/webp/img5.webp" alt="Slide 4" />
           </div>
         </Slider>
       </section>
@@ -76,7 +76,7 @@ const Home = () => {
         <h2>Elevate Your Look with Our Signature Features</h2>
         <div className="image-description">
           <div className="image-text">
-            <img src="/webp/view2.webp" alt="Image 1" className="eyeglasses" />
+            <img src="/webp/img5.webp" alt="Image 1" className="eyeglasses" />
             <div className="description1">
               <h3>Ultra-lightweight Frames <br />for Maximum Comfort</h3>
               <Link to="/Sunglasses">
@@ -85,7 +85,7 @@ const Home = () => {
             </div>
           </div>
           <div className="image-text">
-            <img src="/webp/View1.jpg" alt="Image 2" className="polarized-glasses" />
+            <img src="/webp/img1.webp" alt="Image 2" className="polarized-glasses" />
             <div className="description">
               <h3>Trendy Designs with UV Protection</h3>
               <Link to="/Sunglasses">
