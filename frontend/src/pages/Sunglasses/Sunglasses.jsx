@@ -174,9 +174,9 @@ function Sunglasses() {
               <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
                 <div className="product-card">
                   {product.imageUrls && product.imageUrls.length > 0 ? (
-                    <img src={`${product.imageUrls[0]}`} alt={product.name} className="product-image" />
+                    <img src={`${product.imageUrls[0]}`} alt={product.name} className="imagess" />
                   ) : (
-                    <img src="/path/to/default-image.jpg" alt="Default" className="product-image" />
+                    <img src="/path/to/default-image.jpg" alt="Default" className="imagess" />
                   )}
                   <h2 className="product-name">{product.name}</h2>
                   <p className="product-price">Price: Rs.{product.price}</p>

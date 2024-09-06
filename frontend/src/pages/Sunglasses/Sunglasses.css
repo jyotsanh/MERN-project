@@ -85,16 +85,16 @@ h1 {
   height: 350px; /* Ensure all product cards are the same height */
 }
 
-.product-image {
-  width: 100%;
-  height: 200px; /* Ensure all images are the same height */
+.imagess {
+  width: 250px;
+  height: 250px;
   border-radius: 10px;
   object-fit: cover;
   object-position: center;
   transition: transform 0.5s ease;
 }
 
-.product-card:hover .product-image {
+.product-card:hover .imagess {
   transform: translateX(-40%);
 }
 
@@ -128,6 +128,7 @@ h1 {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  margin-bottom: 30px;
 }
 
 .pagination button:disabled {
