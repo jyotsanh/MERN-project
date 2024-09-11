@@ -69,6 +69,7 @@ nav .actions {
   flex: 1;
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 
 /* Style for the action icons */
