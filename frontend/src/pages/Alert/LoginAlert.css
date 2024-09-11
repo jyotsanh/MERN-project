@@ -1,0 +1,43 @@
+.alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 10px;
+    position: fixed;
+    left: -100%;  /* Start outside the view */
+    top: 20px;
+    min-width: 300px;
+    background-color: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: left 0.5s ease-out;
+    z-index: 1000;
+  }
+  
+  .success {
+    border: 2px solid #39e785;
+  }
+  
+  .failure {
+    border: 2px solid #ff4d4d;
+  }
+  
+  .icon {
+    margin-left: 15px;
+  }
+  
+  .show-alert {
+    left: 20px; /* Slide the alert into view */
+  }
+  
+  .hide-alert {
+    left: -100%; /* Slide the alert out of view */
+  }
+  
+  .alert p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
