@@ -45,6 +45,7 @@
 }
 
 /* Mobile and Tablet Styles */
+/* Mobile and Tablet Styles */
 @media screen and (max-width: 768px) {
   .pro-product-page {
     flex-direction: column; /* Stack elements vertically */
@@ -60,12 +61,10 @@
   .pro-product-details {
     width: 100%; /* Full width on mobile/tablet */
     padding: 15px;
+    box-shadow: none; /* Remove box shadow on mobile/tablet */
   }
 
-  .pro-product-name {
-    font-size: 20px;
-    text-align: center;
-  }
+  
 
   .pro-product-price,
   .pro-product-frame,
@@ -74,12 +73,17 @@
   .pro-product-description,
   .pro-product-category {
     font-size: 16px;
-    text-align: center;
+    text-align: left; /* Align text to the left */
+    margin-bottom: 10px; /* Add spacing between elements */
+  }
+
+  .pro-product-name {
+    font-size: 40px;
   }
 
   .pro-cart-actions {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Align items to the start */
   }
 
   .pro-product-status,
@@ -93,7 +97,3 @@
     text-align: center;
   }
 }
-
-
-  
-
