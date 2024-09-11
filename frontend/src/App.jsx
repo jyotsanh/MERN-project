@@ -22,6 +22,7 @@ import Cart from './pages/cart/cart';
 import ProductPage from './Components/ProductPage';
 import AdminLogIn from "../src/pages/Admin/adminLogIn";
 import Checkout from "../src/pages/checkout/checkout";
+import './App.css'
 
 const App = () => {
     return (

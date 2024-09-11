@@ -10,6 +10,7 @@ function Sunglasses() {
   const [selectedPrice, setSelectedPrice] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const productsPerPage = 8;
 
   useEffect(() => {
@@ -40,7 +41,6 @@ function Sunglasses() {
   };
 
   const handleCategoryChange = (e) => {
-    console.log(e.target.value);
     setSelectedCategory(e.target.value);
   };
 
@@ -65,7 +65,7 @@ function Sunglasses() {
     }
 
     setFilteredProducts(filtered);
-    setCurrentPage(1); // Reset to first page after applying filters
+    setCurrentPage(1);
   };
 
   const handleNextPage = () => {
@@ -80,6 +80,10 @@ function Sunglasses() {
     }
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -87,7 +91,10 @@ function Sunglasses() {
   return (
     <div className="container">
       <h1>Sunglasses</h1>
-      <div className="main-content">
+      <button className="hamburger" onClick={toggleSidebar}>
+        &#9776;
+      </button>
+      <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
         <div className="side-navbar">
           <div className="side-options">
             <div className="side-option" onClick={() => toggleSubOptions('price')}>
@@ -149,7 +156,7 @@ function Sunglasses() {
                   onChange={handleCategoryChange}
                 >
                   <option value="">Select a category</option>
-                  <option value="prescription">prescription</option>
+                  <option value="prescription">Prescription</option>
                   <option value="reading">Reading</option>
                   <option value="blue-light">Blue Light</option>
                   <option value="progressive">Progressive</option>
@@ -166,7 +173,7 @@ function Sunglasses() {
               <button onClick={applyFilters}>Filter</button>
             </div>
           </div>
-        </div> {/* Side-Navbar div */}
+        </div>
 
         <div className="product-list-container">
           <div className="product-list">
@@ -192,8 +199,8 @@ function Sunglasses() {
               Next
             </button>
           </div>
-        </div> {/* Product-list div */}
-      </div> {/* Main-content */}
+        </div>
+      </div>
     </div>
   );
 }
