@@ -1,234 +1,234 @@
 /* Reset margin and padding for all elements */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set the font family and background color for the body */
+body {
+  /*font-family: 'Roboto', sans-serif; /* For body text */
+  background-color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+ 
+}
+
+/* Style for the navigation bar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding: 0 20px;
+  background-color: white;
   
-  /* Set the font family and background color for the body */
-  body {
-    /*font-family: 'Roboto', sans-serif; /* For body text */
-    background-color: white;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
-   
-  }
-  
-  /* Style for the navigation bar */
+}
+
+/* Style for the logo */
+nav .logo {
+  flex: 1;
+}
+
+/* Style for the logo image */
+nav .logo img {
+  height: 50px;
+  max-width: 100%;
+  width: auto;
+}
+
+/* Style for the search bar */
+nav .search-bar {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 20px;
+  background-color: #D9D9D9;
+  margin: 0 20px;
+  height: 40px;
+}
+
+/* Style for the search bar input */
+nav .search-bar input {
+  border: none;
+  background: none;
+  outline: none;
+  color: rgb(0, 0, 0);
+  width: 100%;
+}
+
+/* Style for the search bar icon */
+nav .search-bar img {
+  margin-right: 10px;
+  height: 30px;
+  cursor: pointer;
+}
+
+nav .actions {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Style for the action icons */
+nav .actions img {
+  height: 35px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+/* Container for each action */
+nav .actions .action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* Style for the labels */
+nav .actions .action span {
+  color: #333;
+  text-align: center;
+}
+
+/* Override NavLink default styles */
+nav .actions .action a {
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+}
+
+/* Style for the menu */
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgb(148, 148, 148);
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  /*font-family:'Roboto', sans-serif; /* For body text */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Style for menu items */
+.menu li {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 1.2rem;
+}
+
+/* Style for menu item links */
+.menu li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-top: 15px;
+  color: black;
+}
+
+/* Style for the active link */
+.menu li a.active {
+  color: #E77E31;
+}
+
+/* Hover effect for menu item links */
+.menu li a:hover {
+  color: #1780CC;
+}
+
+/* Hamburger menu */
+nav .hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  font-size: 1rem;
+}
+
+/* Media Queries */
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
   nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    padding: 0 20px;
-    background-color: white;
-    
-  }
-  
-  /* Style for the logo */
-  nav .logo {
-    flex: 1;
-  }
-  
-  /* Style for the logo image */
-  nav .logo img {
-    height: 50px;
-    max-width: 100%;
-    width: auto;
-  }
-  
-  /* Style for the search bar */
-  nav .search-bar {
-    flex: 2;
-    display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
     padding: 10px;
-    font-weight: bold;
-    border-radius: 20px;
-    background-color: #D9D9D9;
-    margin: 0 20px;
-    height: 40px;
   }
-  
-  /* Style for the search bar input */
+
+  nav .logo {
+    margin-left: 5rem;
+  }
+
+  nav .search-bar {
+    width: 90%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+  }
+
   nav .search-bar input {
-    border: none;
-    background: none;
-    outline: none;
-    color: rgb(0, 0, 0);
     width: 100%;
   }
-  
-  /* Style for the search bar icon */
-  nav .search-bar img {
-    margin-right: 10px;
-    height: 30px;
-    cursor: pointer;
-  }
-  
+
   nav .actions {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 10px;
   }
-  
-  /* Style for the action icons */
-  nav .actions img {
-    height: 35px;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: opacity 0.3s;
-  }
-  
-  /* Container for each action */
-  nav .actions .action {
-    display: flex;
+
+  .menu {
+    position: fixed;
+    top: 50px;
+    right: -100%; /* Hide offscreen initially */
+    width: 60%;
+    height: 60%;
+    background-color: rgb(251, 251, 251);
     flex-direction: column;
     align-items: center;
-    margin: 0 10px;
-  }
-  
-  /* Style for the labels */
-  nav .actions .action span {
-    color: #333;
-    text-align: center;
-  }
-  
-  /* Override NavLink default styles */
-  nav .actions .action a {
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-  }
-  
-  /* Style for the menu */
-  .menu {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    border-top: 1px solid rgb(148, 148, 148);
-    width: 100%;
-    text-align: center;
-    display: flex;
     justify-content: center;
-    transition: all 0.3s ease-in-out;
-    /*font-family:'Roboto', sans-serif; /* For body text */
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000; /* Ensure it's above other content */
   }
-  
-  /* Style for menu items */
-  .menu li {
-    display: inline-block;
-    margin: 0 10px;
-    font-size: 1.2rem;
+
+  .menu.open {
+    left: 0; /* Slide in from the right */
   }
-  
-  /* Style for menu item links */
-  .menu li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    margin-top: 15px;
-    color: black;
-  }
-  
-  /* Style for the active link */
-  .menu li a.active {
-    color: #E77E31;
-  }
-  
-  /* Hover effect for menu item links */
-  .menu li a:hover {
-    color: #1780CC;
-  }
-  
-  /* Hamburger menu */
+
   nav .hamburger {
-    display: none;
-    cursor: pointer;
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: 10px;
   }
-  
-  .hamburger-icon {
+}
+
+/* Small devices (phones, 480px and down) */
+@media (max-width: 480px) {
+  nav .search-bar {
+    width: 70%;
+  }
+
+  nav .actions {
+    flex-direction: row;
+  }
+
+  nav .actions .action {
+    margin: 0.5rem;
+  }
+
+  nav .actions .action span {
     font-size: 1rem;
   }
-  
-  /* Media Queries */
-  
-  /* Medium devices (tablets, 768px and up) */
-  @media (max-width: 768px) {
-    nav {
-      flex-direction: column;
-      align-items: flex-start;
-      height: auto;
-      padding: 10px;
-    }
-  
-    nav .logo {
-      margin-left: 1rem;
-    }
-  
-    nav .search-bar {
-      width: 90%;
-      margin: 1rem auto;
-      padding: 0.5rem;
-    }
-  
-    nav .search-bar input {
-      width: 100%;
-    }
-  
-    nav .actions {
-      justify-content: space-around;
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  
-    .menu {
-      position: fixed;
-      top: 50px;
-      right: -100%; /* Hide offscreen initially */
-      width: 60%;
-      height: 100%;
-      background-color: rgb(251, 251, 251);
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: right 0.3s ease-in-out;
-      z-index: 1000; /* Ensure it's above other content */
-    }
-  
-    .menu.open {
-      right: 0; /* Slide in from the right */
-    }
-  
-    nav .hamburger {
-      display: block;
-      position: absolute;
-      right: 20px;
-      top: 10px;
-    }
+
+  nav .logo img {
+    height: 40px; /* Adjust the height for smaller screens */
   }
-  
-  /* Small devices (phones, 480px and down) */
-  @media (max-width: 480px) {
-    nav .search-bar {
-      width: 70%;
-    }
-  
-    nav .actions {
-      flex-direction: column;
-    }
-  
-    nav .actions .action {
-      margin: 0.5rem;
-    }
-  
-    nav .actions .action span {
-      font-size: 1rem;
-    }
-  
-    nav .logo img {
-      height: 40px; /* Adjust the height for smaller screens */
-    }
-  }
-  
+}

@@ -3,6 +3,7 @@
   justify-content: center;
   padding: 20px;
   background-color: #f5f5f5;
+  flex-wrap: wrap; /* Ensure wrapping on smaller screens */
 }
 
 .pro-product-image-container {
@@ -43,65 +44,56 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.pro-product-name {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
+/* Mobile and Tablet Styles */
+/* Mobile and Tablet Styles */
+@media screen and (max-width: 768px) {
+  .pro-product-page {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align the items */
+    padding: 10px;
+  }
 
-.pro-product-price {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
+  .pro-product-image-container {
+    margin-right: 0;
+    margin-bottom: 20px; /* Add spacing between image and details */
+  }
 
-.pro-product-frame,
-.pro-product-lens,
-.pro-product-shape,
-.pro-product-description,
-.pro-product-category {
-  margin-bottom: 10px;
-}
+  .pro-product-details {
+    width: 100%; /* Full width on mobile/tablet */
+    padding: 15px;
+    box-shadow: none; /* Remove box shadow on mobile/tablet */
+  }
 
-.pro-cart-actions {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-}
+  
 
-.pro-product-status {
-  margin-right: 20px;
-}
+  .pro-product-price,
+  .pro-product-frame,
+  .pro-product-lens,
+  .pro-product-shape,
+  .pro-product-description,
+  .pro-product-category {
+    font-size: 16px;
+    text-align: left; /* Align text to the left */
+    margin-bottom: 10px; /* Add spacing between elements */
+  }
 
-.pro-quantity-selector {
-  width: 60px;
-  padding: 5px;
-  margin-right: 20px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
+  .pro-product-name {
+    font-size: 40px;
+  }
 
-.pro-add-to-cart-button {
-  padding: 10px 20px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  .pro-cart-actions {
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start */
+  }
 
-.pro-add-to-cart-button:hover {
-  background-color: #444;
-}
+  .pro-product-status,
+  .pro-quantity-selector,
+  .pro-add-to-cart-button {
+    margin-bottom: 10px;
+  }
 
-.pro-error-message {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-  margin: 20px;
-}
-
-.pro-loading {
-  text-align: center;
-  font-size: 18px;
-  margin: 20px;
+  .pro-add-to-cart-button {
+    width: 100%; /* Full width button on mobile/tablet */
+    text-align: center;
+  }
 }

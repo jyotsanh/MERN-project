@@ -385,3 +385,10 @@ color: #f50800;;
   overflow: hidden;
 
 }
+@media (max-width: 768px) {
+  .description1 {
+    margin-left: 0; /* Adjust to suit your needs */
+    padding: 0 0 1rem 0; /* Adjust the padding for mobile */
+    text-align: left; /* Optionally align text left on mobile */
+  }
+}

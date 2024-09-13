@@ -83,27 +83,47 @@ function Admin_View() {
                 <button className="back-button">Back to Admin</button>
             </NavLink>
 
-            <div className="product-list">
-                {products.length === 0 ? (
-                    <p>No products available</p>
-                ) : (
-                    products.map(product => (
-                        <div className="product-card" key={product._id}>
-                            <img src={`${product.imageUrls[0]}`} alt={product.name} className="product-image" />
-                            <h2 className="product-name">{product.name}</h2>
-                            <p className="product-price">Price: {product.price}</p>
-                            <p className="product-description">Description: {product.description}</p>
-                            <p className="product-category">Category: {product.category}</p>
-                            <p className="product-quantity">Quantity: {product.quantity}</p>
-                            <div className="product-actions">
-                                <button className="edit-button" onClick={() => handleEdit(product._id)}>Edit</button>
-                                <button className="delete-button" onClick={() => handleDelete(product._id)}>Delete</button>
-                            </div>
-                        </div>
-                    ))
-                )}
-            </div>
-            {Error.msg && <p>{Error.msg}</p>}
+            <div className="admin-view-container">
+   
+    <table className="product-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {products.length === 0 ? (
+                <tr>
+                    <td colSpan="7">No products available</td>
+                </tr>
+            ) : (
+                products.map(product => (
+                    <tr key={product._id}>
+                        <td>
+                            <img src={product.imageUrls[0]} alt={product.name} className="product-image-table" />
+                        </td>
+                        <td>{product.name}</td>
+                        <td>{product.description}</td>
+                        <td>{product.price}</td>
+                        <td>{product.category}</td>
+                        <td>{product.quantity}</td>
+                        <td className="product-actions-table">
+                        <button className="edit-button" onClick={() => handleEdit(product._id)}>Edit</button>
+                        <button className="delete-button" onClick={() => handleDelete(product._id)}>Delete</button>
+                        </td>
+                    </tr>
+                ))
+            )}
+        </tbody>
+    </table>
+</div>
+
         </div>
     );
 }

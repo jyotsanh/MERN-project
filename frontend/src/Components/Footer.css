@@ -1,113 +1,194 @@
-/* Set the font family for the entire website */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
 /* Styling for the footer */
-footer {
-    background-color: #000000; /* Set the background color of the footer */
-    color: white; /* Set the text color of the footer */
-    margin-top: auto;/* Set the top margin to bring the footer down */
+.foot {
+  background-color: #000000;
+  color: white;
+  margin-top: auto;
+  padding: 20px 0;
 }
 
 /* Styling for the search bar */
-.search-container {
-    display: flex;
-    align-items: center;
-    justify-content: right; /* Align items to the right */
-    margin-right: 150px; /* Add margin to the right */
-    height: 10vh; /* Set the height of the search container */
+.foot-search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 50px;
+  height: 60px;
 }
-.search-input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    width: 200px;
+
+.foot-search-input {
+  padding: 9px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  margin-top: 9px;
+  width: 200px;
 }
-.send-button {
-    padding: 9px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
+
+.foot-send-button {
+  padding: 9px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
 }
 
 /* Styling for the footer content sections */
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-left: 50px;
+.foot-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 50px;
 }
-.footer-left,
-.footer-middle,
-.footer-right {
-    flex: 1 1 30%;
-    margin: 0 10px;
-}
-.footer-left p span{
-    font-size: 30px; /* Set the font size for the span inside p tags */
-}
-.footer-left p{
-    width: 250px; /* Set the width of the paragraph */
-}
-.footer-middle  p{
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-.footer-middle ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-}
-.footer-middle ul li a{
-    margin-bottom: 5px;
-    color: white; /* Set the text color */
-    text-decoration: none; /* Remove underline */
-}
- .footer-right p{
-    font-weight: bold;
-    margin-bottom: 20px;
 
+.foot-left,
+.foot-middle,
+.foot-right {
+  flex: 1 1 30%;
+  margin: 10px;
 }
-.footer-right ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
+
+.foot-left p span {
+  font-size: 30px;
 }
-.footer-right ul li a{
-    margin-bottom: 5px;
-    color: white; /* Set the text color */
-    text-decoration: none; /* Remove underline */
+
+.foot-left p {
+  width: 250px;
 }
-.footer-icons {
-    margin-top: 15px;
-    margin-left: 20px;
+
+.foot-middle p,
+.foot-right p {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
-.footer-icons a {
-    color: white; /* Set the text color */
-    margin-right: 10px;
+
+.foot-middle ul,
+.foot-right ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
 }
+
+.foot-middle ul li a,
+.foot-right ul li a {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+  text-decoration: none;
+}
+
+.foot-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.foot-icons a {
+  color: white;
+  margin: 0 10px;
+  font-size: 20px;
+}
+
+/* Styling for text colors */
 .orange-text {
-    color: orange; /* Set the text color to orange */
+  color: orange;
 }
+
 .blue-text {
-    color: blue; /* Set the text color to blue */
+  color: blue;
 }
-.footer-copy{
-   
-    padding: 0;
+
+.foot-copy {
+  text-align: center;
+  color: white;
+  margin-top: 15px;
+  font-size: 14px;
 }
-.footer-copy p{
+
+/* Responsive Design */
+
+/* Tablet Devices */
+@media (max-width: 1024px) and (min-width: 600px) {
+  .foot-search-container {
+    justify-content: center;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .foot-content {
+    align-items: center;
+    margin: 20px;
+  }
+
+  .foot-left,
+  .foot-middle,
+  .foot-right {
+    flex: 1 1 100%;
+    max-width: 500px;
+    margin: 10px 0;
     text-align: center;
-    color: black; /* Set the text color */
-    margin-top: 15px; /* Add margin at the top */
-    background-color: white; /* Set the background color */
+  }
+
+  .foot-icons {
+    margin-top: 20px;
+  }
+
+  .foot-copy {
+    font-size: 12px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 599px) {
+  .foot-search-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0;
+    margin-bottom: 20px;
+    height: auto;
+  }
+
+  .foot-search-input {
+    width: 60%;
+    margin-top: 10px;
+    border-radius: 5px 0 0 5px;
+  }
+
+  .foot-send-button {
+    width: 20%;
+    border-radius: 0 5px 5px 0;
+  }
+
+  .foot-content {
+    flex-direction: row;
+    align-items: center;
+    margin: 20px;
+  }
+
+  .foot-left,
+  .foot-middle,
+  .foot-right {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .foot-icons {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .foot-icons a {
+    margin: 5px;
+    font-size: 18px;
+  }
+
+  .foot-copy {
+    font-size: 12px;
+  }
 }

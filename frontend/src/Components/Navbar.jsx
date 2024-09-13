@@ -7,6 +7,7 @@ import logo from '../assets/logo.png';
 import searchIcon from '../assets/Search.png';
 import accountIcon from '../assets/Account.png';
 import cartIcon from '../assets/Cart.png';
+import Logout from '../assets/logout.webp';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 function Navbar() {
@@ -54,7 +55,7 @@ function Navbar() {
     };
 
     return (
-      <div>
+      <div className="navbar mt-3">
         <nav>
           <div className="logo">
             <img src={logo} alt="Logo" />
@@ -77,7 +78,7 @@ function Navbar() {
 
 
               <div className="action">
-                <img src={cartIcon} alt="Cart Icon" />
+                <img src={Logout} alt="Cart Icon" />
                 <button onClick={LoggingOut}><span>Log out</span></button>
               </div>
             </>
@@ -110,7 +111,7 @@ function Navbar() {
           <li><NavLink to="/contactlens" activeClassName="active">Lens</NavLink></li>
           <li><NavLink to="/book" activeClassName="active">Book Appointment</NavLink></li>
           <li><NavLink to="/faq" activeClassName="active">FAQs</NavLink></li>
-          {/* <li><NavLink to="/admin-login" activeClassName="active">Admin</NavLink></li> */}
+          <li><NavLink to="/admin-login" activeClassName="active">Admin</NavLink></li>
         </ul>
 
         {showLoginForm && (
