@@ -68,7 +68,7 @@ h1 {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(4s, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
