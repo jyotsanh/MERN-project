@@ -52,7 +52,7 @@ function Book() {
   }
 
   return (
-    <div>
+    <div className='book-box'>
       <h1 className='book-h1'>Appointment Booking</h1>
       <div className="booking">
       <form className="book-appointment" onSubmit={handleSubmit}>
