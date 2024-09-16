@@ -11,6 +11,7 @@ const ProductPage = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const [error, setError] = useState(null);
   const { dispatch } = useCart();
+  const [showNotification, setShowNotification] = useState(false); // Notification state
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -50,6 +51,8 @@ const ProductPage = () => {
 
       await apiAddToCart(payload, token);
       dispatch({ type: 'ADD_TO_CART', payload: product });
+      setShowNotification(true); // Show notification on success
+      setTimeout(() => setShowNotification(false), 3000); // Hide after 3 seconds
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred while adding to cart. Please try again later.');
     }
@@ -103,6 +106,16 @@ const ProductPage = () => {
           </button>
         </div>
       </div>
+
+      {/* Notification component */}
+      {showNotification && (
+        <div className="pro-notification">
+          <div className="pro-notification-content">
+            <span className="pro-notification-icon">&#10004;</span> {/* Tick mark */}
+            Product added successfully!
+          </div>
+        </div>
+      )}
     </div>
   );
 };

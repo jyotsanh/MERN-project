@@ -3,7 +3,7 @@
   justify-content: center;
   padding: 20px;
   background-color: #f5f5f5;
-  flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+  flex-wrap: wrap;
 }
 
 .pro-product-image-container {
@@ -44,37 +44,69 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile and Tablet Styles */
-/* Mobile and Tablet Styles */
+/* Notification styles */
+.pro-notification {
+  position: fixed;
+  left: -300px;
+  top: 20px;
+  z-index: 999;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  animation: slideIn 0.5s forwards, slideOut 0.5s 2.5s forwards;
+}
+
+.pro-notification-content {
+  display: flex;
+  align-items: center;
+}
+
+.pro-notification-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+@keyframes slideIn {
+  from {
+    left: -300px;
+  }
+  to {
+    left: 20px;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    left: 20px;
+  }
+  to {
+    left: -300px;
+  }
+}
+
+/* Mobile styles */
 @media screen and (max-width: 768px) {
   .pro-product-page {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center align the items */
+    flex-direction: column;
+    align-items: center;
     padding: 10px;
   }
 
   .pro-product-image-container {
     margin-right: 0;
-    margin-bottom: 20px; /* Add spacing between image and details */
+    margin-bottom: 20px;
   }
 
   .pro-product-details {
-    width: 100%; /* Full width on mobile/tablet */
+    width: 100%;
     padding: 15px;
-    box-shadow: none; /* Remove box shadow on mobile/tablet */
-  }
-
-  
-
-  .pro-product-price,
-  .pro-product-frame,
-  .pro-product-lens,
-  .pro-product-shape,
-  .pro-product-description,
-  .pro-product-category {
-    font-size: 16px;
-    text-align: left; /* Align text to the left */
-    margin-bottom: 10px; /* Add spacing between elements */
+    box-shadow: none;
   }
 
   .pro-product-name {
@@ -83,7 +115,7 @@
 
   .pro-cart-actions {
     flex-direction: column;
-    align-items: flex-start; /* Align items to the start */
+    align-items: flex-start;
   }
 
   .pro-product-status,
@@ -93,7 +125,7 @@
   }
 
   .pro-add-to-cart-button {
-    width: 100%; /* Full width button on mobile/tablet */
+    width: 100%;
     text-align: center;
   }
 }
