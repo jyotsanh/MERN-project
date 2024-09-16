@@ -144,3 +144,52 @@
     align-self: center; /* Center the button on small screens */
   }
 }
+/* Keyframe for sliding in the alert */
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Common styles for both success and error alerts */
+.alert {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  animation: slideIn 0.5s ease-in-out;
+  z-index: 999; /* Ensure the alert appears on top */
+}
+
+/* Success alert (green) */
+.alert-success {
+  background-color: #28a745;
+}
+
+/* Error alert (red) */
+.alert-error {
+  background-color: #dc3545;
+}
+
+/* Optional: Keyframe for fading out */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+/* Add fade out after a few seconds */
+.alert.fade-out {
+  animation: fadeOut 0.5s ease-in-out;
+}
