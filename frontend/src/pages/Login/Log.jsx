@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Log.css';
-import Apple from '../../assets/apples.svg';  // Correct path to the SVG file
+import Apple from '../../assets/apples.svg';
 import password_photo from '../../assets/password.svg';
 import google from '../../assets/google.svg';
 import email_photo from '../../assets/email.svg';
 import { LoginUser } from '../../service/api';
 import Cookies from 'js-cookie';
-import LoginAlert from '../../pages/Alert/LoginALert'; // Import the alert component
+
+import { FiCheckCircle, FiXCircle } from 'react-icons/fi'; // Import tick and cross icons
 
 function Log() {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -44,19 +44,25 @@ function Log() {
         setShowAlert(true); // Show the success alert
 
         setTimeout(() => {
+          setShowAlert(false); // Hide the alert after 3 seconds
           navigate('/');
-        }, 2000);  // Redirect after 2 seconds
+        }, 3000);  // Redirect after 3 seconds
       }
     } catch (error) {
       // Show failure alert
       setError('Login Unsuccessful');
       setAlertType('failure');
       setShowAlert(true);  // Show the failure alert
+
+      setTimeout(() => {
+        setShowAlert(false); // Hide the alert after 3 seconds
+      }, 3000);  // Alert will disappear after 3 seconds
     }
   };
 
   return (
     <div>
+      {/* Form Section */}
       <form className="form">
         <div className="flex-column">
           <label>Email</label>
@@ -101,8 +107,8 @@ function Log() {
           Sign In
         </button>
 
-        {error && <p className="error-text">{error}</p>}
-        {success && <p className="success-text">{success}</p>}
+        {/* {error && <p className="error-text">{error}</p>}
+        {success && <p className="success-text">{success}</p>} */}
 
         <p className="p">
           Don't have an account? <span className="span">
@@ -124,12 +130,21 @@ function Log() {
         </div>
       </form>
 
-      {/* Alert appears when showAlert is true */}
+      {/* Alert Section */}
       {showAlert && (
-        <LoginAlert
-          message={alertType === 'success' ? 'Login Successful' : 'Login Unsuccessful'}
-          type={alertType}
-        />
+        <div className={`alert ${alertType}`}>
+          {alertType === 'success' ? (
+            <>
+              <FiCheckCircle className="icon" />
+              <span>{success}</span>
+            </>
+          ) : (
+            <>
+              <FiXCircle className="icon" />
+              <span>{error}</span>
+            </>
+          )}
+        </div>
       )}
     </div>
   );

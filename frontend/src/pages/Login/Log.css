@@ -124,6 +124,23 @@
   color: green;
 }
 
+/* Alert for login status */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.alert.success {
+  color: rgb(255, 255, 255);
+}
+
+.alert.failure {
+  color: rgb(255, 255, 255);
+}
+
 /* Responsive Styling */
 @media (max-width: 768px) {
   .form {
@@ -151,4 +168,63 @@
   .form button {
     align-self: center; /* Center the button on small screens */
   }
+}
+/* Keyframes for sliding in the alert */
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Keyframes for sliding out the alert */
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Alert Styling */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: fixed;
+  top: 20px;
+  left: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  color: white;
+  font-weight: bold;
+  z-index: 1000;
+  animation: slideInLeft 0.5s forwards; /* Slide in animation */
+}
+
+.alert.success {
+  background-color: green;
+}
+
+.alert.failure {
+  background-color: red;
+}
+
+/* Add animation to slide out after 3 seconds */
+.alert.hide {
+  animation: slideOutLeft 0.5s forwards;
+}
+
+/* Tick and Cross Icon Styling */
+.alert .icon {
+  font-size: 20px;
 }

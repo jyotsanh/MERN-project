@@ -63,6 +63,7 @@ body {
     font-weight: bold;
 }
 
+
 .book-appointment input[type="submit"]:hover {
     background-color: orange;
 }
