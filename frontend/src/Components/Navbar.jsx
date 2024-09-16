@@ -78,9 +78,15 @@ function Navbar() {
 
 
               <div className="action">
-                <img src={Logout} alt="Cart Icon" />
-                <button onClick={LoggingOut}><span>Log out</span></button>
-              </div>
+  <img src={Logout} alt="Logout Icon" />
+  <button 
+    onClick={LoggingOut} 
+    style={{ backgroundColor: 'white', border: 'none', height: '10px', width: '130px', marginBottom: '10px',padding: '0'}} // Correct inline style syntax
+  >
+    <span>Log out</span>
+  </button>
+</div>
+
             </>
             ) : (
               <div className="action">
