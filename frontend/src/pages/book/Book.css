@@ -5,8 +5,8 @@ body {
 }
 
 .book-box {
-    width: 80%; /* Set a width for the box */
-    margin: 0 auto; /* Center the box horizontally */
+    width: 80%;
+    margin: 0 auto;
     padding: 20px;
 }
 
@@ -21,16 +21,15 @@ body {
 .booking {
     border: 1px solid black;
     padding: 10px;
-    margin: 40px auto; /* Center horizontally */
+    margin: 40px auto;
     width: 100%;
-    max-width: 800px; /* Limit the max width */
+    max-width: 800px;
     background-color: rgb(223, 220, 220);
 }
 
-/* General form styling */
 .book-appointment {
     width: 80%;
-    margin: 80px auto; /* Center horizontally */
+    margin: 80px auto;
     height: auto;
 }
 
@@ -63,9 +62,31 @@ body {
     font-weight: bold;
 }
 
-
 .book-appointment input[type="submit"]:hover {
     background-color: orange;
+}
+
+.success-alert {
+    position: fixed;
+    top: 20px;
+    left: -100%;
+    background-color: green;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    animation: slideIn 0.5s forwards; /* Trigger the animation */
+}
+
+/* Keyframe animation for the success alert */
+@keyframes slideIn {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 20px;
+    }
 }
 
 /* Responsive styles for tablets and mobile */
@@ -76,18 +97,18 @@ body {
 
     .book-appointment {
         width: 90%;
-        margin: 40px auto; /* Center form and reduce margin */
+        margin: 40px auto;
     }
 
     .booking {
         width: 100%;
-        padding: 15px; /* Slightly reduce padding */
+        padding: 15px;
     }
 
     .book-appointment input[type="text"],
     .book-appointment input[type="tel"],
     .book-appointment select {
-        width: 85%; /* Increase the width to fill more space */
+        width: 85%;
     }
 
     .book-appointment input[type="submit"] {
@@ -95,11 +116,10 @@ body {
     }
 }
 
-/* For smaller mobile screens */
 @media only screen and (max-width: 480px) {
     .book-box {
-        width: 100%; /* Take full width on mobile */
-        margin: 0 auto; /* Center on small devices */
+        width: 100%;
+        margin: 0 auto;
     }
 
     .book-appointment {
@@ -109,25 +129,22 @@ body {
 
     .booking {
         width: 95%;
-        padding: 10px; /* Reduce padding for better fit */
+        padding: 10px;
     }
 
     .book-appointment input[type="text"],
     .book-appointment input[type="tel"],
     .book-appointment select {
-        width: 90%; /* Increase input field width */
-        padding: 6px; /* Slightly reduce padding */
-        font-size: 14px; /* Decrease font size for mobile */
+        width: 100%;
     }
 
     .book-appointment input[type="submit"] {
-        padding: 6px 12px; /* Reduce button padding */
-        font-size: 14px; /* Adjust button font size */
+        padding: 8px 12px;
     }
+}
 
-    .book-h1 {
-        font-size: 18px; /* Decrease heading size */
-        margin-left: 0;
-        text-align: center; /* Center align on mobile */
-    }
+.error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
 }
