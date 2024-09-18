@@ -12,6 +12,7 @@ const ProductPage = () => {
   const [error, setError] = useState(null);
   const { dispatch } = useCart();
   const [showNotification, setShowNotification] = useState(false); // Notification state
+  const [addedToCart, setAddedToCart] = useState(false); // New state for the "Added" button text
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -52,6 +53,7 @@ const ProductPage = () => {
       await apiAddToCart(payload, token);
       dispatch({ type: 'ADD_TO_CART', payload: product });
       setShowNotification(true); // Show notification on success
+      setAddedToCart(true); // Update button text to "Added"
       setTimeout(() => setShowNotification(false), 3000); // Hide after 3 seconds
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred while adding to cart. Please try again later.');
@@ -96,13 +98,8 @@ const ProductPage = () => {
         <p className="pro-product-category"><strong>Category:</strong> {product.category}</p>
         <div className="pro-cart-actions">
           <p className="pro-product-status"><strong>Status:</strong> In Stock</p>
-          <select className="pro-quantity-selector">
-            {[...Array(10).keys()].map(num => (
-              <option key={num + 1} value={num + 1}>{num + 1}</option>
-            ))}
-          </select>
-          <button onClick={addToCart} className="pro-add-to-cart-button">
-            Add to Cart
+          <button onClick={addToCart} className={`pro-add-to-cart-button ${addedToCart ? 'added' : ''}`}>
+            {addedToCart ? 'Added' : 'Add to Cart'}
           </button>
         </div>
       </div>
