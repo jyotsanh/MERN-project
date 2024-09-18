@@ -1,4 +1,3 @@
-/* Global reset */
 *,
 *::before,
 *::after {
@@ -392,3 +391,4 @@ color: #f50800;;
     text-align: left; /* Optionally align text left on mobile */
   }
 }
+
