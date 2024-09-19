@@ -144,7 +144,7 @@ const Cart = () => {
       <div className="coupon-section">
         <input type="text" placeholder="Coupon code" className="coupon-input" />
         <button className="apply-coupon-button">Apply coupon</button>
-      </div>
+     
       
       <div className="cart-summary">
         <p>Subtotal: Rs {totalPrice}</p>
@@ -152,6 +152,7 @@ const Cart = () => {
         <p>Total: Rs {totalPrice}</p>
         
         <button className="checkout-button" onClick={handleProceedToCheckout}>Proceed to Checkout</button>
+      </div>
       </div>
     </div>
   );

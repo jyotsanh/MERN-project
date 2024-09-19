@@ -75,6 +75,7 @@ h2 {
   padding: 20px;
   width: 300px;
   margin-top: 20px;
+  margin-left: 50%;
 }
 
 .cart-summary p {
@@ -123,7 +124,9 @@ h2 {
   }
 
   .cart-summary {
-    width: 100%; /* Take up full width on smaller screens */
+    width: 100%; /* Full width on smaller screens */
+    margin-left: 0;
+    margin-top: 10px; /* Move below coupon section */
   }
 }
 
@@ -161,6 +164,8 @@ h2 {
   .cart-summary {
     width: 100%;
     padding: 10px;
+    margin-left: 0;
+    margin-top: 10px; /* Ensure proper alignment */
   }
 
   .checkout-button {
