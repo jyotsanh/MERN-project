@@ -36,19 +36,20 @@
     font-size: 1.2rem;
     text-align: left;
     border: none;
-    background-color: #eee;
+    background-color: #000000;
     cursor: pointer;
     transition: background-color 0.3s;
   }
   
   .faq-question:hover {
-    background-color: #ddd;
+    background-color: #272727;
   }
   
   /* FAQ answer */
   .faq-answer {
     padding: 10px;
-    background-color: #fff;
+    background-color: #000000;
+    color: white;
     border: 1px solid #ddd;
     border-top: none;
     animation: fadeIn 0.3s ease-in-out;

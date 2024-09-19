@@ -68,7 +68,7 @@ h1 {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
@@ -86,14 +86,15 @@ h1 {
   text-align: center;
   position: relative;
   overflow: hidden;
-  height: 350px; /* Ensure all product cards are the same height */
+ /* Ensure all product cards are the same height */
 }
 
 .imagess {
   width: 250px;
-  height: 250px;
+  /* height: 180px; */
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: contain;
+
   object-position: center;
   /* transition: transform 0.5s ease; */
 

@@ -140,3 +140,19 @@ export const deleteCartItem = async (productId, token) => {
         throw error;
     }
 };
+
+// Place a new order
+export const placeOrder = async (orderData, token) => {
+    try {
+        const response = await axios.post(`${URL}/order`, orderData, {
+            headers: {
+                Authorization: `${token}`, // Ensure token is prefixed with 'Bearer' if necessary
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data; // Return the response data
+    } catch (error) {
+        console.error('Error placing order:', error);
+        throw error; // Handle errors appropriately
+    }
+};
