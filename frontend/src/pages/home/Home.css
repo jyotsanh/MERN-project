@@ -4,7 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  
+   
 }
 
 /* Body and HTML reset */
@@ -389,6 +389,206 @@ color: #f50800;;
     margin-left: 0; /* Adjust to suit your needs */
     padding: 0 0 1rem 0; /* Adjust the padding for mobile */
     text-align: left; /* Optionally align text left on mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .description1 {
+    margin-left: 0; /* Adjust to suit your needs */
+    padding: 0 0 1rem 0; /* Adjust the padding for mobile */
+    text-align: left; /* Optionally align text left on mobile */
+  }
+}
+
+
+
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .description, .description1 {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .product p {
+    margin-left: 0;
+  }
+
+  .image-text img {
+    width: 100%;
+  }
+
+  .location {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .description1 {
+    margin-left: 0; /* Adjust to suit your needs */
+    padding: 0 0 1rem 0; /* Adjust the padding for mobile */
+    text-align: left; /* Optionally align text left on mobile */
+  }
+} 
+
+
+/* Small devices (mobile phones) */
+@media (max-width: 600px) {
+  .slick-slide img {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .image-text img {
+    width: 100%;
+    height: auto;
+  }
+
+  .description, .description1 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .products {
+    flex-direction: column;
+  }
+
+  .product p {
+    margin-left: 0;
+    font-size: 16px;
+  }
+  
+  .overlay {
+    left: 0;
+  }
+
+  .icon {
+    top: 5px;
+    right: 5px;
+  }
+  
+  .location {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .slick-slide img {
+    width: 90%;
+    margin-left: 0;
+  }
+
+  .image-text img {
+    width: 70%;
+    height: auto;
+  }
+
+  .description, .description1 {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .products {
+    flex-direction: row;
+  }
+
+  .product p {
+    margin-left: 0;
+    font-size: 18px;
+  }
+
+  .overlay {
+    left: 0;
+  }
+}
+
+/* Responsive Design */
+
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .eyeglasses{
+    width: 10%;
+    max-height: 100px;
+    margin-bottom: 20px;
+    margin-right:200px;
+
+  }
+  .image-description {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .image-text img {
+    width: 75%;
+    max-height: 300px;
+    margin-bottom: 5 px;
+    margin-right:100px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .description {
+    width: 40%;
+    margin-right: 40%;
+
+  }
+
+  .description1{
+    width: 40%;
+    padding: 10px;
+    text-align: center;
+    margin-right: 70%;
+    margin-bottom: 20px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .image-description {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-text img {
+    width: 80%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .description, .description1 {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+
+/* Mobile Devices - Show only the first product */
+@media (max-width: 600px) {
+  .products {
+    flex-direction: column; /* Stack products vertically */
+    align-items: center; /* Center the product */
+  }
+
+  .product {
+    width: 100%; /* Ensure the product takes full width */
+    margin-bottom: 20px; /* Add some spacing */
+    text-align: center;
+  }
+
+  /* Hide all products except the first one */
+  .products .product:nth-child(n+2) {
+    display: none; /* Hide all products except the first one */
+  }
+
+  /* Ensure the first product image takes up full width */
+  .product img {
+    width: 100%;
+    height: 100px; /* Keep the aspect ratio */
   }
 }
 
