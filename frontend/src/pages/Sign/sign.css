@@ -1,120 +1,195 @@
 .sign-in-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background-color: #ffffff;
-    padding: 30px;
-    width: 450px;
-    margin-left: 500px;
-    border-radius: 20px;
-    border: 1px solid black;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 30px;
+  width: 450px;
+  margin: 30px auto; /* Center the form */
+  border-radius: 20px;
+  border: 1px solid black;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.sign-in-form ::placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.sign-in-form button {
+  align-self: flex-end;
+}
+
+.sign-in-flex-column > .sign-in-label {
+  color: #151717;
+  font-weight: 600;
+}
+
+.sign-in-inputForm {
+  border: 1.5px solid #ecedec;
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  transition: 0.2s ease-in-out;
+}
+
+.sign-in-input {
+  margin-left: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 85%;
+  height: 100%;
+}
+
+.sign-in-input:focus {
+  outline: none;
+}
+
+.sign-in-inputForm:focus-within {
+  border: 1.5px solid #2d79f3;
+}
+
+.sign-in-flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.sign-in-flex-row > div > .sign-in-label {
+  font-size: 14px;
+  color: black;
+  font-weight: 400;
+}
+
+.sign-in-span {
+  font-size: 14px;
+  margin-left: 5px;
+  color: #2d79f3;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sign-in-button-submit {
+  margin: 20px 0 10px 0;
+  background-color: #151717;
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.sign-in-button-submit:hover {
+  background-color: #252727;
+}
+
+.sign-in-p {
+  text-align: center;
+  color: black;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.sign-in-btn {
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  gap: 10px;
+  border: 1px solid #ededef;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.sign-in-btn:hover {
+  border: 1px solid #2d79f3;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .sign-in-form {
+    width: 350px; /* Reduce width for tablet devices */
+    padding: 20px;
   }
-  
-  .sign-in-form ::placeholder {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .sign-in-form button {
-    align-self: flex-end;
-  }
-  
-  .sign-in-flex-column > .sign-in-label {
-    color: #151717;
-    font-weight: 600;
-  }
-  
+
+  .sign-in-button-submit,
   .sign-in-inputForm {
-    border: 1.5px solid #ecedec;
-    border-radius: 10px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    transition: 0.2s ease-in-out;
+    height: 45px; /* Adjust button and input height for smaller screens */
   }
-  
-  .sign-in-input {
-    margin-left: 10px;
-    border-radius: 10px;
-    border: none;
-    width: 85%;
-    height: 100%;
+}
+
+@media (max-width: 480px) {
+  .sign-in-form {
+    width: 90%; /* Take up most of the screen on small devices */
+    padding: 15px;
   }
-  
-  .sign-in-input:focus {
-    outline: none;
+
+  .sign-in-button-submit,
+  .sign-in-inputForm {
+    height: 40px;
   }
-  
-  .sign-in-inputForm:focus-within {
-    border: 1.5px solid #2d79f3;
+
+  .sign-in-form button {
+    align-self: center; /* Center the button on small screens */
   }
-  
-  .sign-in-flex-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
+}
+/* Keyframe for sliding in the alert */
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
   }
-  
-  .sign-in-flex-row > div > .sign-in-label {
-    font-size: 14px;
-    color: black;
-    font-weight: 400;
+  100% {
+    transform: translateX(0);
   }
-  
-  .sign-in-span {
-    font-size: 14px;
-    margin-left: 5px;
-    color: #2d79f3;
-    font-weight: 500;
-    cursor: pointer;
+}
+
+/* Common styles for both success and error alerts */
+.alert {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  animation: slideIn 0.5s ease-in-out;
+  z-index: 999; /* Ensure the alert appears on top */
+}
+
+/* Success alert (green) */
+.alert-success {
+  background-color: #28a745;
+}
+
+/* Error alert (red) */
+.alert-error {
+  background-color: #dc3545;
+}
+
+/* Optional: Keyframe for fading out */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
   }
-  
-  .sign-in-button-submit {
-    margin: 20px 0 10px 0;
-    background-color: #151717;
-    border: none;
-    color: white;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 10px;
-    height: 50px;
-    width: 100%;
-    cursor: pointer;
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
   }
-  
-  .sign-in-button-submit:hover {
-    background-color: #252727;
-  }
-  
-  .sign-in-p {
-    text-align: center;
-    color: black;
-    font-size: 14px;
-    margin: 5px 0;
-  }
-  
-  .sign-in-btn {
-    margin-top: 10px;
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    gap: 10px;
-    border: 1px solid #ededef;
-    background-color: white;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-  }
-  
-  .sign-in-btn:hover {
-    border: 1px solid #2d79f3;
-  }
-  
+}
+
+/* Add fade out after a few seconds */
+.alert.fade-out {
+  animation: fadeOut 0.5s ease-in-out;
+}

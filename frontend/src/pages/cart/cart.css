@@ -74,6 +74,8 @@ h2 {
   border: 1px solid #e0e0e0;
   padding: 20px;
   width: 300px;
+  margin-top: 20px;
+  margin-left: 50%;
 }
 
 .cart-summary p {
@@ -88,4 +90,85 @@ h2 {
   border: none;
   cursor: pointer;
   width: 100%;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .cart {
+    padding: 10px;
+  }
+
+  .cart-table th, .cart-table td {
+    padding: 8px;
+  }
+
+  .product-info {
+    flex-direction: column; /* Stack product image and info vertically */
+    align-items: flex-start;
+  }
+
+  .product-image {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .coupon-section {
+    flex-direction: column; /* Stack coupon input and button vertically */
+    align-items: flex-start;
+  }
+
+  .coupon-input {
+    width: 100%; /* Full width for smaller screens */
+    margin-bottom: 10px;
+  }
+
+  .cart-summary {
+    width: 100%; /* Full width on smaller screens */
+    margin-left: 0;
+    margin-top: 10px; /* Move below coupon section */
+  }
+}
+
+@media (max-width: 480px) {
+  .cart {
+    padding: 5px;
+  }
+
+  .cart-table th, .cart-table td {
+    padding: 6px;
+  }
+
+  .product-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .quantity-input {
+    width: 40px; /* Smaller input for quantity on mobile */
+  }
+
+  .coupon-section {
+    flex-direction: column;
+  }
+
+  .coupon-input {
+    width: 100%;
+  }
+
+  .cart-summary {
+    width: 100%;
+    padding: 10px;
+    margin-left: 0;
+    margin-top: 10px; /* Ensure proper alignment */
+  }
+
+  .checkout-button {
+    padding: 8px 15px;
+  }
 }

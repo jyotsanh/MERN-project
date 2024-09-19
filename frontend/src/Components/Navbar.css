@@ -18,7 +18,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  height: 80px;
   padding: 0 20px;
   background-color: white;
   
@@ -69,7 +69,7 @@ nav .actions {
   flex: 1;
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 /* Style for the action icons */

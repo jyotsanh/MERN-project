@@ -1,43 +1,44 @@
-/* body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-} */
-.book-h1{
+}
+
+.book-box {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.book-h1 {
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
     margin-top: 30px;
-  
-}
-.booking{
-    border: 1px solid black;
-    padding:5px;
-    margin:40px;
-    background-color: rgb(223, 220, 220);}
-  
-.book-appointment {
-    width: 50%;
-    margin: 80px 200px;
-    height: auto;
 }
 
-.Book-h1 {
-    margin-top: 30px;
-    display: flex;
-   
-    align-items: center;
-    justify-content: center;
+.booking {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 40px auto;
+    width: 100%;
+    max-width: 800px;
+    background-color: rgb(223, 220, 220);
+}
+
+.book-appointment {
+    width: 80%;
+    margin: 80px auto;
+    height: auto;
 }
 
 .book-appointment label {
     display: block;
     margin-bottom: 5px;
     margin-top: 10px;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: 900;
-
 }
 
 .book-appointment input[type="text"],
@@ -52,48 +53,98 @@
 }
 
 .book-appointment input[type="submit"] {
-    background-color:rgb(17, 122, 227);
-    color:white;
+    background-color: rgb(17, 122, 227);
+    color: white;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
     cursor: pointer;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .book-appointment input[type="submit"]:hover {
     background-color: orange;
 }
 
-.book-time-picker-container {
-    display: flex;
-    align-items: center;
+.success-alert {
+    position: fixed;
+    top: 20px;
+    left: -100%;
+    background-color: green;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    animation: slideIn 0.5s forwards; /* Trigger the animation */
 }
 
-.react-time-picker__wrapper {
-    display: flex;
-    align-items: center;
+/* Keyframe animation for the success alert */
+@keyframes slideIn {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 20px;
+    }
 }
 
-.react-time-picker__inputGroup {
-    margin-right: 5px; /* Adjust as needed */
-}
-
-.react-time-picker__inputGroup__clock {
-    margin-top: 0; /* Reset margin-top */
-    margin-left: 5px; /* Adjust as needed */
-    font-size: 1.2em; /* Increase the font size for better visibility */
-}
-
-/* Responsive styles */
+/* Responsive styles for tablets and mobile */
 @media only screen and (max-width: 768px) {
+    .book-box {
+        width: 90%;
+    }
+
     .book-appointment {
-        width: 80%;
+        width: 90%;
+        margin: 40px auto;
+    }
+
+    .booking {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .book-appointment input[type="text"],
+    .book-appointment input[type="tel"],
+    .book-appointment select {
+        width: 85%;
+    }
+
+    .book-appointment input[type="submit"] {
+        padding: 8px 16px;
     }
 }
 
 @media only screen and (max-width: 480px) {
+    .book-box {
+        width: 100%;
+        margin: 0 auto;
+    }
+
     .book-appointment {
         width: 100%;
+        margin: 20px auto;
     }
+
+    .booking {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .book-appointment input[type="text"],
+    .book-appointment input[type="tel"],
+    .book-appointment select {
+        width: 100%;
+    }
+
+    .book-appointment input[type="submit"] {
+        padding: 8px 12px;
+    }
+}
+
+.error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
 }
