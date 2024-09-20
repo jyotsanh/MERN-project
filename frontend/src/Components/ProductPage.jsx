@@ -1,41 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
-import { FetchProductWithId, addToCart as apiAddToCart } from '../service/api';
+import { FetchProductWithId,getCartItems, addToCart as apiAddToCart } from '../service/api';
 import { useCart } from '../context/CartContext';
 import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
 
+import { useNavigate } from 'react-router-dom';
+
+function isTokenExpired(token) {
+  try {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+    return decodedToken.exp < currentTime;
+  } catch (error) {
+    return true; // If there's an error decoding, assume the token is invalid
+  }
+}
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState('');
   const [error, setError] = useState(null);
   const { dispatch } = useCart();
+  const [isInCart, setIsInCart] = useState(false);
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const [addedToCart, setAddedToCart] = useState(false); // New state for the "Added" button text
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProductAndCartItems = async () => {
       try {
+        const token = Cookies.get('token');
         const response = await FetchProductWithId(id);
         const { Product } = response;
         setProduct(Product);
         if (Product.imageUrls && Product.imageUrls.length > 0) {
           setSelectedImage(`${Product.imageUrls[0]}`);
         }
+        if(token) {
+          if(isTokenExpired(token)) {
+            navigate('/Login');
+            return;
+          }else{
+            const cartResponse = await getCartItems(token);
+            const { Cart } = cartResponse;
+            const { items } = Cart;
+    
+    
+            const productInCart = items.some(item => item.productId === id);
+            setIsInCart(productInCart);
+          }
+
+        
+        }
+
       } catch (error) {
+        console.log(error)
         setError('Error fetching product. Please try again later.');
       }
-    };
 
-    fetchProduct();
+
+    };
+    
+    fetchProductAndCartItems();
   }, [id]);
 
   const addToCart = async () => {
     try {
       const token = Cookies.get('token');
-      if (!token) {
+      if (!token || isTokenExpired(token)) {
         setError("Please login to add to cart");
+        navigate('/Login');
         return;
       }
 
@@ -53,8 +89,9 @@ const ProductPage = () => {
       await apiAddToCart(payload, token);
       dispatch({ type: 'ADD_TO_CART', payload: product });
       setShowNotification(true); // Show notification on success
-      setAddedToCart(true); // Update button text to "Added"
+      // setAddedToCart(true); // Update button text to "Added"
       setTimeout(() => setShowNotification(false), 3000); // Hide after 3 seconds
+      setIsInCart(true)
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred while adding to cart. Please try again later.');
     }
@@ -98,8 +135,8 @@ const ProductPage = () => {
         <p className="pro-product-category"><strong>Category:</strong> {product.category}</p>
         <div className="pro-cart-actions">
           <p className="pro-product-status"><strong>Status:</strong> In Stock</p>
-          <button onClick={addToCart} className={`pro-add-to-cart-button ${addedToCart ? 'added' : ''}`}>
-            {addedToCart ? 'Added' : 'Add to Cart'}
+          <button onClick={addToCart} className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`}disabled={isInCart} >
+            {isInCart ? 'In Cart' : 'Add to Cart'}
           </button>
         </div>
       </div>
