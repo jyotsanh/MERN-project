@@ -5,6 +5,7 @@ import { FetchProductWithId,getCartItems, addToCart as apiAddToCart } from '../s
 import { useCart } from '../context/CartContext';
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
+import cartIcon from '../assets/Cart.png';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -136,6 +137,7 @@ const ProductPage = () => {
         <div className="pro-cart-actions">
           <p className="pro-product-status"><strong>Status:</strong> In Stock</p>
           <button onClick={addToCart} className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`}disabled={isInCart} >
+          <img src={cartIcon} alt="Cart Icon" className='pro-cart-icon' />
             {isInCart ? 'In Cart' : 'Add to Cart'}
           </button>
         </div>

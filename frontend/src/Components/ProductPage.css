@@ -99,7 +99,12 @@
   align-items: center;
   animation: slideIn 0.5s forwards, slideOut 0.5s 2.5s forwards;
 }
-
+.pro-cart-icon {
+  margin-right: 10px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
 .pro-notification-content {
   display: flex;
   align-items: center;
