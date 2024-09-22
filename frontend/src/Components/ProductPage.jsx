@@ -17,6 +17,15 @@ function isTokenExpired(token) {
     return true; // If there's an error decoding, assume the token is invalid
   }
 }
+
+function isAdmin(token) {
+  try {
+    const decodedToken = jwtDecode(token);
+    return decodedToken.role === 'admin';
+  } catch (error) {
+    return false; // If there's an error decoding, assume the token is invalid
+  }
+}
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -27,6 +36,7 @@ const ProductPage = () => {
   const [showNotification, setShowNotification] = useState(false); // Notification state
   const [addedToCart, setAddedToCart] = useState(false); // New state for the "Added" button text
   const navigate = useNavigate();
+  const [isAAdmin, setIsAAdmin] = useState(false);
 
     // New state for the original price
     const [originalPrice, setOriginalPrice] = useState(null);
@@ -56,6 +66,10 @@ const ProductPage = () => {
             navigate('/Login');
             return;
           }else{
+            if(isAdmin(token)) {
+              setIsAAdmin(true);
+              return
+            }
             const cartResponse = await getCartItems(token);
             const { Cart } = cartResponse;
             const { items } = Cart;
@@ -151,10 +165,23 @@ const ProductPage = () => {
         <p className="pro-product-category"><strong>Category:</strong> {product.category}</p>
         <div className="pro-cart-actions">
           <p className="pro-product-status"><strong>Status:</strong> In Stock</p>
-          <button onClick={addToCart} className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`}disabled={isInCart} >
-            {isInCart ? 'In Cart' : 'Add to Cart'}
-          </button>
+          
+          {!isAAdmin ? (
+            <button 
+              onClick={addToCart} 
+              className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`} 
+              disabled={isInCart}
+            >
+              {isInCart ? 'In Cart' : 'Add to Cart'}
+            </button>
+          ) : (
+            <div>
+                <p className="pro-product-status"><strong>Admin is not allowed to add to cart</strong></p>
+            </div>
+            
+          )}
         </div>
+
       </div>
 
       {/* Notification component */}
