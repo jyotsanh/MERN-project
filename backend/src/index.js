@@ -8,16 +8,9 @@ const path = require('path');
 // Middleware
 app.use(express.json());
 
-// Apply CORS to allow requests from your frontend
-const allowedOrigins = ['http://localhost:5173','https://eyemate.vercel.app'];  // Add more domains as needed
+// Apply CORS to allow requests from any origin
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: '*',  // Allow all origins
     credentials: true  // Enable this if your requests include credentials (cookies, auth headers, etc.)
 }));
 // Connect to the database
