@@ -8,11 +8,10 @@ const path = require('path');
 // Middleware
 app.use(express.json());
 
-// Apply CORS to allow requests from any origin
-app.use(cors({
-    origin: '*',  // Allow all origins
-    credentials: true  // Enable this if your requests include credentials (cookies, auth headers, etc.)
-}));
+
+// CORS configuration to allow all origins
+app.use(cors());
+
 // Connect to the database
 const connectDb = require("../db/connectdb");
 connectDb();
