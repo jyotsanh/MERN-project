@@ -9,7 +9,7 @@ const path = require('path');
 app.use(express.json());
 
 // Apply CORS to allow requests from your frontend
-const allowedOrigins = ['http://localhost:5173','https://eyemate.vercel.app/'];  // Add more domains as needed
+const allowedOrigins = ['http://localhost:5173','https://eyemate.vercel.app'];  // Add more domains as needed
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
