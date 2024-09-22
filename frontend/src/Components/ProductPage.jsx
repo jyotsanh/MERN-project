@@ -28,6 +28,16 @@ const ProductPage = () => {
   const [addedToCart, setAddedToCart] = useState(false); // New state for the "Added" button text
   const navigate = useNavigate();
 
+    // New state for the original price
+    const [originalPrice, setOriginalPrice] = useState(null);
+  // Function to calculate a random higher price
+  const calculateOriginalPrice = (price) => {
+    const increments = [200, 300, 450, 120,100,310];
+    const randomIncrement = increments[Math.floor(Math.random() * increments.length)];
+    return price + randomIncrement;
+  };
+
+
   useEffect(() => {
     const fetchProductAndCartItems = async () => {
       try {
@@ -35,6 +45,9 @@ const ProductPage = () => {
         const response = await FetchProductWithId(id);
         const { Product } = response;
         setProduct(Product);
+        // Calculate and set the original price
+        setOriginalPrice(calculateOriginalPrice(Product.price));
+
         if (Product.imageUrls && Product.imageUrls.length > 0) {
           setSelectedImage(`${Product.imageUrls[0]}`);
         }
@@ -126,8 +139,11 @@ const ProductPage = () => {
         </div>
       </div>
       <div className="pro-product-details">
-        <h2 className="pro-product-name">{product.name}</h2>
-        <p className="pro-product-price"><strong>Price:</strong> Rs.{product.price}</p>
+        <h2 className="pro-product-name"> {product.name}</h2>
+        <div className="pro-product-price">
+          <strong>Price:</strong><span className="pro-original-price">Rs. {originalPrice}</span>
+          <span className="pro-discounted-price">Rs. {product.price}</span>
+        </div>
         <p className="pro-product-frame"><strong>Frame Material:</strong> {product.frame_material}</p>
         <p className="pro-product-lens"><strong>Lens Material:</strong> {product.lens_material}</p>
         <p className="pro-product-shape"><strong>Frame Shape:</strong> {product.frame_shape}</p>
