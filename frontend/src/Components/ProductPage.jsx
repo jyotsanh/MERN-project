@@ -54,6 +54,7 @@ const ProductPage = () => {
         const token = Cookies.get('token');
         const response = await FetchProductWithId(id);
         const { Product } = response;
+
         setProduct(Product);
         // Calculate and set the original price
         setOriginalPrice(calculateOriginalPrice(Product.price));
@@ -136,6 +137,8 @@ const ProductPage = () => {
     return <div className="pro-loading">Loading...</div>;
   }
 
+  // Join the category array with commas
+  const formattedCategory = product.category.join(', ');
   return (
     <div className="pro-product-page">
       <div className="pro-product-image-container">
@@ -162,7 +165,7 @@ const ProductPage = () => {
         <p className="pro-product-lens"><strong>Lens Material:</strong> {product.lens_material}</p>
         <p className="pro-product-shape"><strong>Frame Shape:</strong> {product.frame_shape}</p>
         <p className="pro-product-description"><strong>Description:</strong> {product.description}</p>
-        <p className="pro-product-category"><strong>Category:</strong> {product.category}</p>
+        <p className="pro-product-category"><strong>Category:</strong> {formattedCategory}</p>
         <div className="pro-cart-actions">
           <p className="pro-product-status"><strong>Status:</strong> In Stock</p>
           

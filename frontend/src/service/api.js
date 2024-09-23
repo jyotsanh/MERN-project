@@ -156,3 +156,13 @@ export const placeOrder = async (orderData, token) => {
         throw error; // Handle errors appropriately
     }
 };
+// Fetch user order with token
+export const getUserOrder = async (token) => {
+    const response = await axios.get(`${URL}/user-order`, {
+        headers: {
+            Authorization: `${token}`, // Ensure token is prefixed with 'Bearer' if necessary
+        },
+    });
+    return response;
+};
+

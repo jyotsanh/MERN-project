@@ -19,7 +19,7 @@ const ProductDetailsId = async (req, res) => {
 
 const UserProductsController = async (req, res) => {
     try {
-        const product_data = await ProductSchemadb.find().select('name price category imageUrls');
+        const product_data = await ProductSchemadb.find().select('name price category imageUrls frame_material lens_material frame_shape');
         if (product_data) {
             return res.send({ "Product": product_data });
         } else {

@@ -61,6 +61,12 @@ const UserAuthenticationMiddleware = (req, res, next) => {
 
             // If everything is good, save the decoded token to the request for use in other routes
             req.body.userId = decoded.id;
+            if (!mongoose.Types.ObjectId.isValid(req.body.userId)) {
+                return res.status(400).send({
+                    msg: "Invalid userId"
+                });
+            }
+        
             console.log(`Decoded ID by MiddleWare: ${req.body.userId}`)
             console.log("All checks are passed for User Authentication Middleware")
             next();
@@ -74,22 +80,17 @@ const UserAuthenticationMiddleware = (req, res, next) => {
 };
 
 const CheckIncomingOrderMiddleWare = async (req, res, next) => {
-    const { userId, products, total_price, status, shipping_address } = req.body;
-    
+    const { products, total_price, status, shipping_address,payment_method } = req.body;
+    console.log(req.body)
     // Check if all required fields are present
-    if (!userId || !products || !total_price || !shipping_address) {
+    if (!products || !total_price || !shipping_address || !payment_method) {
         return res.status(400).send({
             msg: "All fields are required"
         });
     }
 
     // Check if userId is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-        return res.status(400).send({
-            msg: "Invalid userId"
-        });
-    }
-
+    
     // Check if total_price is a number, if it's a string, convert it to a number
     if (typeof total_price === 'string') {
         const convertedPrice = Number(total_price);

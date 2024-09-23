@@ -27,6 +27,7 @@ const AddOrderController = async (req, res) => {
             });
         }
     } catch (err) {
+        console.log(err)
         return res.status(500).send({
             msg: "server error",
             error: err
@@ -47,5 +48,19 @@ const CompletedOrderController = async (req,res) => {
     }
 }
 
+const getUserOrder = async (req,res) => {
+    const order_data = await OrderSchemadb.find({userId:req.body.userId});
+    if(order_data){
+        return res.send({
+            "Order":order_data
+        })
+    }else{
+        return res.send({
+            "msg":"no data in db"   
+        })
+    }
+}
+
 exports.AddOrderController = AddOrderController;
 exports.CompletedOrderController = CompletedOrderController;
+exports.getUserOrder = getUserOrder;
