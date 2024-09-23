@@ -2,7 +2,7 @@ const PayementMiddleWare = async (req, res, next) => {
     try{
         console.log("Payement MiddleWare");
 
-        const {userId,items}= req.body; // take the user id, items he wants to add in cart
+        const {userId,products}= req.body; // take the user id, items he wants to add in cart
 
         console.log(`Data ready to go for Payment ${req.body}`);
         console.log("-")

@@ -3,12 +3,32 @@ const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
 
-  user_id: { 
+  userId: { 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User' ,
     required: true
     },
 
+  first_name: {
+      type: String,
+      required: true
+    },
+  
+  last_name: {
+      type: String,
+      required: true
+    },
+  
+  phone_number: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function(v) {
+          return /^\d{10}$/.test(v); // Regular expression to validate 10 digits
+        },
+        message: props => `${props.value} is not a valid 10-digit phone number!`
+      }
+    },
   products: [
     {
       product_id: { 
@@ -22,7 +42,7 @@ const OrderSchema = new mongoose.Schema({
         },
       price: {
         type : Number,
-        required: true
+        required: true,
       }
     },
   ],
@@ -41,7 +61,8 @@ const OrderSchema = new mongoose.Schema({
     street: String,
     city: String,
     state: String,
-    zip: String
+    zip: String,
+
   },
 
   created_at: { 

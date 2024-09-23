@@ -62,6 +62,7 @@ const UserAuthenticationMiddleware = (req, res, next) => {
             // If everything is good, save the decoded token to the request for use in other routes
             req.body.userId = decoded.id;
             console.log(`Decoded ID by MiddleWare: ${req.body.userId}`)
+            console.log("All checks are passed for User Authentication Middleware")
             next();
         });
     }catch(err){
@@ -73,19 +74,19 @@ const UserAuthenticationMiddleware = (req, res, next) => {
 };
 
 const CheckIncomingOrderMiddleWare = async (req, res, next) => {
-    const { user_id, products, total_price, status, shipping_address } = req.body;
-
+    const { userId, products, total_price, status, shipping_address } = req.body;
+    
     // Check if all required fields are present
-    if (!user_id || !products || !total_price || !status || !shipping_address) {
+    if (!userId || !products || !total_price || !shipping_address) {
         return res.status(400).send({
             msg: "All fields are required"
         });
     }
 
-    // Check if user_id is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(user_id)) {
+    // Check if userId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).send({
-            msg: "Invalid user_id"
+            msg: "Invalid userId"
         });
     }
 
@@ -103,12 +104,12 @@ const CheckIncomingOrderMiddleWare = async (req, res, next) => {
             msg: "total_price must be a number"
         });
     }
-
+    
     // Validate each product in the products array
     for (let i = 0; i < products.length; i++) {
         const product = products[i];
         const { product_id, quantity, price } = product;
-
+        
         if (!product_id || !quantity || !price) {
             return res.status(400).send({
                 msg: `Product at index ${i} is missing required fields`
@@ -133,7 +134,7 @@ const CheckIncomingOrderMiddleWare = async (req, res, next) => {
             });
         }
     }
-
+    console.log("All checks passed for Incoming Order Middleware")
     // If all checks pass, move to the next middleware
     next();
 };
