@@ -10,6 +10,16 @@ import cartIcon from '../assets/Cart.png';
 import Logout from '../assets/logout.webp';
 import { FiMenu, FiX } from 'react-icons/fi';
 
+
+function isTokenExpired(token) {
+  try {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+    return decodedToken.exp < currentTime;
+  } catch (error) {
+    return true; // If there's an error decoding, assume the token is invalid
+  }
+}
 function Navbar() {
 
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -19,6 +29,13 @@ function Navbar() {
     const token = Cookies.get('token'); // replace 'jwt' with the name of your JWT cookie
 
     if (token) {
+      if(isTokenExpired(token)) { // check if token is expired
+        Cookies.remove('token');
+        setJwt(null);
+        setUsername("No name"); //set the username to no name
+        return;
+      }
+
       setJwt(token);
       try {
         const decoded = jwtDecode(token);

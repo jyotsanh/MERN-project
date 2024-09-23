@@ -45,6 +45,20 @@
   margin-bottom: 10px;
 }
 
+.pro-product-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pro-original-price {
+  text-decoration: line-through;
+  color: #888;
+}
+.pro-discounted-price {
+  font-weight: bold;
+  color: #e53935;
+}
+
 .pro-product-price,
 .pro-product-frame,
 .pro-product-lens,
