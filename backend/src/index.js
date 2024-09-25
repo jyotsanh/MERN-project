@@ -7,6 +7,9 @@ const path = require('path');
 
 // Middleware
 app.use(express.json());
+
+
+// CORS configuration to allow all origins
 app.use(cors());
 
 // Connect to the database
