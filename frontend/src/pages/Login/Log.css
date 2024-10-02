@@ -153,6 +153,22 @@
     height: 45px; /* Adjust button and input height for smaller screens */
   }
 }
+.inputForm {
+  position: relative; /* Position relative for absolute positioning of the icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px; /* Adjust based on your design */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer; /* Change cursor to pointer */
+  color: #666; /* Adjust color as needed */
+}
+
+.password-input input {
+  padding-right: 40px; /* Add padding to avoid text overlap with icon */
+}
 
 @media (max-width: 480px) {
   .form {

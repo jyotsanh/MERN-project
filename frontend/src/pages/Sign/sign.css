@@ -114,7 +114,20 @@
 
 .sign-in-btn:hover {
   border: 1px solid #2d79f3;
+}.sign-in-inputForm {
+  position: relative;
 }
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888; /* Adjust the color as needed */
+  font-size: 1.2em; /* Adjust the size as needed */
+}
+
 
 /* Responsive Styling */
 @media (max-width: 768px) {
