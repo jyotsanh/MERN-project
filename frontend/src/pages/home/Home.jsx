@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AiOutlineHeart } from 'react-icons/ai';
 import { useCart } from '../../context/CartContext';
+import Outlet from '../../pages/Store/Outlet.jsx'; 
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -248,7 +249,7 @@ const Home = () => {
     </div>
   </Slider>
 </section>
-
+<Outlet />
       {/* Location Section */}
       {/* <section className="address">
         <h1>Store Location</h1>
