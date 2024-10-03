@@ -186,12 +186,12 @@ function Sunglasses() {
                     <img src="/path/to/default-image.jpg" alt="Default" className="imagess" />
                   )}
                   <h2 className="product-name">{product.name}</h2>
-                  <p className="product-price">Price: Rs.{product.price}</p>
+                  <p className="product-price"> Rs.{product.price}</p>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="pagination">
+          <div className="pagination ">
             <button onClick={handlePrevPage} disabled={currentPage === 1}>
               Previous
             </button>
