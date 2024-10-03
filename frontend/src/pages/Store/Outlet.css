@@ -1,0 +1,175 @@
+
+/* Outlet Section */
+.store-outlet-section {
+    text-align: center;
+}
+
+.store-heading h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.store-outlets {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.store-outlet {
+    width: 250px;
+    margin-bottom: 20px;
+    padding: 15px;
+    text-align: center;
+}
+
+.store-outlet img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.store-outlet h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.store-outlet .store-loc {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-outlet .store-loc1 {
+    margin-right: 5px;
+    width: 40px;
+}
+
+.store-outlet p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.store-outlet a {
+    display: inline-block;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.store-outlet a:hover {
+    background-color: #b35100;
+}
+
+/* Appointment Booking Section */
+.store-booking-section {
+    background-color: black; /* Black background for this section */
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.store-booking-section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.store-booking-section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.store-book-now-btn {
+    background-color: #007bff;
+    color: white; /* Text color for the button */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+.store-book-now-btn a {
+    color: white; /* Text color for the link */
+    text-decoration: none; /* Remove underline */
+}
+
+.store-book-now-btn a:hover {
+    color: white; /* Keep text color white on hover */
+}
+
+/* If you want to change the background color on hover */
+.store-book-now-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Image Carousel Section */
+.store-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+.store-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.store-carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.store-carousel-image {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 15px;
+    margin: 0 10px;
+}
+
+/* Responsive Styles */
+
+/* Tablet View (2 outlets per row) */
+@media (max-width: 768px) {
+    .store-outlets {
+        justify-content: center;
+    }
+    .store-outlet {
+        width: 45%; /* 2 items in a row */
+    }
+
+    .store-booking-section {
+        padding: 30px 10px;
+    }
+
+    .store-carousel-images {
+        flex-direction: column;
+    }
+
+    .store-carousel-image {
+        max-width: 80%;
+        margin: 10px auto;
+    }
+}
+
+/* Mobile View (1 outlet per row) */
+@media (max-width: 480px) {
+    .store-outlets {
+        justify-content: center;
+    }
+    .store-outlet {
+        width: 90%; /* 1 item in a row */
+    }
+}

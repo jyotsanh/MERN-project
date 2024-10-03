@@ -5,6 +5,7 @@ import { FetchProductWithId,getCartItems, addToCart as apiAddToCart } from '../s
 import { useCart } from '../context/CartContext';
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
+import cartIcon from '../assets/Cart.png';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -168,21 +169,9 @@ const ProductPage = () => {
         <p className="pro-product-category"><strong>Category:</strong> {formattedCategory}</p>
         <div className="pro-cart-actions">
           <p className="pro-product-status"><strong>Status:</strong> In Stock</p>
-          
-          {!isAAdmin ? (
-            <button 
-              onClick={addToCart} 
-              className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`} 
-              disabled={isInCart}
-            >
-              {isInCart ? 'In Cart' : 'Add to Cart'}
-            </button>
-          ) : (
-            <div>
-                <p className="pro-product-status"><strong>Admin is not allowed to add to cart</strong></p>
-            </div>
-            
-          )}
+          <button onClick={addToCart} className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`}disabled={isInCart} >
+            {isInCart ? 'In Cart' : 'Add to Cart'}
+          </button>
         </div>
 
       </div>
