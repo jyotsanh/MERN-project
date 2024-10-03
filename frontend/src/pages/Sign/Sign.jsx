@@ -9,6 +9,7 @@ import user from '../../assets/yes.svg';
 import { registerUser } from '../../service/api';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { FiEye, FiEyeOff } from 'react-icons/fi'; // Import eye icons
 
 function Sign() {
   const [email, setEmail] = useState("");
@@ -19,15 +20,17 @@ function Sign() {
   const [username, setUsername] = useState("");
   const [successMessage, setSuccessMessage] = useState('');
   const [errors, setErrors] = useState({});
-  const [alertMessage, setAlertMessage] = useState(null); // To store alert message
-  const [alertType, setAlertType] = useState(''); // To store alert type ('success' or 'error')
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [alertType, setAlertType] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showPassword2, setShowPassword2] = useState(false); // State for confirm password visibility
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccessMessage("");
     setErrors({});
-    setAlertMessage(null); // Clear alert message
+    setAlertMessage(null);
 
     const formdata = {
       email: email,
@@ -54,7 +57,7 @@ function Sign() {
         setUsername("");
         setTimeout(() => {
           navigate('/Login');
-        }, 1500); // Navigate after a short delay
+        }, 1500);
       }
 
     } catch (error) {
@@ -140,11 +143,17 @@ function Sign() {
           <img src={password_photo} alt="password" />
           <input
             value={password}
-            type="password"
+            type={showPassword ? "text" : "password"} // Toggle password visibility
             className="sign-in-input"
             placeholder="Enter your Password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <span 
+            className="toggle-password"
+            onClick={() => setShowPassword(!showPassword)} // Toggle show/hide password
+          >
+            {showPassword ? <FiEyeOff /> : <FiEye />} {/* Show/hide icon */}
+          </span>
         </div>
 
         <div className="sign-in-flex-column">
@@ -154,11 +163,17 @@ function Sign() {
           <img src={password_photo} alt="password" />
           <input
             value={password2}
-            type="password"
+            type={showPassword2 ? "text" : "password"} // Toggle confirm password visibility
             className="sign-in-input"
             placeholder="Confirm your Password"
             onChange={(e) => setPassword2(e.target.value)}
           />
+          <span 
+            className="toggle-password"
+            onClick={() => setShowPassword2(!showPassword2)} // Toggle show/hide confirm password
+          >
+            {showPassword2 ? <FiEyeOff /> : <FiEye />} {/* Show/hide icon */}
+          </span>
         </div>
         {errors.password && <p className="error-text">{errors.password}</p>}
 
