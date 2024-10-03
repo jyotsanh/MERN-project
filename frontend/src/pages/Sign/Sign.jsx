@@ -10,6 +10,7 @@ import { registerUser } from '../../service/api';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi'; // Import eye icons
+import { FaSpinner } from 'react-icons/fa'; // Import spinner icon
 
 function Sign() {
   const [email, setEmail] = useState("");
@@ -24,6 +25,7 @@ function Sign() {
   const [alertType, setAlertType] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const [showPassword2, setShowPassword2] = useState(false); // State for confirm password visibility
+  const [loading, setLoading] = useState(false); // State for loading
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,6 +33,7 @@ function Sign() {
     setSuccessMessage("");
     setErrors({});
     setAlertMessage(null);
+    setLoading(true); // Start loading
 
     const formdata = {
       email: email,
@@ -41,31 +44,36 @@ function Sign() {
       last_name: lastName
     };
 
-    try {
-      const response = await registerUser(formdata);
+    // Simulate a 4-second loading delay
+    setTimeout(async () => {
+      try {
+        const response = await registerUser(formdata);
 
-      if (response.data.token) {
-        Cookies.set('token', response.data.token);
-        setAlertMessage('Registered successfully!');
-        setAlertType('success');
-        // Clear form fields
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPassword("");
-        setPassword2("");
-        setUsername("");
-        setTimeout(() => {
-          navigate('/Login');
-        }, 1500);
+        if (response.data.token) {
+          Cookies.set('token', response.data.token);
+          setAlertMessage('Registered successfully!');
+          setAlertType('success');
+          // Clear form fields
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPassword("");
+          setPassword2("");
+          setUsername("");
+          setLoading(false); // Stop loading
+          setTimeout(() => {
+            navigate('/Login');
+          }, 1500);
+        }
+
+      } catch (error) {
+        const { email, password, username, msg } = error.response.data;
+        setErrors({ email: email, username: username, password: password, msg: msg });
+        setAlertMessage('Registration failed. Please try again.');
+        setAlertType('error');
+        setLoading(false); // Stop loading
       }
-
-    } catch (error) {
-      const { email, password, username, msg } = error.response.data;
-      setErrors({ email: email, username: username, password: password, msg: msg });
-      setAlertMessage('Registration failed. Please try again.');
-      setAlertType('error');
-    }
+    }, 4000); // 4-second delay
   };
 
   return (
@@ -186,12 +194,19 @@ function Sign() {
         </div>
         {errors.msg && <p className="error-text">{errors.msg}</p>}
         {successMessage && <p className="success-text">{successMessage}</p>}
+
         <button
           className="sign-in-button-submit"
           onClick={handleSubmit}
+          disabled={loading} // Disable button when loading
         >
-          Sign Up
+          {loading ? (
+            <FaSpinner className="spinner" />
+          ) : (
+            'Sign Up'
+          )}
         </button>
+
         <p className="sign-in-p">
           Already have an account? <span className="sign-in-span">
             <Link to="/login">Sign In</Link>

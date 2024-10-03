@@ -9,6 +9,7 @@ import { LoginUser } from '../../service/api';
 import Cookies from 'js-cookie';
 
 import { FiCheckCircle, FiXCircle, FiEye, FiEyeOff } from 'react-icons/fi'; // Import eye icons
+import { FaSpinner } from 'react-icons/fa'; // Import spinner icon
 
 function Log() {
   const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ function Log() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State to control password visibility
+  const [loading, setLoading] = useState(false); // State for loading
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -25,6 +27,7 @@ function Log() {
     setError('');
     setSuccess('');
     setShowAlert(false);
+    setLoading(true); // Start loading
 
     const formdata = {
       email: email,
@@ -32,30 +35,37 @@ function Log() {
     };
 
     console.log(formdata);
-    try {
-      const response = await LoginUser(formdata);
-      console.log(response);
+    
+    // Simulate a 4-second loading delay
+    setTimeout(async () => {
+      try {
+        const response = await LoginUser(formdata);
+        console.log(response);
 
-      if (response.token) {
-        Cookies.set('token', response.token);
-        setSuccess('Login Successful');
-        setAlertType('success');
+        if (response.token) {
+          Cookies.set('token', response.token);
+          setSuccess('Login Successful');
+          setAlertType('success');
+          setShowAlert(true);
+          
+          setLoading(false); // Stop loading
+
+          setTimeout(() => {
+            setShowAlert(false);
+            navigate('/');
+          }, 3000);
+        }
+      } catch (error) {
+        setError('Login Unsuccessful');
+        setAlertType('failure');
         setShowAlert(true);
+        setLoading(false); // Stop loading
 
         setTimeout(() => {
           setShowAlert(false);
-          navigate('/');
         }, 3000);
       }
-    } catch (error) {
-      setError('Login Unsuccessful');
-      setAlertType('failure');
-      setShowAlert(true);
-
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 3000);
-    }
+    }, 4000); // 4-second delay
   };
 
   return (
@@ -101,8 +111,16 @@ function Log() {
           <span className="span">Forgot password?</span>
         </div>
 
-        <button className="button-submit" onClick={handleSubmit}>
-          Sign In
+        <button
+          className="button-submit"
+          onClick={handleSubmit}
+          disabled={loading} // Disable button when loading
+        >
+          {loading ? (
+            <FaSpinner className="spinner" />
+          ) : (
+            'Sign In'
+          )}
         </button>
 
         <p className="p">
