@@ -6,7 +6,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AiOutlineHeart } from 'react-icons/ai';
 import { useCart } from '../../context/CartContext';
+import Outlet from '../../pages/Store/Outlet.jsx'; 
 
+import { useState, useEffect } from 'react';
+import { recentProducts } from '../../service/api';
+import axios from 'axios';
 const NextArrow = ({ onClick }) => {
   return (
     <div className="slick-arrow slick-next" onClick={onClick}>
@@ -57,6 +61,7 @@ const multipleItemsSettings = {
 
 
 const Home = () => {
+  const [recentProducts, setRecentProducts] = useState([]);
   const { dispatch } = useCart();
 
   const settings = {
@@ -79,6 +84,20 @@ const Home = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
+  useEffect(() => {
+    const fetchRecentProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/recent-products'); // Use the full URL
+        const recentProducts = response.data.RecentProducts;
+        console.log(recentProducts); // Check the data fetched
+        setRecentProducts(recentProducts);
+      } catch (error) {
+        console.error('Error fetching recent products:', error);
+      }
+    };
+    
+    fetchRecentProducts();
+  }, []);
 
   const handleAddToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
@@ -165,90 +184,33 @@ const Home = () => {
     </div>
   </div>
 </section>
-
-
-
-      {/* Top Trending Products Section */}
-      <section className="top-trending-products py-8 px-4">
-  <h3 className="text-lg font-medium text-center text-gray-800 mb-2">Top Products</h3>
-  <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">Top Trending Products</h2>
+{/* Top Trending Products Section */}
+<section className="top-trending-products py-8 px-4 bg-gray-100">
+  <h3 className="text-lg font-medium text-center text-orange-600 mb-2">Top Products</h3>
+  <h2 className="text-2xl font-bold text-center text-orange-700 mb-6">Top Trending Products</h2>
   <Slider {...multipleItemsSettings}>
-    <div className="product bg-white shadow-md rounded-lg overflow-hidden">
-      <div className="image-container relative group">
-        <img src="/webp/p1.png" alt="Product 1" className="w-full h-auto" />
-        <Link to="/ProductPage" className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
-            <Link to="/cart">
-              <li onClick={() => handleAddToCart({ id: 1, name: 'Product 1', price: 500, image: 'p1.png' })}>
+    {recentProducts?.map((product) => (
+      <div className="product bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105" key={product._id}>
+        <div className="image-container relative group">
+          <img src={product.imageUrls[0]} alt={product.name} className="w-full h-auto transition-transform duration-300 group-hover:scale-105" />
+          <Link to="/ProductPage" className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
+              <li onClick={() => handleAddToCart(product)} className="cursor-pointer">
                 <AiOutlineHeart className="text-red-500 text-xl" />
               </li>
-            </Link>
-          </div>
-        </Link>
-      </div>
-      <p className="text-center mt-2">Product 1</p>
-      <p className="price text-center text-gray-600">Rs 500</p>
-    </div>
-
-    {/* Repeat similar structure for other products */}
-    {/* Product 2 */}
-    <div className="product bg-white shadow-md rounded-lg overflow-hidden">
-      <div className="image-container relative group">
-        <img src="/webp/p2.png" alt="Product 2" className="w-full h-auto" />
-        <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
-            <Link to="/cart">
-              <li onClick={() => handleAddToCart({ id: 2, name: 'Product 2', price: 500, image: 'p2.png' })}>
-                <AiOutlineHeart className="text-red-500 text-xl" />
-              </li>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
+        <p className="text-center mt-2 text-orange-600 font-medium">{product.name}</p>
+        <p className="price text-center text-gray-600">Rs {product.price}</p>
       </div>
-      <p className="text-center mt-2">Product 2</p>
-      <p className="price text-center text-gray-600">Rs 500</p>
-    </div>
-
-    {/* Product 3 */}
-    <div className="product bg-white shadow-md rounded-lg overflow-hidden">
-      <div className="image-container relative group">
-        <Link to="/Sunglasses">
-          <img src="/webp/P3.png" alt="Product 3" className="w-full h-auto" />
-        </Link>
-        <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
-            <Link to="/cart">
-              <li onClick={() => handleAddToCart({ id: 3, name: 'Product 3', price: 500, image: 'P3.png' })}>
-                <AiOutlineHeart className="text-red-500 text-xl" />
-              </li>
-            </Link>
-          </div>
-        </div>
-      </div>
-      <p className="text-center mt-2">Product 3</p>
-      <p className="price text-center text-gray-600">Rs 500</p>
-    </div>
-
-    {/* Product 4 */}
-    <div className="product bg-white shadow-md rounded-lg overflow-hidden">
-      <div className="image-container relative group">
-        <img src="/webp/p4.png" alt="Product 4" className="w-full h-auto" />
-        <Link to="/ProductPage" className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
-            <Link to="/cart">
-              <li onClick={() => handleAddToCart({ id: 4, name: 'Product 4', price: 500, image: 'p4.png' })}>
-                <AiOutlineHeart className="text-red-500 text-xl" />
-              </li>
-            </Link>
-          </div>
-        </Link>
-      </div>
-      <p className="text-center mt-2">Product 4</p>
-      <p className="price text-center text-gray-600">Rs 500</p>
-    </div>
+    ))}
   </Slider>
 </section>
+<Outlet />
 
+
+      
       {/* Location Section */}
       {/* <section className="address">
         <h1>Store Location</h1>

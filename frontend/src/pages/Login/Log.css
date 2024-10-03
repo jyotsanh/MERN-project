@@ -153,6 +153,34 @@
     height: 45px; /* Adjust button and input height for smaller screens */
   }
 }
+.inputForm {
+  position: relative; /* Position relative for absolute positioning of the icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px; /* Adjust based on your design */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer; /* Change cursor to pointer */
+  color: #666; /* Adjust color as needed */
+}
+/* Spinner styles */
+.spinner {
+  animation: spin 1s linear infinite;
+  font-size: 1.2em;
+}
+
+/* Keyframes for spinner rotation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.password-input input {
+  padding-right: 40px; /* Add padding to avoid text overlap with icon */
+}
 
 @media (max-width: 480px) {
   .form {

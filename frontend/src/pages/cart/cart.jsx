@@ -100,7 +100,14 @@ const Cart = () => {
 
   const totalPrice = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
   const handleProceedToCheckout = () => {
-    navigate('/checkout', { state: { cartItems: cart.items,totalPrice: totalPrice } });
+    const productIds = cart.items.map(item => item.productId);
+    navigate('/checkout', { 
+      state: { 
+        cartItems: cart.items,
+        totalPrice: totalPrice,
+        productIds: productIds
+      } 
+    });
   };
   return (
     <div className="cart">

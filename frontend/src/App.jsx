@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './pages/auth/AuthContext';
 import Home from './pages/home/Home';
+import Order from './pages/order/Order';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import Sunglasses from "./pages/Sunglasses/Sunglasses";
@@ -49,6 +50,7 @@ const App = () => {
                         <Route path='/about' element={<About />} />
                         <Route path='/cart' element={<Cart />} />
                         <Route path='/checkout' element={<Checkout />} />
+                        <Route path="/myorders" element={<Order />}/>
                     </Routes>
                     <Footer />
                 </BrowserRouter>
