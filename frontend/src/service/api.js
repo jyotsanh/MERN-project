@@ -166,3 +166,8 @@ export const getUserOrder = async (token) => {
     return response;
 };
 
+
+export const recentProducts = async () => {
+    const response = await axios.get(`${URL}/recent-products`);
+    return response.data;
+};

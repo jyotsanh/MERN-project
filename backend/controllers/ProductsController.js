@@ -5,9 +5,22 @@ const path = require('path');
 
 const ProductDetailsId = async (req, res) => {
     try {
+        // Fetch the main product by its ID
         const product_data = await ProductSchemadb.findById(req.params.id);
+        
         if (product_data) {
-            return res.send({ "Product": product_data });
+            // Fetch all other products for recommendations, excluding the current product
+            const otherProducts = await ProductSchemadb.find({ _id: { $ne: req.params.id } });
+
+            // Shuffle and pick 8 random products for "You may also like" section
+            const suggestedProducts = otherProducts
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            return res.send({
+                "Product": product_data,
+                "youMayAlsoLike": suggestedProducts
+            });
         } else {
             return res.send({ "msg": "No data in db" });
         }
@@ -16,6 +29,7 @@ const ProductDetailsId = async (req, res) => {
         return res.status(500).send({ "msg": "Server error" });
     }
 };
+
 
 const UserProductsController = async (req, res) => {
     try {
@@ -43,6 +57,8 @@ const ProductController = async (req, res) => {
         console.error("Error fetching products:", error);
         return res.status(500).send({ "msg": "Server error" });
     }
+
+    
 };
 
 const TopProductController = async (req, res) => {
@@ -165,7 +181,24 @@ const DeleteProductController = async (req, res) => {
         res.status(500).json({ msg: "Server error" });
     }
 };
+const RecentProductsController = async (req, res) => {
+    try {
+      const recentProducts = await ProductSchemadb.find()
+        .sort({ createdAt: -1 })
+        .limit(4)
+        .select('name price category imageUrls');
+        
+      return res.status(200).send({ RecentProducts: recentProducts });
+    } catch (error) {
+      console.error('Error fetching recent products:', error);
+      return res.status(500).send({ msg: 'Server error' });
+    }
+  };
+  
 
+
+
+exports.RecentProductsController = RecentProductsController;
 exports.ProductController = ProductController;
 exports.TopProductController = TopProductController;
 exports.AddProductController = AddProductController;

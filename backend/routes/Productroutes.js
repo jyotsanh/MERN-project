@@ -34,7 +34,8 @@ const {
   TopProductController,
   AddProductController,
   EditProductController,
-  DeleteProductController
+  DeleteProductController,
+  RecentProductsController
 } = require("../controllers/ProductsController");
 
 // Products Middleware
@@ -45,6 +46,7 @@ router.get("/products", ProductController); // admin can see all product details
 router.get("/top-products", TopProductController); // top products for User
 router.get("/products/:id", ProductDetailsId); // Product info with id endpoint
 router.get("/user-products", UserProductsController); // all product info for User
+router.get("/recent-products", RecentProductsController); // all product info for User
 
 // adding, editing, and deleting products requires authentication: 'AuthenticationMiddleware'
 router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, AddProductController);
