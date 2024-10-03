@@ -1,24 +1,41 @@
+/* Edit Product Container */
 .edit-product-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 150px;
-    height: 90vh;
-    background-color: #f0f2f5; 
+   
+    background-color: #f0f2f5;
+     padding: 30px; /*Extra padding to handle large forms */
+}
+.edit-product-heading {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 20px;
+    font-weight: bold;
 }
 
+
+/* Grid layout for form: one side form, other side image */
 .edit-product-form {
-    background-color: #ffffff; 
+    background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Split form into two equal parts */
+    grid-gap: 30px; /* Space between the form and image sections */
     width: 100%;
-    max-width: 500px; 
-    display: flex;
-    flex-direction: column;
-    gap: 15px; 
+    max-width: 900px; /* Increased max width for large form */
 }
 
+/* Form section */
+.edit-product-form .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels and inputs */
 .edit-product-form label {
     font-weight: bold;
     margin-bottom: 5px;
@@ -31,17 +48,19 @@
 .edit-product-form textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
     box-sizing: border-box;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
+/* Select box */
 .edit-product-form select {
     height: 40px;
 }
 
+/* Button */
 .edit-product-form button {
     background-color: #007bff;
     color: #ffffff;
@@ -50,7 +69,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
     margin-top: 15px;
 }
 
@@ -58,8 +77,66 @@
     background-color: #0056b3;
 }
 
+/* Error messages */
 .edit-product-form .error-text {
     color: #d9534f;
-    margin-top: -10px;
     font-size: 13px;
+}
+
+/* Image section */
+.image-preview-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-gap: 15px; /* Space between images */
+    justify-items: center;
+}
+
+.image-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-preview img {
+    max-width: 100px; /* Maintain image size */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview button {
+    margin-top: 10px;
+    background-color: #d9534f;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.image-preview button:hover {
+    background-color: #c9302c;
+}
+
+
+/* Upload new images */
+.edit-product-form input[type="file"] {
+    margin-top: 10px;
+}
+
+.edit-product-form .image-upload-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-product-form .image-upload-btn:hover {
+    background-color: #218838;
 }
