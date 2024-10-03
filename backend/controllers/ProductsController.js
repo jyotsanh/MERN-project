@@ -86,6 +86,14 @@ const EditProductController = async (req, res) => {
     try {
         const productId = req.params.id;
         const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
+        
+        // Find the product to update
+        const product = await ProductSchemadb.findById(productId);
+        if (!product) {
+            return res.status(404).json({ msg: "Product not found" });
+        }
+
+        // Updated product data (without images)
         const updatedData = {
             name,
             price,
@@ -97,21 +105,35 @@ const EditProductController = async (req, res) => {
             frame_shape,
             createdBy: req.userId
         };
-        if (req.files) {
-            const imageUrls = req.files.map(file => `uploads/Products/${name}/${file.filename}`);
-            updatedData.imageUrls = imageUrls;
+
+        // If there are new files (images) uploaded
+        if (req.files && req.files.length > 0) {
+            // Delete old images from Cloudinary
+            const oldImageUrls = product.imageUrls;
+            for (const imageUrl of oldImageUrls) {
+                // Extract the public ID from the Cloudinary URL
+                const publicId = imageUrl.split('/').pop().split('.')[0];
+                await cloudinary.uploader.destroy(publicId); // delete image from Cloudinary
+            }
+
+            // Map new uploaded files to Cloudinary URLs
+            const newImageUrls = req.files.map(file => file.path); // Cloudinary stores URL in file.path
+            updatedData.imageUrls = newImageUrls; // Update the product with new image URLs
         }
+
+        // Update the product in the database
         const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
         if (updatedProduct) {
-            res.status(200).json({ msg: "Product updated successfully", product: updatedProduct });
+            return res.status(200).json({ msg: "Product updated successfully", product: updatedProduct });
         } else {
-            res.status(404).json({ msg: "Product not found" });
+            return res.status(404).json({ msg: "Product not found" });
         }
     } catch (error) {
         console.error("Error updating product:", error);
-        res.status(500).json({ msg: "Server error" });
+        return res.status(500).json({ msg: "Server error", error });
     }
 };
+
 
 
 

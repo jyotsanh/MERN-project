@@ -42,6 +42,21 @@ function EditProduct() {
                 : value
         }));
     };
+    const handleImageDelete = (imageUrl) => {
+        setImagesToDelete(prevImages => [...prevImages, imageUrl]);
+        setProduct(prevProduct => ({
+            ...prevProduct,
+            imageUrls: prevProduct.imageUrls.filter(url => url !== imageUrl)
+        }));
+    };
+
+    const handleImageUpload = (e) => {
+        const files = Array.from(e.target.files);
+        setProduct(prevProduct => ({
+            ...prevProduct,
+            newImages: files
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -144,6 +159,23 @@ function EditProduct() {
                     Quantity:
                     <input type="number" name="quantity" value={product.quantity} onChange={handleChange} />
                 </label>
+                <label>Existing Images:</label>
+                <div className="image-preview-container">
+                    {product.imageUrls && product.imageUrls.map((url, index) => (
+                        <div key={index} className="image-preview">
+                            <img src={url} alt={`Product ${index}`} className="product-image-preview" />
+                            <button type="button" onClick={() => handleImageDelete(url)}>Delete</button>
+                        </div>
+                    ))}
+                </div>
+                
+                <label htmlFor="new-images">Upload New Images:</label>
+                <input 
+                    type="file" 
+                    id="new-images" 
+                    multiple 
+                    onChange={handleImageUpload}
+                />
                 {Error.quantity && <p className="error-text">{Error.quantity}</p>}
                 <button type="submit">Update Product</button>
                 {Error.msg && <p className="error-text"> {Error.msg} </p>}

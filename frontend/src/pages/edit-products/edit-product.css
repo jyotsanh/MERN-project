@@ -63,3 +63,35 @@
     margin-top: -10px;
     font-size: 13px;
 }
+
+/* Container for images */
+.edit-product-form .image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Styling the image */
+.edit-product-form img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Optional: to make the image corners rounded */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+/* Button to change or upload image */
+.edit-product-form .image-upload-btn {
+    margin-top: 10px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-product-form .image-upload-btn:hover {
+    background-color: #218838;
+}
