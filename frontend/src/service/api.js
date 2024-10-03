@@ -156,3 +156,8 @@ export const placeOrder = async (orderData, token) => {
         throw error; // Handle errors appropriately
     }
 };
+
+export const recentProducts = async () => {
+    const response = await axios.get(`${URL}/recent-products`);
+    return response.data;
+};

@@ -181,7 +181,24 @@ const DeleteProductController = async (req, res) => {
         res.status(500).json({ msg: "Server error" });
     }
 };
+const RecentProductsController = async (req, res) => {
+    try {
+      const recentProducts = await ProductSchemadb.find()
+        .sort({ createdAt: -1 })
+        .limit(4)
+        .select('name price category imageUrls');
+        
+      return res.status(200).send({ RecentProducts: recentProducts });
+    } catch (error) {
+      console.error('Error fetching recent products:', error);
+      return res.status(500).send({ msg: 'Server error' });
+    }
+  };
+  
 
+
+
+exports.RecentProductsController = RecentProductsController;
 exports.ProductController = ProductController;
 exports.TopProductController = TopProductController;
 exports.AddProductController = AddProductController;
