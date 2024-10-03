@@ -2,26 +2,55 @@ import React, { useEffect, useState } from 'react';
 import { getUserOrder } from '../../service/api';
 import './order.css';
 import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
+
+
+function isTokenExpired(token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // Convert to seconds
+      return decodedToken.exp < currentTime;
+    } catch (error) {
+      return true; // If there's an error decoding, assume the token is invalid
+    }
+  }
 
 const Order = () => {
     const [order, setOrder] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         const fetchOrder = async () => {
             try {
                 const token = Cookies.get('token');
+                if (!token) {
+                    setError('Please Log-In');
+                    return;
+                }else if(isTokenExpired(token)){
+                    setError('Please Logs-In');
+                    return;
+                }
                 const response = await getUserOrder(token);
                 setOrder(response.data.Order[0]);
             } catch (error) {
                 console.log(error);
+                setError('Please Log-In');
+            } finally {
+                setIsLoading(false);
             }
         };
 
         fetchOrder();
     }, []);
 
-    if (!order) {
+    if (isLoading) {
         return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
     }
 
     return (

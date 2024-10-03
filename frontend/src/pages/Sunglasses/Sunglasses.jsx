@@ -59,12 +59,13 @@ function Sunglasses() {
 
     if (selectedPrice) {
       filtered = filtered.filter((product) => {
+        const price = parseFloat(product.price); // Convert price to a number
         if (selectedPrice === 'Under Rs 500') {
-          return product.price < 500;
+          return price < 500;
         } else if (selectedPrice === 'Rs 500 - Rs 2000') {
-          return product.price >= 500 && product.price <= 2000;
+          return price >= 500 && price <= 2000;
         } else if (selectedPrice === 'Over Rs 2000') {
-          return product.price > 2000;
+          return price > 2000;
         }
         return true;
       });
