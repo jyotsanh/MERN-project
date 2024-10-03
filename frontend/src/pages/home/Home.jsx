@@ -11,6 +11,9 @@ import Outlet from '../../pages/Store/Outlet.jsx';
 import { useState, useEffect } from 'react';
 import { recentProducts } from '../../service/api';
 import axios from 'axios';
+
+const URL = import.meta.env.VITE_BASE_URL; // Use environment variable for the base URL
+
 const NextArrow = ({ onClick }) => {
   return (
     <div className="slick-arrow slick-next" onClick={onClick}>
@@ -87,7 +90,7 @@ const Home = () => {
   useEffect(() => {
     const fetchRecentProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/recent-products'); // Use the full URL
+        const response = await axios.get(`${URL}/recent-products`); // Use the full URL
         const recentProducts = response.data.RecentProducts;
         console.log(recentProducts); // Check the data fetched
         setRecentProducts(recentProducts);

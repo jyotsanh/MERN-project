@@ -106,7 +106,7 @@ function Navbar() {
 
       <ul className={`menu ${menuOpen ? 'open' : ''}`}>
         <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
-        <li><NavLink to="/sunglasses" activeClassName="active">Sunglasses</NavLink></li>
+        <li><NavLink to="/sunglasses" activeClassName="active">Eyeglasses</NavLink></li>
         <li><NavLink to="/contactlens" activeClassName="active">Lens</NavLink></li>
         <li><NavLink to="/book" activeClassName="active">Book Appointment</NavLink></li>
         <li><NavLink to="/faq" activeClassName="active">FAQs</NavLink></li>
