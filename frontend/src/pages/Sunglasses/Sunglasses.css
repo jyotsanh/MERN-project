@@ -94,10 +94,36 @@ h1 {
   /* height: 180px; */
   border-radius: 10px;
   object-fit: contain;
-
+  /* position: relative;  */
   object-position: center;
   /* transition: transform 0.5s ease; */
 
+}
+
+.imagess {
+  position: relative;
+  transition: transform 0.5s ease, opacity 0.5s ease; /* Smooth animation for scaling and opacity */
+}
+
+.imagess:hover {
+  transform: scale(1.05); /* Slightly zoom the image on hover */
+  opacity: 0.8; /* Reduce the opacity on hover */
+}
+
+.imagess::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  opacity: 0;
+  transition: opacity 0.5s ease; /* Smooth transition for the overlay */
+}
+
+.imagess:hover::after {
+  opacity: 1; /* Show overlay on hover */
 }
 
 
@@ -105,21 +131,22 @@ h1 {
 
 .product-name {
   margin: 10px 0;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: bold;
   width: 100%; /* Ensure the name occupies the full width */
   overflow: hidden;
   white-space: normal; /* Allow wrapping */
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
   -webkit-box-orient: vertical;
 }
 
 .product-price {
   margin: 5px 0;
-  font-size: 14px;
-  color: #333;
+  font-size: 22px;
+  font-weight: bold;
+  color: #E77E31;
 }
 
 .pagination {
