@@ -195,8 +195,22 @@ const RecentProductsController = async (req, res) => {
     }
   };
   
+const SliderProductsController = async (req, res) => {
+    try {
+        const sliderProducts = await ProductSchemadb.find()
+            .sort({ createdAt: -1 })
+            .limit(4)
+            .select('name price category imageUrls');
+        return res.status(200).send({ SliderProducts: sliderProducts });
+    } catch (error) {
+        console.error('Error fetching slider products:', error);    
+        return res.status(500).send({ msg: 'Server error' });
+    }
+};
 
 
+
+  
 
 exports.RecentProductsController = RecentProductsController;
 exports.ProductController = ProductController;
@@ -206,3 +220,4 @@ exports.EditProductController = EditProductController;
 exports.DeleteProductController = DeleteProductController;
 exports.UserProductsController = UserProductsController;
 exports.ProductDetailsId = ProductDetailsId;
+exports.SliderProductsController = SliderProductsController;
