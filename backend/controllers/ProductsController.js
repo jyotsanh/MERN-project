@@ -197,11 +197,13 @@ const RecentProductsController = async (req, res) => {
   
 const SliderProductsController = async (req, res) => {
     try {
-        const sliderProducts = await ProductSchemadb.find()
-            .sort({ createdAt: -1 })
-            .limit(4)
-            .select('name price category imageUrls');
-        return res.status(200).send({ SliderProducts: sliderProducts });
+        const ImageUrls = [
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009867/Products/ccrwbz3qryyhaiucx6pf.webp",
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009866/Products/v3to6fp4gdfcdhn8hpgs.webp",
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009865/Products/ily51jlvp8j8wndnhesc.webp",
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009865/Products/c6evrawe9o4imxhx10qd.webp"
+                            ]
+        return res.status(200).send({ SliderProducts: ImageUrls });
     } catch (error) {
         console.error('Error fetching slider products:', error);    
         return res.status(500).send({ msg: 'Server error' });
