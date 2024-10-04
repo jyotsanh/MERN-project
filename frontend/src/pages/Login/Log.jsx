@@ -6,7 +6,6 @@ import password_photo from '../../assets/password.svg';
 import google from '../../assets/google.svg';
 import email_photo from '../../assets/email.svg';
 import { LoginUser } from '../../service/api';
-import Cookies from 'js-cookie';
 import { AuthContext } from '../auth/AuthContext'; // Import AuthContext
 import { FiCheckCircle, FiXCircle, FiEye, FiEyeOff } from 'react-icons/fi'; // Import eye icons
 import { FaSpinner } from 'react-icons/fa'; // Import spinner icon
@@ -127,13 +126,13 @@ function Log() {
       {showAlert && (
         <div className={`alert ${alertType}`}>
           {error && (
-            <div>
+            <div className="alert-message">
               <FiXCircle className="alert-icon" />
               {error}
             </div>
           )}
           {success && (
-            <div>
+            <div className="alert-message">
               <FiCheckCircle className="alert-icon" />
               {success}
             </div>
