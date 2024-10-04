@@ -31,6 +31,12 @@ const Order = () => {
                 }else if(isTokenExpired(token)){
                     setError('Please Logs-In');
                     return;
+                }else{
+                    const decoded = jwtDecode(token);
+                    if (decoded.role === 'admin') {
+                        setError('Admin is not supposed to see this page');
+                        return;
+                    }
                 }
                 const response = await getUserOrder(token);
                 setOrder(response.data.Order[0]);
@@ -50,7 +56,7 @@ const Order = () => {
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <div className='admin-container'>{error}</div>;
     }
 
     return (

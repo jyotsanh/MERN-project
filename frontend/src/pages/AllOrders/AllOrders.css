@@ -1,0 +1,15 @@
+.status-dropdown button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.status-dropdown button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+

@@ -1,14 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { AdminLogin } from '../../service/api';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import './loginAdmin.css';
+import {jwtDecode} from 'jwt-decode';
+
+function isTokenExpired(token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // Convert to seconds
+      return decodedToken.exp < currentTime;
+    } catch (error) {
+      return true; // If there's an error decoding, assume the token is invalid
+    }
+  }
 
 function AdminLogIn() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState({});
+
+
+    useEffect(() => {
+        const token = Cookies.get('token');
+        if(!token){
+            return;
+        }else if(isTokenExpired(token)){
+            return;
+        }else{
+            try{
+            const decoded = jwtDecode(token);
+            if(decoded.role === 'admin'){
+                navigate('/admin');
+            }else{
+                return;
+            }
+        }catch(error){
+            console.error('Invalid token:', error);
+            navigate('/admin-login');
+        }
+        }
+        
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

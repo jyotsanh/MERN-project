@@ -101,6 +101,18 @@ const fetchOrders = async (req, res) => {
     }
 };
 
+const updateOrderStatus = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const { status } = req.body;
+        const updatedOrder = await OrderSchemadb.findByIdAndUpdate(orderId, { status }, { new: true });
+        res.status(200).json(updatedOrder);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error. Could not update order status.' });
+    }
+};
+
+exports.updateOrderStatus = updateOrderStatus;
 exports.AdminRegisterController = AdminRegisterController;
 exports.LoginAdmin = LoginAdmin;
 exports.fetchOrders = fetchOrders;
