@@ -6,30 +6,28 @@ import { Link } from 'react-router-dom';
 function Sunglasses() {
   const [visibleSubOptions, setVisibleSubOptions] = useState({});
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState('');
   const [selectedFrameMaterial, setSelectedFrameMaterial] = useState('');
   const [selectedLensMaterial, setSelectedLensMaterial] = useState('');
   const [selectedFrameShape, setSelectedFrameShape] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const productsPerPage = 8;
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productsData = await FetchProductsUser();
-        const { Product } = productsData;
-        setProducts(Product);
-        setFilteredProducts(Product);
-      } catch (error) {
-        setProducts([]);
-        setFilteredProducts([]);
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchData();
-  }, []);
+    fetchProducts();
+  }, [currentPage]);
+
+  const fetchProducts = async () => {
+    try {
+      const productsData = await FetchProductsUser(currentPage);
+      setProducts(productsData.Products);
+      setTotalPages(productsData.totalPages);
+    } catch (error) {
+      setProducts([]);
+      console.error('Error fetching products:', error);
+    }
+  };
 
   const toggleSubOptions = (option) => {
     setVisibleSubOptions((prevVisibleSubOptions) => ({
@@ -55,40 +53,14 @@ function Sunglasses() {
   };
 
   const applyFilters = () => {
-    let filtered = products;
-
-    if (selectedPrice) {
-      filtered = filtered.filter((product) => {
-        const price = parseFloat(product.price); // Convert price to a number
-        if (selectedPrice === 'Under Rs 500') {
-          return price < 500;
-        } else if (selectedPrice === 'Rs 500 - Rs 2000') {
-          return price >= 500 && price <= 2000;
-        } else if (selectedPrice === 'Over Rs 2000') {
-          return price > 2000;
-        }
-        return true;
-      });
-    }
-
-    if (selectedFrameMaterial) {
-      filtered = filtered.filter((product) => product.frame_material === selectedFrameMaterial);
-    }
-
-    if (selectedLensMaterial) {
-      filtered = filtered.filter((product) => product.lens_material === selectedLensMaterial);
-    }
-
-    if (selectedFrameShape) {
-      filtered = filtered.filter((product) => product.frame_shape === selectedFrameShape);
-    }
-
-    setFilteredProducts(filtered);
     setCurrentPage(1);
+    fetchProducts();
+    // Note: You'll need to modify your backend and FetchProductsUser
+    // to handle these filters server-side
   };
 
   const handleNextPage = () => {
-    if (currentPage < Math.ceil(filteredProducts.length / productsPerPage)) {
+    if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -102,10 +74,6 @@ function Sunglasses() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
     <div className="container">
@@ -250,7 +218,7 @@ function Sunglasses() {
 
         <div className="product-list-container">
           <div className="product-list">
-            {currentProducts.map((product) => (
+            {products.map((product) => (
               <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
                 <div className="product-card">
                   {product.imageUrls && product.imageUrls.length > 0 ? (
@@ -264,11 +232,12 @@ function Sunglasses() {
               </Link>
             ))}
           </div>
-          <div className="pagination ">
+          <div className="pagination">
             <button onClick={handlePrevPage} disabled={currentPage === 1}>
               Previous
             </button>
-            <button onClick={handleNextPage} disabled={currentPage >= Math.ceil(filteredProducts.length / productsPerPage)}>
+            <span>Page {currentPage} of {totalPages}</span>
+            <button onClick={handleNextPage} disabled={currentPage >= totalPages}>
               Next
             </button>
           </div>
