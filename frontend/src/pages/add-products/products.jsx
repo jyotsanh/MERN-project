@@ -252,7 +252,7 @@ function AddProducts() {
                 </div>
 
                 <button type="submit">Upload</button>
-                <NavLink to="/admin/products">
+                <NavLink to="/admin">
                     <button type="button">Back to Admin</button>
                 </NavLink>
                 {Error.msg && <p className="pro-error-text">{Error.msg}</p>}

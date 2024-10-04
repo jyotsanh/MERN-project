@@ -174,6 +174,8 @@ function EditProduct() {
                         <input type="file" id="new-images" multiple onChange={handleImageUpload} />
                     </div>
                     <button type="submit" className="submit-btn">Update Product</button>
+                    <button type="button" className="back-btn" onClick={() => navigate('/admin')}>Back to Admin</button>
+                    
                     {Error.msg && <p className="error-text"> {Error.msg} </p>}
                 </form>
             </div>
