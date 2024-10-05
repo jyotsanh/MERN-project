@@ -19,6 +19,7 @@ function AdminLogIn() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
     const [error, setError] = useState({});
 
 
@@ -43,6 +44,9 @@ function AdminLogIn() {
         }
         
     }, [navigate]);
+    const handlePasswordVisibility = () => {
+        setShowPassword(!showPassword); // Toggle password visibility
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,14 +58,10 @@ function AdminLogIn() {
             return;
         }
 
-        // Example of submitting the login request
         try {
             const response = await AdminLogin({ email, password });
             if (response.token) {
-                // Set token in cookies
                 Cookies.set('token', response.token);
-                // Redirect or update UI
-                console.log('Logged in successfully');
                 navigate('/admin');
             }
         } catch (error) {
@@ -73,13 +73,14 @@ function AdminLogIn() {
         <div className="admin-login-container">
             <h1 className="admin-login-title">Admin LogIn</h1>
             <form onSubmit={handleSubmit} className="admin-login-form">
-                <div className="input-container">
+                <div className="admin-input-container">
                     <label htmlFor="email">Email:</label>
-                    <div className="input-wrapper">
-                        <i className="fas fa-envelope input-icon"></i>
+                    <div className="admin-input-wrapper">
+                        <i className="fas fa-envelope admin-input-icon"></i>
                         <input
                             type="email"
                             id="email"
+                            className="admin" // Added 'admin' class
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -87,21 +88,26 @@ function AdminLogIn() {
                         />
                     </div>
                 </div>
-                <div className="input-container">
+                <div className="admin-input-container">
                     <label htmlFor="password">Password:</label>
-                    <div className="input-wrapper">
-                        <i className="fas fa-lock input-icon"></i>
+                    <div className="admin-input-wrapper">
+                        <i className="fas fa-lock admin-input-icon"></i>
                         <input
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             id="password"
+                            className="admin" // Added 'admin' class
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <i
+                            className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} admin-password-icon`}
+                            onClick={handlePasswordVisibility}
+                        ></i>
                     </div>
                 </div>
-                {error.msg && <p className="error-msg">{error.msg}</p>}
+                {error.msg && <p className="admin-error-msg">{error.msg}</p>}
                 <button type="submit" className="admin-login-button">Log In</button>
             </form>
         </div>
