@@ -150,14 +150,14 @@
 /* Mobile styles */
 @media screen and (max-width: 768px) {
   .pro-product-page {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     padding: 10px;
   }
 
   .pro-product-image-container {
     margin-right: 0;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
 
   .pro-product-details {
@@ -190,6 +190,7 @@
 .pro-suggested-products {
   margin-top: 40px;
   position: relative; /* For positioning the slider buttons */
+  text-align: center; /* Center the heading */
 }
 
 .pro-suggested-products h3 {
@@ -198,9 +199,11 @@
   margin-bottom: 20px;
 }
 
+/* Main slider and grid */
 .pro-suggested-slider {
   display: flex;
   overflow: hidden; /* Hide the overflowing items */
+  justify-content: center;
 }
 
 .pro-suggested-grid {
@@ -266,15 +269,45 @@
 
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
+  .pro-suggested-products h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
   .pro-suggested-slider {
-    flex-direction: column;
+    flex-wrap: wrap; /* Allow items to wrap in mobile view */
+    justify-content: center;
   }
 
   .pro-suggested-item {
-    flex: 0 0 100%;
+    flex: 0 0 45%; /* Two items in a row */
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .pro-suggested-item img {
+    width: 40%; /* Adjust image size */
   }
 
   .slider-button {
-    display: none; /* Hide buttons on smaller screens */
+    display: none; /* Hide slider buttons on smaller screens */
+  }
+}
+
+/* Extra small screen (phones) */
+@media screen and (max-width: 480px) {
+  .pro-suggested-products h3 {
+    font-size: 18px;
+  }
+
+  .pro-suggested-item {
+    flex: 0 0 100%; /* Full-width items in a single column */
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .pro-suggested-item img {
+    width: 30%; /* Make images smaller */
   }
 }

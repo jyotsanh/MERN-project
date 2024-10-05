@@ -65,6 +65,7 @@ const multipleItemsSettings = {
 
 const Home = () => {
   const [recentProducts, setRecentProducts] = useState([]);
+  const [sliderProducts, setSliderProducts] = useState([]);
   const { dispatch } = useCart();
 
   const settings = {
@@ -98,8 +99,19 @@ const Home = () => {
         console.error('Error fetching recent products:', error);
       }
     };
+    const fetchSliderProducts = async () => {
+      try {
+        const response = await axios.get(`${URL}/slider-products`); // Use the full URL
+        const sliderProducts = response.data.SliderProducts;
+        console.log(sliderProducts); // Check the data fetched
+        setSliderProducts(sliderProducts);
+      } catch (error) {
+        console.error('Error fetching slider products:', error);
+      }
+    };
     
     fetchRecentProducts();
+    fetchSliderProducts();
   }, []);
 
   const handleAddToCart = (product) => {
@@ -111,7 +123,16 @@ const Home = () => {
       {/* Image Slider Section */}
       <section className="image-slider max-w-full overflow-hidden">
   <Slider {...settings}>
-    <div className="slide">
+    {sliderProducts?.map((product) => (
+      <div className="slide">
+        <img
+          src={product}
+          alt="Slide"
+          className="w-full h-60 sm:h-80 md:h-96 object-cover"
+        />
+      </div>
+    ))}
+    {/* <div className="slide">
       <img
         src="/webp/lakpachoice1.webp"
         alt="Slide 1"
@@ -138,7 +159,7 @@ const Home = () => {
         alt="Slide 4"
         className="w-full h-60 sm:h-80 md:h-96 object-cover"
       />
-    </div>
+    </div> */}
   </Slider>
 </section>
 

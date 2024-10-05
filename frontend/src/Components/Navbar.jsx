@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 import './Navbar.css';
 import { AuthContext } from '../pages/auth/AuthContext'; // Import AuthContext
 import { jwtDecode } from "jwt-decode";
@@ -52,7 +52,9 @@ function Navbar() {
     <div className="navbar mt-3">
       <nav>
         <div className="logo">
-          <img src={logo} alt="Logo" />
+          <Link to="/">
+            <img src={logo} alt="Logo" />
+          </Link>
         </div>
 
         <div className="search-bar">

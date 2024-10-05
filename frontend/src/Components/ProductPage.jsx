@@ -67,7 +67,7 @@ function isTokenExpired(token) {
   }
 }
 
-function isAdmin(token) {
+function checkIsAdmin(token) {
   try {
     const decodedToken = jwtDecode(token);
     return decodedToken.role === 'admin';
@@ -97,6 +97,8 @@ const ProductPage = () => {
     return price + randomIncrement;
   };
 
+  const [isAdminUser, setIsAdminUser] = useState(false);
+
   useEffect(() => {
     const fetchProductAndCartItems = async () => {
       try {
@@ -116,13 +118,22 @@ const ProductPage = () => {
             navigate('/Login');
             return;
           } else {
-            if (isAdmin(token)) {
+            if (checkIsAdmin(token)) {
+              setIsAdminUser(true);
               return;
             }
             const cartResponse = await getCartItems(token);
-            const { Cart } = cartResponse;
-            const productInCart = Cart.items.some(item => item.productId === id);
-            setIsInCart(productInCart);
+            if (cartResponse && cartResponse.Cart) {
+              const { Cart } = cartResponse;
+              if (Cart.items && Array.isArray(Cart.items) && Cart.items.length > 0) {
+                const productInCart = Cart.items.some(item => item.productId === id);
+                setIsInCart(productInCart);
+              } else {
+                setIsInCart(false);
+              }
+            } else {
+              setIsInCart(false);
+            }
           }
         }
       } catch (error) {
@@ -132,7 +143,7 @@ const ProductPage = () => {
     };
 
     fetchProductAndCartItems();
-  }, [id]);
+  }, [id, navigate]);
 
   const addToCart = async () => {
     try {
@@ -207,13 +218,18 @@ const ProductPage = () => {
         <p className="pro-product-description"><strong>Description:</strong> {product.description}</p>
         <p className="pro-product-category"><strong>Category:</strong> {formattedCategory}</p>
         <div className="pro-cart-actions">
-          <button onClick={addToCart} 
-            className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`} 
-            disabled={isInCart}>
-            {isInCart ? 'In Cart' : 'Add to Cart'}
-          </button>
+          {isAdminUser ? (
+            <p className="pro-admin-message">Admin is not allowed to add to cart</p>
+          ) : (
+            <button
+              onClick={addToCart}
+              className={`pro-add-to-cart-button ${isInCart ? 'added' : ''}`}
+              disabled={isInCart}
+            >
+              {isInCart ? 'In Cart' : 'Add to Cart'}
+            </button>
+          )}
         </div>
-        
       </div>
 
       {/* Suggested Products Section */}

@@ -70,8 +70,10 @@ export const AdminLogin = async (data) => {
 };
 
 // all for products data fetched from backend for User
-export const FetchProductsUser = async () => {
-    const response = await axios.get(`${URL}/user-products`);
+export const FetchProductsUser = async (page = 1) => {
+    const response = await axios.get(`${URL}/user-products`, {
+        params: { page }
+    });
     return response.data;
 };
 
@@ -171,3 +173,22 @@ export const recentProducts = async () => {
     const response = await axios.get(`${URL}/recent-products`);
     return response.data;
 };
+
+export const getAdminOrders = async (token) => {
+    const response = await axios.get(`${URL}/get-orders`, {
+        headers: {
+            Authorization: `${token}`, // Ensure token is prefixed with 'Bearer' if necessary
+        },
+    });
+    return response.data;
+};
+
+export const adminUpdateOrderStatus = async (orderId, newStatus, token) => {
+    const response = await axios.put(`${URL}/update-order-status/${orderId}`, { status: newStatus }, {
+        headers: {
+            Authorization: `${token}`, // Ensure token is prefixed with 'Bearer' if necessary
+        },
+    });
+    return response.data;
+};
+

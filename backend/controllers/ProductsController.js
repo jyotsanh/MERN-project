@@ -33,11 +33,26 @@ const ProductDetailsId = async (req, res) => {
 
 const UserProductsController = async (req, res) => {
     try {
-        const product_data = await ProductSchemadb.find().select('name price category imageUrls frame_material lens_material frame_shape');
-        if (product_data) {
-            return res.send({ "Product": product_data });
+        const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1
+        const limit = 8; // Number of items per page
+        const skip = (page - 1) * limit; // Calculate the number of documents to skip
+
+        const totalProducts = await ProductSchemadb.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const product_data = await ProductSchemadb.find()
+            .select('name price category imageUrls frame_material lens_material frame_shape')
+            .skip(skip)
+            .limit(limit);
+
+        if (product_data.length > 0) {
+            return res.send({
+                "Products": product_data,
+                "currentPage": page,
+                "totalPages": totalPages
+            });
         } else {
-            return res.send({ "msg": "No data in db" });
+            return res.send({ "msg": "No data found for this page" });
         }
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -195,8 +210,24 @@ const RecentProductsController = async (req, res) => {
     }
   };
   
+const SliderProductsController = async (req, res) => {
+    try {
+        const ImageUrls = [
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009867/Products/ccrwbz3qryyhaiucx6pf.webp",
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009866/Products/v3to6fp4gdfcdhn8hpgs.webp",
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009865/Products/ily51jlvp8j8wndnhesc.webp",
+                            "https://res.cloudinary.com/drknmo9pb/image/upload/v1728009865/Products/c6evrawe9o4imxhx10qd.webp"
+                            ]
+        return res.status(200).send({ SliderProducts: ImageUrls });
+    } catch (error) {
+        console.error('Error fetching slider products:', error);    
+        return res.status(500).send({ msg: 'Server error' });
+    }
+};
 
 
+
+  
 
 exports.RecentProductsController = RecentProductsController;
 exports.ProductController = ProductController;
@@ -206,3 +237,4 @@ exports.EditProductController = EditProductController;
 exports.DeleteProductController = DeleteProductController;
 exports.UserProductsController = UserProductsController;
 exports.ProductDetailsId = ProductDetailsId;
+exports.SliderProductsController = SliderProductsController;
