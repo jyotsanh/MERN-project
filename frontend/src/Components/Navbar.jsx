@@ -72,16 +72,31 @@ function Navbar() {
                 </NavLink>
               </div>
               <div className="action">
-                <button
-                  onClick={() => {
-                    logout();
-                    setUsername(""); // Clear username on logout
-                  }}
-                  style={{ backgroundColor: 'white', border: 'none', height: '20px', width: '130px', marginTop: '20px', padding: '0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
-                >
-                  <img src={Logout} alt="Logout Icon" />
-                  <span>Log out</span>
-                </button>
+              <button
+            onClick={async () => {
+              await logout(); // Wait for logout to complete
+              setUsername(""); // Clear username on logout
+              navigate("/"); // Navigate to the home page
+            }}
+            
+            style={{
+              backgroundColor: 'white',
+              border: 'none',
+              height: '20px',
+              width: '130px',
+              marginTop: '20px',
+              padding: '0',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          
+          >   <NavLink to="/" className='action'>
+            <img src={Logout} alt="Logout Icon" />
+            <span>Log out</span>
+            </NavLink>
+</button>
               </div>
             </>
           ) : (
