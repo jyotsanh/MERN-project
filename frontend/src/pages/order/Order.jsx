@@ -39,10 +39,15 @@ const Order = () => {
                     }
                 }
                 const response = await getUserOrder(token);
-                setOrder(response.data.Order[0]);
+                console.log(response.data.Order);
+                if (response.data.Order && response.data.Order.length > 0) {
+                    setOrder(response.data.Order[0]);
+                } else {
+                    setError('You have no orders yet.');
+                }
             } catch (error) {
                 console.log(error);
-                setError('Please Log-In');
+                setError('An error occurred while fetching your order.');
             } finally {
                 setIsLoading(false);
             }
