@@ -33,11 +33,26 @@ const ProductDetailsId = async (req, res) => {
 
 const UserProductsController = async (req, res) => {
     try {
-        const product_data = await ProductSchemadb.find().select('name price category imageUrls frame_material lens_material frame_shape');
-        if (product_data) {
-            return res.send({ "Product": product_data });
+        const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1
+        const limit = 8; // Number of items per page
+        const skip = (page - 1) * limit; // Calculate the number of documents to skip
+
+        const totalProducts = await ProductSchemadb.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const product_data = await ProductSchemadb.find()
+            .select('name price category imageUrls frame_material lens_material frame_shape')
+            .skip(skip)
+            .limit(limit);
+
+        if (product_data.length > 0) {
+            return res.send({
+                "Products": product_data,
+                "currentPage": page,
+                "totalPages": totalPages
+            });
         } else {
-            return res.send({ "msg": "No data in db" });
+            return res.send({ "msg": "No data found for this page" });
         }
     } catch (error) {
         console.error("Error fetching products:", error);

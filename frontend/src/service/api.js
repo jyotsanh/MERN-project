@@ -70,8 +70,10 @@ export const AdminLogin = async (data) => {
 };
 
 // all for products data fetched from backend for User
-export const FetchProductsUser = async () => {
-    const response = await axios.get(`${URL}/user-products`);
+export const FetchProductsUser = async (page = 1) => {
+    const response = await axios.get(`${URL}/user-products`, {
+        params: { page }
+    });
     return response.data;
 };
 
