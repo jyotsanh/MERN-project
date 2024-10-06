@@ -65,3 +65,16 @@
     color: green;
     margin-top: 10px;
 }
+.pro-back-button {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background-color: #f44336; /* Red button for visibility */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pro-back-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}

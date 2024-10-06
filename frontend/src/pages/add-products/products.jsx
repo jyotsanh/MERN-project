@@ -3,7 +3,7 @@ import { UploadProducts } from "../../service/api";
 import { jwtDecode } from "jwt-decode";
 import './products.css';
 import Cookies from 'js-cookie';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function AddProducts() {
     const navigate = useNavigate();
@@ -21,9 +21,11 @@ function AddProducts() {
     const [imagePreviews, setImagePreviews] = useState([]);
 
     const [isAdmin, setIsAdmin] = useState(false);
+
+    // Check if the user is an admin
     useEffect(() => {
         const token = Cookies.get('token');
-        console.log(token) // remove when deploying to production
+        console.log(token); // remove when deploying to production
         if (!token) {
             navigate('/');
         } else {
@@ -94,15 +96,17 @@ function AddProducts() {
         }
     };
 
+    const handleBackToAdmin = () => {
+        navigate('/admin');  // Navigate back to the admin page
+    };
+
     if (!isAdmin) {
-        return (
-            <>
-            </>
-        );
+        return null;  // Don't display anything if the user isn't an admin
     }
 
     return (
         <div className="pro-upload-product-container">
+            <button onClick={handleBackToAdmin} className="pro-back-button">Back to Admin</button>
             <h1>Upload Product</h1>
             <form onSubmit={handleSubmit}>
                 <div className="pro-form-group">

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { NavLink , useNavigate} from 'react-router-dom';
+import { NavLink, useNavigate, Outlet } from 'react-router-dom';
 import './admin.css'; 
-import { jwtDecode } from "jwt-decode";
-
+import { jwtDecode } from "jwt-decode";;
 
 function Admin() {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
         const token = Cookies.get('token');
-        console.log(token) // remove when deploying to production
+        console.log(token); // remove when deploying to production
         if (!token) {
             navigate('/');
         } else {
@@ -25,37 +25,36 @@ function Admin() {
                 console.error('Invalid token:', error);
                 navigate('/');
             }
-        
         }
     }, [navigate]);
 
     if (!isAdmin) {
-        return (
-            <>
-            </>
-        );
+        return null; // Or a loading spinner if preferred
     }
 
     return (
-        <div className="admin-container">
-            <h1 className="admin-title">Admin</h1>
-            <div className="admin-buttons">
-                <NavLink to="/add-products">
-                    <button className="admin-button">Add Products</button>
-                </NavLink>
+        <div className="admin-layout">
+            <nav className="admin-sidebar">
+                <h2 className="sidebar-title">Admin Dashboard</h2>
                 <NavLink to="/admin-view">
-                    <button className="admin-button">See the Products</button>
+                     See Products
                 </NavLink>
+                 <NavLink to="/add-products">
+                    Add Products
+                </NavLink>
+                
                 <NavLink to="/appointments">
-                    <button className="admin-button">See the Appointments</button>
+                    See Appointments
                 </NavLink>
                 <NavLink to="/orders">
-                    <button className="admin-button">Incomming Orders</button>
+                    Incoming Orders
                 </NavLink>
+            </nav>
+            <div className="admin-content">
+                <Outlet />
             </div>
         </div>
     );
-
 }
 
 export default Admin;
