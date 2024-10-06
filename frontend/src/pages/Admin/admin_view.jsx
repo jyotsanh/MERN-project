@@ -131,23 +131,23 @@ function Admin_View() {
     />
     <input
         type="text"
-        name="frameShape"
+        name="frame_shape"
         placeholder="Search by Frame Shape"
-        value={filters.frameShape || ''}  // Change this to filters
+        value={filters.frame_shape || ''}  // Change this to filters
         onChange={handleSearchChange}
     />
     <input
         type="text"
-        name="frameMaterial"
+        name="frame_material"
         placeholder="Search by Frame Material"
-        value={filters.frameMaterial || ''}  // Change this to filters
+        value={filters.frame_material || ''}  // Change this to filters
         onChange={handleSearchChange}
     />
     <input
         type="text"
-        name="lensMaterial"
+        name="lens_material"
         placeholder="Search by Lens Material"
-        value={filters.lensMaterial || ''}  // Change this to filters
+        value={filters.lens_material || ''}  // Change this to filters
         onChange={handleSearchChange}
     />
     <button type="submit">Search</button>
