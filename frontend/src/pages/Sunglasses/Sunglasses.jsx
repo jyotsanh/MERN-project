@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Sunglasses.css';
-import { FetchProductsUser } from '../../service/api';
+import { FetchProductsUser, FetchFilteredProducts } from '../../service/api';
 import { Link } from 'react-router-dom';
 
 function Sunglasses() {
@@ -13,19 +13,49 @@ function Sunglasses() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     fetchProducts();
-  }, [currentPage]);
+  }, [currentPage, isFiltered]);
 
   const fetchProducts = async () => {
     try {
-      const productsData = await FetchProductsUser(currentPage);
+      setErrorMessage(''); // Clear any existing error message
+      let productsData;
+      if (isFiltered) {
+        const filters = {
+          price: selectedPrice,
+          frameMaterial: selectedFrameMaterial,
+          lensMaterial: selectedLensMaterial,
+          frameShape: selectedFrameShape,
+          page: currentPage,
+        };
+
+        // Remove empty filters
+        const nonEmptyFilters = Object.entries(filters).reduce((acc, [key, value]) => {
+          if (value !== '' && value !== null && value !== undefined) {
+            acc[key] = value;
+          }
+          return acc;
+        }, {});
+
+        productsData = await FetchFilteredProducts(nonEmptyFilters);
+      } else {
+        productsData = await FetchProductsUser(currentPage);
+      }
       setProducts(productsData.Products);
       setTotalPages(productsData.totalPages);
     } catch (error) {
-      setProducts([]);
-      console.error('Error fetching products:', error);
+      if (error.response && error.response.status === 404) {
+        setErrorMessage('No products found matching the filter criteria. Try adjusting your filters.');
+        setProducts([]);
+        setTotalPages(0);
+      } else {
+        setErrorMessage('An error occurred while fetching products. Please try again later.');
+        console.error('Error fetching products:', error);
+      }
     }
   };
 
@@ -53,10 +83,18 @@ function Sunglasses() {
   };
 
   const applyFilters = () => {
+    const hasFilters = selectedPrice || selectedFrameMaterial || selectedLensMaterial || selectedFrameShape;
+    setIsFiltered(hasFilters);
     setCurrentPage(1);
-    fetchProducts();
-    // Note: You'll need to modify your backend and FetchProductsUser
-    // to handle these filters server-side
+  };
+
+  const clearFilters = () => {
+    setSelectedPrice('');
+    setSelectedFrameMaterial('');
+    setSelectedLensMaterial('');
+    setSelectedFrameShape('');
+    setCurrentPage(1);
+    setIsFiltered(false);
   };
 
   const handleNextPage = () => {
@@ -211,36 +249,48 @@ function Sunglasses() {
             <div className="side-line"></div>
 
             <div className="side-option">
-              <button onClick={applyFilters}>Filter</button>
+              <button onClick={applyFilters}>Apply Filters</button>
+              <button onClick={clearFilters}>Clear Filters</button>
             </div>
           </div>
         </div>
 
         <div className="product-list-container">
-          <div className="product-list">
-            {products.map((product) => (
-              <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
-                <div className="product-card">
-                  {product.imageUrls && product.imageUrls.length > 0 ? (
-                    <img src={`${product.imageUrls[0]}`} alt={product.name} className="imagess" />
-                  ) : (
-                    <img src="/path/to/default-image.jpg" alt="Default" className="imagess" />
-                  )}
-                  <h2 className="product-name">{product.name}</h2>
-                  <p className="product-price"> Rs.{product.price}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="pagination">
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={handleNextPage} disabled={currentPage >= totalPages}>
-              Next
-            </button>
-          </div>
+          
+
+          {products.length > 0 ? (
+            <div className="product-list">
+              {products.map((product) => (
+                <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
+                  <div className="product-card">
+                    {product.imageUrls && product.imageUrls.length > 0 ? (
+                      <img src={`${product.imageUrls[0]}`} alt={product.name} className="imagess" />
+                    ) : (
+                      <img src="/path/to/default-image.jpg" alt="Default" className="imagess" />
+                    )}
+                    <h2 className="product-name">{product.name}</h2>
+                    <p className="product-price"> Rs.{product.price}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="no-products-message">
+              {errorMessage || 'No products available.'}
+            </div>
+          )}
+
+          {totalPages > 0 && (
+            <div className="pagination">
+              <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                Previous
+              </button>
+              <span>Page {currentPage} of {totalPages}</span>
+              <button onClick={handleNextPage} disabled={currentPage >= totalPages}>
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

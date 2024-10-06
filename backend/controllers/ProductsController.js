@@ -225,9 +225,68 @@ const SliderProductsController = async (req, res) => {
     }
 };
 
+const FilterProductsController = async (req, res) => {
+    try {
+        console.log(req.body);
+        const { price, frameMaterial, lensMaterial, frameShape, page = 1 } = req.body;
+        const limit = 10; // Or whatever number of items per page you want
+
+        let query = {};
+
+        if (price) {
+            if (price === 'Under Rs 500') {
+                query.price = { $lt: 500 };
+            } else if (price === 'Rs 500 - Rs 2000') {
+                query.price = { $gte: 500, $lte: 2000 };
+            } else if (price === 'Over Rs 2000') {
+                query.price = { $gt: 2000 };
+            }
+        }
+
+        if (frameMaterial) {
+            query.frame_material = frameMaterial;
+        }
+
+        if (lensMaterial) {
+            query.lens_material = lensMaterial;
+        }
+
+        if (frameShape) {
+            query.frame_shape = frameShape;
+        }
+
+        const totalProducts = await ProductSchemadb.countDocuments(query);
+        console.log(totalProducts);
+        if (totalProducts === 0) {
+            return res.status(404).send({
+                msg: "No products found matching the filter criteria",
+                Products: [],
+                currentPage: page,
+                totalPages: 0,
+                totalProducts: 0
+            });
+        }
+
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const filteredProducts = await ProductSchemadb.find(query)
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        return res.status(200).send({
+            Products: filteredProducts,
+            currentPage: page,
+            totalPages: totalPages,
+            totalProducts: totalProducts
+        });
+    } catch (error) {
+        console.error('Error filtering products:', error);
+        return res.status(500).send({ msg: 'Server error' });
+    }
+};
 
 
-  
+
 
 exports.RecentProductsController = RecentProductsController;
 exports.ProductController = ProductController;
@@ -238,3 +297,4 @@ exports.DeleteProductController = DeleteProductController;
 exports.UserProductsController = UserProductsController;
 exports.ProductDetailsId = ProductDetailsId;
 exports.SliderProductsController = SliderProductsController;
+exports.FilterProductsController = FilterProductsController;

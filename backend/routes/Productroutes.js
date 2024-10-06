@@ -36,7 +36,8 @@ const {
   EditProductController,
   DeleteProductController,
   RecentProductsController,
-  SliderProductsController
+  SliderProductsController,
+  FilterProductsController
 } = require("../controllers/ProductsController");
 
 // Products Middleware
@@ -52,6 +53,7 @@ router.get("/slider-products", SliderProductsController); // slider product info
 
 
 
+router.post("/products/filter", FilterProductsController); // filter product info for User
 // adding, editing, and deleting products requires authentication: 'AuthenticationMiddleware'
 router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, AddProductController);
 router.put("/edit-product/:id", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, EditProductController);

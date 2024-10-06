@@ -20,6 +20,7 @@ function EditProduct() {
         imageUrls: [],
         newImages: []
     });
+    const [previewImages, setPreviewImages] = useState([]);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -51,10 +52,12 @@ function EditProduct() {
 
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
+        const imagePreviews = files.map(file => URL.createObjectURL(file));
         setProduct(prevProduct => ({
             ...prevProduct,
             newImages: files
         }));
+        setPreviewImages(imagePreviews);
     };
 
     const handleSubmit = async (e) => {
@@ -172,6 +175,14 @@ function EditProduct() {
                         </div>
                         <label htmlFor="new-images">Upload New Images:</label>
                         <input type="file" id="new-images" multiple onChange={handleImageUpload} />
+                        
+                        {previewImages.length > 0 && (
+                            <div className="image-preview">
+                                {previewImages.map((preview, index) => (
+                                    <img key={index} src={preview} alt={`Preview ${index + 1}`} style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }} />
+                                ))}
+                            </div>
+                        )}
                     </div>
                     <button type="submit" className="submit-btn">Update Product</button>
                     <button type="button" className="back-btn" onClick={() => navigate('/admin-view')}>Back to Admin</button>
