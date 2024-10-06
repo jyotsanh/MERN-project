@@ -3,6 +3,30 @@ const ProductSchemadb = require("../schema/ProductSchema");
 const fs = require('fs');
 const path = require('path');
 
+const { v2: cloudinary } = require('cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  });
+
+  const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'Products', // Folder where images will be stored on Cloudinary
+        allowed_formats: ['jpg', 'png', 'webp', 'jpeg'], // List of allowed formats
+        format: async (req, file) => {
+            // Get the file extension
+            const extension = file.originalname.split('.').pop().toLowerCase();
+            // If it's one of our allowed formats, use that. Otherwise, default to png.
+            return ['jpg', 'png', 'webp', 'jpeg'].includes(extension) ? extension : 'png';
+        },
+        public_id: (req, file) => `${Date.now()}_${file.originalname}`,
+    },
+});
+
 const ProductDetailsId = async (req, res) => {
     try {
         // Fetch the main product by its ID
@@ -132,7 +156,7 @@ const AddProductController = async (req, res) => {
 };
 
 
-const EditProductController = async (req, res) => {
+const testEditProductController = async (req, res) => {
     try {
         const productId = req.params.id;
         const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
@@ -185,6 +209,101 @@ const EditProductController = async (req, res) => {
 };
 
 
+const EditProductController = async (req, res) => {
+    try {
+        console.log("heere");
+        const productId = req.params.id;
+        const { name, price, description, category, quantity, frame_material, lens_material, frame_shape, deleteProductsUrl } = req.body;
+        
+        // Find the product to update
+        const product = await ProductSchemadb.findById(productId);
+        if (!product) {
+            return res.status(404).json({ msg: "Product not found" });
+        }
+
+        // Updated product data
+        const updatedData = {
+            name,
+            price,
+            description,
+            category,
+            quantity,
+            frame_material,
+            lens_material,
+            frame_shape,
+            createdBy: req.userId
+        };
+
+        const extractPublicId = (url) => {
+            const splitUrl = url.split('/');
+            
+            
+            let filename = splitUrl[splitUrl.length - 1];
+            
+            
+            const parts = filename.split(".");
+            
+            // Check if the last two parts are identical (duplicate extensions)
+            if (parts[parts.length - 1] === parts[parts.length - 2]) {
+                // Remove the duplicate extension by joining without the last part
+                filename = parts.slice(0, -1).join(".");
+            } else {
+                // Otherwise, return the filename as-is
+                filename = parts.join(".");
+            }
+            
+            return filename;
+        }
+
+        // Handle image deletions
+        if (deleteProductsUrl && deleteProductsUrl.length > 0) {
+            const deletedUrls = JSON.parse(deleteProductsUrl);
+            const successfullyDeletedUrls = [];
+            
+            for (const imageUrl of deletedUrls) {
+                try {
+                    const publicId = `Products/${extractPublicId(imageUrl)}`;
+                
+                    
+                    const result = await cloudinary.uploader.destroy(publicId);
+                    
+                    if (result.result === 'ok') {
+                        console.log(`Successfully deleted image with public ID: ${publicId}`);
+                        successfullyDeletedUrls.push(imageUrl);
+                    } else if (result.result === 'not found') {
+                        console.log(`Image with public ID ${publicId} not found in Cloudinary. It may have been already deleted.`);
+                        // Optionally, you might still want to remove this URL from your database
+                        successfullyDeletedUrls.push(imageUrl);
+                    } else {
+                        console.log(`Failed to delete image with public ID: ${publicId}. Cloudinary response:`, result);
+                    }
+                } catch (error) {
+                    console.error(`Error deleting image ${imageUrl}:`, error);
+                }
+            }
+            
+            updatedData.imageUrls = product.imageUrls.filter(url => !successfullyDeletedUrls.includes(url));
+        }
+
+        // Handle new image uploads
+        if (req.files && req.files.length > 0) {
+            const newImageUrls = req.files.map(file => file.path);
+            updatedData.imageUrls = [...(updatedData.imageUrls || []), ...newImageUrls];
+        }
+        
+        // Update the product in the database
+        const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
+        
+        if (updatedProduct) {
+            return res.status(200).json({ msg: "Product updated successfully", product: updatedProduct });
+        } else {
+            return res.status(404).json({ msg: "Product not found" });
+        }
+    } catch (error) {
+        console.error("Error updating product:", error);
+        return res.status(500).json({ msg: "Server error", error });
+    }
+};
 
 
 const DeleteProductController = async (req, res) => {
@@ -244,9 +363,68 @@ const SliderProductsController = async (req, res) => {
     }
 };
 
+const FilterProductsController = async (req, res) => {
+    try {
+        console.log(req.body);
+        const { price, frameMaterial, lensMaterial, frameShape, page = 1 } = req.body;
+        const limit = 10; // Or whatever number of items per page you want
+
+        let query = {};
+
+        if (price) {
+            if (price === 'Under Rs 500') {
+                query.price = { $lt: 500 };
+            } else if (price === 'Rs 500 - Rs 2000') {
+                query.price = { $gte: 500, $lte: 2000 };
+            } else if (price === 'Over Rs 2000') {
+                query.price = { $gt: 2000 };
+            }
+        }
+
+        if (frameMaterial) {
+            query.frame_material = frameMaterial;
+        }
+
+        if (lensMaterial) {
+            query.lens_material = lensMaterial;
+        }
+
+        if (frameShape) {
+            query.frame_shape = frameShape;
+        }
+
+        const totalProducts = await ProductSchemadb.countDocuments(query);
+        console.log(totalProducts);
+        if (totalProducts === 0) {
+            return res.status(404).send({
+                msg: "No products found matching the filter criteria",
+                Products: [],
+                currentPage: page,
+                totalPages: 0,
+                totalProducts: 0
+            });
+        }
+
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const filteredProducts = await ProductSchemadb.find(query)
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        return res.status(200).send({
+            Products: filteredProducts,
+            currentPage: page,
+            totalPages: totalPages,
+            totalProducts: totalProducts
+        });
+    } catch (error) {
+        console.error('Error filtering products:', error);
+        return res.status(500).send({ msg: 'Server error' });
+    }
+};
 
 
-  
+
 
 exports.RecentProductsController = RecentProductsController;
 exports.ProductController = ProductController;
@@ -257,3 +435,4 @@ exports.DeleteProductController = DeleteProductController;
 exports.UserProductsController = UserProductsController;
 exports.ProductDetailsId = ProductDetailsId;
 exports.SliderProductsController = SliderProductsController;
+exports.FilterProductsController = FilterProductsController;

@@ -199,3 +199,14 @@ export const adminUpdateOrderStatus = async (orderId, newStatus, token) => {
     return response.data;
 };
 
+
+export const FetchFilteredProducts = async (filters) => {
+    try {
+      const response = await axios.post(`${URL}/products/filter`, filters);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching filtered products:', error);
+      throw error;
+    }
+  };
+
