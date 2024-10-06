@@ -25,10 +25,17 @@ export const UploadProducts = async (formdata, token) => {
 };
 
 // development in User products data fetched from backend
-export const FetchProducts = async () => {
-    const response = await axios.get(`${URL}/products`);
+export const FetchProducts = async (page = 1, limit = 8, filters = {}) => {
+    const response = await axios.get(`${URL}/products`, {
+        params: {
+            page,
+            limit,
+            ...filters // Spread the filters object to pass as query params
+        }
+    });
     return response.data;
 };
+
 
 // product can be deleted for admin
 export const deleteProduct = async (id, token) => {

@@ -8,9 +8,12 @@ import { jwtDecode } from "jwt-decode";
 function Admin_View() {
     const [isAdmin, setIsAdmin] = useState(false);
     const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [filters, setFilters] = useState({});  // State to store search filters
     const navigate = useNavigate();
-
     const [Error, SetError] = useState({});
+
     useEffect(() => {
         const token = Cookies.get('token');
         console.log(token); // remove when deploying to production
@@ -33,23 +36,23 @@ function Admin_View() {
             navigate('/');
             return; // prevent further execution if token is invalid
         }
-    
-        SetError({}); // make sure this is required here
-    
-        const fetchData = async () => {
+
+        SetError({});
+
+        const fetchData = async (currentPage, searchFilters = {}) => {
             try {
-                const productsData = await FetchProducts();
-                const { Product } = productsData;
+                const productsData = await FetchProducts(currentPage, 8, searchFilters);
+                const { Product, totalPages } = productsData;
                 setProducts(Product);
+                setTotalPages(totalPages);
             } catch (error) {
                 setProducts([]);
                 console.error('Error fetching products:', error);
             }
         };
-    
-        fetchData();
-    }, [navigate, setIsAdmin, setProducts]);
-    
+
+        fetchData(page, filters);  // Fetch products based on current page and filters
+    }, [page, filters, navigate, setIsAdmin, setProducts]);
 
     const handleEdit = (id) => {
         navigate(`/edit-product/${id}`);
@@ -70,12 +73,35 @@ function Admin_View() {
             }
         }
     };
+
+    const handleNextPage = () => {
+        if (page < totalPages) {
+            setPage(page + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    };
+
+    const handleSearchChange = (e) => {
+        setFilters({
+            ...filters,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        setPage(1);  // Reset to first page on search
+    };
+
     if (!isAdmin) {
-        return (
-            <>
-            </>
-        );
+        return null;
     }
+
     return (
         <div className="admin-view-container">
             <h1 className="admin-title">Admin View</h1>
@@ -83,47 +109,105 @@ function Admin_View() {
                 <button className="back-button">Back to Admin</button>
             </NavLink>
 
-            <div className="admin-view-container">
-   
-    <table className="product-table">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {products.length === 0 ? (
-                <tr>
-                    <td colSpan="7">No products available</td>
-                </tr>
-            ) : (
-                products.map(product => (
-                    <tr key={product._id}>
-                        <td>
-                            <img src={product.imageUrls[0]} alt={product.name} className="product-image-table" />
-                        </td>
-                        <td>{product.name}</td>
-                        <td>{product.description}</td>
-                        <td>{product.price}</td>
-                        <td>{product.category}</td>
-                        <td>{product.quantity}</td>
-                        <td className="product-actions-table">
-                        <button className="edit-button" onClick={() => handleEdit(product._id)}>Edit</button>
-                        <button className="delete-button" onClick={() => handleDelete(product._id)}>Delete</button>
-                        </td>
-                    </tr>
-                ))
-            )}
-        </tbody>
-    </table>
-</div>
+            {/* Search Bar */}
+            <form onSubmit={handleSearchSubmit} className="search-bar">
+    <input
+        type="text"
+        name="name"
+        placeholder="Search by Name"
+        value={filters.name || ''}  // Change this to filters
+        onChange={handleSearchChange}
+    />
+    <input
+        type="text"
+        name="category"
+        placeholder="Search by Category"
+        value={filters.category || ''}  // Change this to filters
+        onChange={handleSearchChange}
+    />
+    <input
+        type="text"
+        name="frameShape"
+        placeholder="Search by Frame Shape"
+        value={filters.frameShape || ''}  // Change this to filters
+        onChange={handleSearchChange}
+    />
+    <input
+        type="text"
+        name="frameMaterial"
+        placeholder="Search by Frame Material"
+        value={filters.frameMaterial || ''}  // Change this to filters
+        onChange={handleSearchChange}
+    />
+    <input
+        type="text"
+        name="lensMaterial"
+        placeholder="Search by Lens Material"
+        value={filters.lensMaterial || ''}  // Change this to filters
+        onChange={handleSearchChange}
+    />
+    <button type="submit">Search</button>
+</form>
 
+            <div className="admin-view-container">
+                <table className="product-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    {Array.isArray(products) && products.length === 0 ? (
+        <tr>
+            <td colSpan="7">No products available</td>
+        </tr>
+    ) : (
+        Array.isArray(products) && products.map(product => (
+            <tr key={product._id}>
+                <td>
+                    <img src={product.imageUrls[0]} alt={product.name} className="product-image-table" />
+                </td>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.price}</td>
+                <td>{product.category}</td>
+                <td>{product.quantity}</td>
+                <td className="product-actions-table">
+                    <button className="edit-button" onClick={() => handleEdit(product._id)}>Edit</button>
+                    <button className="delete-button" onClick={() => handleDelete(product._id)}>Delete</button>
+                </td>
+            </tr>
+        ))
+    )}
+</tbody>
+
+                </table>
+
+                {/* Pagination Controls */}
+                <div className="pagination-controls">
+                    <button
+                        className="pagination-button"
+                        onClick={handlePreviousPage}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </button>
+                    <span className="pagination-info">Page {page} of {totalPages}</span>
+                    <button
+                        className="pagination-button"
+                        onClick={handleNextPage}
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }

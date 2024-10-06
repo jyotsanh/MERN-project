@@ -62,19 +62,38 @@ const UserProductsController = async (req, res) => {
 
 const ProductController = async (req, res) => {
     try {
-        const product_data = await ProductSchemadb.find();
-        if (product_data) {
-            return res.send({ "Product": product_data });
+        const { name, category, frameShape, frameMaterial, lensMaterial, page = 1, limit = 8 } = req.query;
+
+        let filter = {};
+
+        if (name) filter.name = { $regex: name, $options: 'i' };
+        if (category) filter.category = { $regex: category, $options: 'i' };
+        if (frameShape) filter.frameShape = { $regex: frameShape, $options: 'i' };
+        if (frameMaterial) filter.frameMaterial = { $regex: frameMaterial, $options: 'i' };
+        if (lensMaterial) filter.lensMaterial = { $regex: lensMaterial, $options: 'i' };
+
+        const skip = (page - 1) * limit;
+
+        const product_data = await ProductSchemadb.find(filter).skip(skip).limit(limit);
+        const total_products = await ProductSchemadb.countDocuments(filter);
+
+        if (product_data.length > 0) {
+            return res.send({
+                "Product": product_data,
+                "totalPages": Math.ceil(total_products / limit),
+                "currentPage": page,
+                "totalProducts": total_products
+            });
         } else {
-            return res.send({ "msg": "No data in db" });
+            return res.send({ "msg": "No products found" });
         }
     } catch (error) {
         console.error("Error fetching products:", error);
-        return res.status(500).send({ "msg": "Server error" });
+        return res.status(500).send({ "msg": "Server error", error: error.message }); // Include error message
     }
-
-    
 };
+
+
 
 const TopProductController = async (req, res) => {
     return res.send({
