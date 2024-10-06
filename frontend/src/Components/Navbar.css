@@ -233,7 +233,41 @@ nav .hamburger {
   }
 }
 
-/* Default styles for the animation */
+/* Navbar layout */
+.menu {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  border-radius: 50px;
+}
+
+/* Links */
+.menu a {
+  padding: 10px 20px;
+  margin: 0;
+  text-decoration: none;
+  color: black;
+  position: relative;
+  display: block;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.menu a:hover {
+  color: white;
+}
+
+.menu li a.active {
+  background-color: orange; /* Keep background at the active link */
+  color: white;
+  border-radius: 50px;
+}
+/* Animation background */
 .menu .animation {
   position: absolute;
   height: 100%;
@@ -244,40 +278,43 @@ nav .hamburger {
   transition: all 0.4s ease;
 }
 
-/* Background for the first link by default */
+/* Starting background for the first link */
 .menu .start-home {
   width: 100px;
   left: 340px;
 }
 
-/* Use :target pseudo-class to move the background to the clicked link */
-#home:target ~ .menu .animation {
+/* Position the sliding background for each link */
+li:nth-child(1):hover~.animation {
   width: 100px;
   left: 340px;
 }
-
-#sunglasses:target ~ .menu .animation {
+menu.li:nth-child(2) a.active{
+  background-color: orange;
+}
+li:nth-child(2):hover~.animation {
   width: 150px;
   left: 450px;
 }
 
-#lens:target ~ .menu .animation {
+
+
+li:nth-child(3):hover~.animation {
   width: 80px;
   left: 620px;
 }
 
-#book-appointment:target ~ .menu .animation {
+li:nth-child(4):hover~.animation {
   width: 200px;
   left: 730px;
 }
 
-#faqs:target ~ .menu .animation {
+li:nth-child(5):hover~.animation {
   width: 80px;
   left: 970px;
 }
 
-#admin:target ~ .menu .animation {
+li:nth-child(6):hover~.animation {
   width: 100px;
   left: 1080px;
 }
-
