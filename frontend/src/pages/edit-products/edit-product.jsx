@@ -21,6 +21,8 @@ function EditProduct() {
         newImages: []
     });
     const [previewImages, setPreviewImages] = useState([]);
+    const [deleteProductsUrl, setDeleteProductsUrl] = useState([]);
+    const [newImages, setNewImages] = useState([]);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -48,15 +50,13 @@ function EditProduct() {
             ...prevProduct,
             imageUrls: prevProduct.imageUrls.filter(url => url !== imageUrl)
         }));
+        setDeleteProductsUrl(prev => [...prev, imageUrl]);
     };
 
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
         const imagePreviews = files.map(file => URL.createObjectURL(file));
-        setProduct(prevProduct => ({
-            ...prevProduct,
-            newImages: files
-        }));
+        setNewImages(files);
         setPreviewImages(imagePreviews);
     };
 
@@ -64,17 +64,40 @@ function EditProduct() {
         e.preventDefault();
         const token = Cookies.get('token');
         try {
-            const productData = {
-                ...product,
-                category: Array.isArray(product.category)
-                    ? product.category
-                    : product.category.split(',').map(item => item.trim())
-            };
-            await editProduct(id, productData, token);
-            navigate('/admin-view');
+            const formData = new FormData();
+
+            // Append product details
+            Object.keys(product).forEach(key => {
+                if (key !== 'imageUrls') {
+                    if (key === 'category') {
+                        // Handle category separately
+                        const categoryValue = Array.isArray(product.category)
+                            ? JSON.stringify(product.category)
+                            : product.category;
+                        formData.append('category', categoryValue);
+                    } else {
+                        formData.append(key, product[key]);
+                    }
+                }
+            });
+
+            // Append deleteProductsUrl
+            formData.append('deleteProductsUrl', JSON.stringify(deleteProductsUrl));
+
+            // Append new images
+            newImages.forEach((file, index) => {
+                formData.append(`newImages`, file);
+            });
+            console.log(deleteProductsUrl);
+            console.log(product.category);
+            // Make the API request
+            await editProduct(id, formData, token);
+            // Reload the current page instead of navigating
+            window.location.reload();
         } catch (error) {
             const errorMsg = error.response?.data?.msg || 'An unexpected error occurred';
             const errorDetails = error.response?.data || {};
+            console.log(error);
 
             SetError({
                 name: errorDetails.name || '',

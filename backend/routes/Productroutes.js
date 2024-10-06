@@ -17,11 +17,17 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: 'Products', // Folder where images will be stored on Cloudinary
-      format: async (req, file) => 'png', // supports promises as well
-      public_id: (req, file) => `${Date.now()}_${file.originalname}`,
+        folder: 'Products', // Folder where images will be stored on Cloudinary
+        allowed_formats: ['jpg', 'png', 'webp', 'jpeg'], // List of allowed formats
+        format: async (req, file) => {
+            // Get the file extension
+            const extension = file.originalname.split('.').pop().toLowerCase();
+            // If it's one of our allowed formats, use that. Otherwise, default to png.
+            return ['jpg', 'png', 'webp', 'jpeg'].includes(extension) ? extension : 'png';
+        },
+        public_id: (req, file) => `${Date.now()}_${file.originalname}`,
     },
-  });
+});
   
   // Middleware to handle file uploads
   const upload = multer({ storage: storage });
@@ -56,7 +62,7 @@ router.get("/slider-products", SliderProductsController); // slider product info
 router.post("/products/filter", FilterProductsController); // filter product info for User
 // adding, editing, and deleting products requires authentication: 'AuthenticationMiddleware'
 router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, AddProductController);
-router.put("/edit-product/:id", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, EditProductController);
+router.put("/edit-product/:id", upload.array('newImages', 4), AddProductMiddleware, AuthenticationMiddleware, EditProductController);
 router.delete("/delete-product/:id", AuthenticationMiddleware, DeleteProductController);
 
 module.exports = router;

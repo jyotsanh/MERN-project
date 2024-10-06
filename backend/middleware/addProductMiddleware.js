@@ -1,7 +1,15 @@
 const AddProductMiddleware = (request, response, next) => {
     if (request.body) {
         const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = request.body;
-        
+
+        let parsedCategory;
+        try {
+            parsedCategory = JSON.parse(category);
+        } catch (e) {
+            console.log('Failed to parse category:', e);
+            parsedCategory = category; // Keep the original value if parsing fails
+        }
+        request.body.category = parsedCategory;
         if (!name) {
             return response.status(400).send({ "name": "name key is not provided" });
         }
@@ -11,9 +19,12 @@ const AddProductMiddleware = (request, response, next) => {
         if (!description) {
             return response.status(400).send({ "description": "description key is not provided" });
         }
-        if (!category || !Array.isArray(category) || category.length === 0) {
+        if (!parsedCategory || !Array.isArray(parsedCategory) || parsedCategory.length === 0) {
+            
             return response.status(400).send({ "category": "category key is not provided or is not a non-empty array" });
         }
+         // Update the request body with the parsed category
+
         if (!quantity) {
             return response.status(400).send({ "quantity": "quantity key is not provided" });
         }
