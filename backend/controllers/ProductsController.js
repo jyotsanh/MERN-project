@@ -312,13 +312,23 @@ const DeleteProductController = async (req, res) => {
         const product = await ProductSchemadb.findById(productId);
 
         if (product) {
-            // Delete associated images
-            product.imageUrls.forEach(imageUrl => {
-                const imagePath = path.join(__dirname, '..', imageUrl);
-                if (fs.existsSync(imagePath)) {
-                    fs.unlinkSync(imagePath);
+            // Delete associated images from Cloudinary
+            for (const imageUrl of product.imageUrls) {
+                try {
+                    const publicId = `Products/${extractPublicId(imageUrl)}`;
+                    const result = await cloudinary.uploader.destroy(publicId);
+                    
+                    if (result.result === 'ok') {
+                        console.log(`Successfully deleted image with public ID: ${publicId}`);
+                    } else if (result.result === 'not found') {
+                        console.log(`Image with public ID ${publicId} not found in Cloudinary. It may have been already deleted.`);
+                    } else {
+                        console.log(`Failed to delete image with public ID: ${publicId}. Cloudinary response:`, result);
+                    }
+                } catch (error) {
+                    console.error(`Error deleting image ${imageUrl}:`, error);
                 }
-            });
+            }
 
             // Delete the product from the database
             await ProductSchemadb.findByIdAndDelete(productId);
@@ -334,6 +344,25 @@ const DeleteProductController = async (req, res) => {
         res.status(500).json({ msg: "Server error" });
     }
 };
+
+// Helper function to extract public ID from Cloudinary URL
+const extractPublicId = (url) => {
+    const splitUrl = url.split('/');
+    let filename = splitUrl[splitUrl.length - 1];
+    const parts = filename.split(".");
+    
+    // Check if the last two parts are identical (duplicate extensions)
+    if (parts[parts.length - 1] === parts[parts.length - 2]) {
+        // Remove the duplicate extension by joining without the last part
+        filename = parts.slice(0, -1).join(".");
+    } else {
+        // Otherwise, return the filename as-is
+        filename = parts.join(".");
+    }
+    
+    return filename;
+}
+
 const RecentProductsController = async (req, res) => {
     try {
       const recentProducts = await ProductSchemadb.find()

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { FetchProducts, deleteProduct } from '../../service/api';
 import './admin_view.css';
 import Cookies from 'js-cookie';
@@ -12,6 +12,7 @@ function Admin_View() {
     const [totalPages, setTotalPages] = useState(1);
     const [filters, setFilters] = useState({});  // State to store search filters
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const [Error, SetError] = useState({});
 
     useEffect(() => {
@@ -51,11 +52,14 @@ function Admin_View() {
             }
         };
 
-        fetchData(page, filters);  // Fetch products based on current page and filters
-    }, [page, filters, navigate, setIsAdmin, setProducts]);
+        const pageFromUrl = parseInt(searchParams.get('page')) || 1;
+        setPage(pageFromUrl);
+        fetchData(pageFromUrl, filters);  // Fetch products based on current page and filters
+    }, [searchParams, filters, navigate, setIsAdmin, setProducts]);
 
-    const handleEdit = (id) => {
-        navigate(`/edit-product/${id}`);
+    const handleEdit = (id,pageNumber) => {
+        console.log(`Editing product with ID: ${id}`);
+        navigate(`/edit-product/${id}?page=${pageNumber}`);
     };
 
     const handleDelete = async (id) => {
@@ -76,13 +80,13 @@ function Admin_View() {
 
     const handleNextPage = () => {
         if (page < totalPages) {
-            setPage(page + 1);
+            navigate(`/admin-view?page=${page + 1}`);
         }
     };
 
     const handlePreviousPage = () => {
         if (page > 1) {
-            setPage(page - 1);
+            navigate(`/admin-view?page=${page - 1}`);
         }
     };
 
@@ -179,7 +183,7 @@ function Admin_View() {
                 <td>{product.category}</td>
                 <td>{product.quantity}</td>
                 <td className="product-actions-table">
-                    <button className="edit-button" onClick={() => handleEdit(product._id)}>Edit</button>
+                    <button className="edit-button" onClick={() => handleEdit(product._id,page)}>Edit</button>
                     <button className="delete-button" onClick={() => handleDelete(product._id)}>Delete</button>
                 </td>
             </tr>

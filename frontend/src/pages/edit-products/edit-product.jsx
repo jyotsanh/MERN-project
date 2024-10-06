@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { editProduct, FetchProducts } from '../../service/api';
 import './edit-product.css'; 
 import Cookies from 'js-cookie';
 
 function EditProduct() {
     const { id } = useParams();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [Error, SetError] = useState({});
     const [product, setProduct] = useState({
@@ -24,16 +25,43 @@ function EditProduct() {
     const [deleteProductsUrl, setDeleteProductsUrl] = useState([]);
     const [newImages, setNewImages] = useState([]);
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            const productsData = await FetchProducts();
+    const fetchProduct = async () => {
+        console.log(`Fetching product with ID: ${id}`);
+        try {
+            const page = searchParams.get('page');
+            console.log('page number:', page);
+            const productsData = await FetchProducts(page);
+            console.log('Fetched products data:', productsData);
+            
+            if (!productsData.Product || !Array.isArray(productsData.Product)) {
+                console.error('Invalid products data structure:', productsData);
+                return;
+            }
+
+            console.log('All product IDs:', productsData.Product.map(p => p._id));
+            
             const productToEdit = productsData.Product.find(p => p._id === id);
+            console.log(`Product to edit:`, productToEdit);
+
             if (productToEdit) {
                 setProduct(productToEdit);
+            } else {
+                console.error(`Product with ID ${id} not found`);
+                console.log('ID type:', typeof id);
+                console.log('Sample product ID type:', typeof productsData.Product[0]._id);
+                // Optionally, you can set an error state or show a message to the user
+                // setError('Product not found');
             }
-        };
+        } catch (error) {
+            console.error('Error fetching product:', error);
+            // Optionally, you can set an error state or show a message to the user
+            // setError('Failed to fetch product');
+        }
+    };
+
+    useEffect(() => {
         fetchProduct();
-    }, [id]);
+    }, [id, searchParams]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -208,7 +236,7 @@ function EditProduct() {
                         )}
                     </div>
                     <button type="submit" className="submit-btn">Update Product</button>
-                    <button type="button" className="back-btn" onClick={() => navigate('/admin-view')}>Back to Admin</button>
+                    <button type="button" className="back-btn" onClick={() => navigate(`/admin-view?page=${searchParams.get('page')}`)}>Back to Admin</button>
                     
                     {Error.msg && <p className="error-text"> {Error.msg} </p>}
                 </form>
