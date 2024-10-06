@@ -232,3 +232,52 @@ nav .hamburger {
     height: 40px; /* Adjust the height for smaller screens */
   }
 }
+
+/* Default styles for the animation */
+.menu .animation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+  background: orange;
+  border-radius: 50px;
+  transition: all 0.4s ease;
+}
+
+/* Background for the first link by default */
+.menu .start-home {
+  width: 100px;
+  left: 340px;
+}
+
+/* Use :target pseudo-class to move the background to the clicked link */
+#home:target ~ .menu .animation {
+  width: 100px;
+  left: 340px;
+}
+
+#sunglasses:target ~ .menu .animation {
+  width: 150px;
+  left: 450px;
+}
+
+#lens:target ~ .menu .animation {
+  width: 80px;
+  left: 620px;
+}
+
+#book-appointment:target ~ .menu .animation {
+  width: 200px;
+  left: 730px;
+}
+
+#faqs:target ~ .menu .animation {
+  width: 80px;
+  left: 970px;
+}
+
+#admin:target ~ .menu .animation {
+  width: 100px;
+  left: 1080px;
+}
+

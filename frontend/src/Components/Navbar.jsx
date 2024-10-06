@@ -70,7 +70,6 @@ function Navbar() {
     
       const itemCount = cart.items.reduce((count, item) => count + item.quantity, 0);
     };
-
     return (
       <div className="navbar mt-3">
         <nav>
@@ -136,6 +135,7 @@ function Navbar() {
           <li><NavLink to="/book" activeClassName="active">Book Appointment</NavLink></li>
           <li><NavLink to="/faq" activeClassName="active">FAQs</NavLink></li>
           <li><NavLink to="/admin-login" activeClassName="active">Admin</NavLink></li>
+          <div className="animation start-home"></div>
         </ul>
 
         {showLoginForm && (
@@ -144,6 +144,7 @@ function Navbar() {
               <Login />
             </div>
           </div>
+
         )}
       </div>
     );
@@ -151,3 +152,5 @@ function Navbar() {
 
 
 export default Navbar;
+
+
