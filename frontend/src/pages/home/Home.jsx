@@ -216,14 +216,20 @@ const Home = () => {
     {recentProducts?.map((product) => (
       <div className="product bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105" key={product._id}>
         <div className="image-container relative group">
-          <img src={product.imageUrls[0]} alt={product.name} className="w-full h-auto transition-transform duration-300 group-hover:scale-105" />
-          <Link to="/ProductPage" className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Link to={`/product/${product._id}`} className="block">
+            <img
+              src={product.imageUrls[0]}
+              alt={product.name}
+              className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+            />
+          </Link>
+          <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
               <li onClick={() => handleAddToCart(product)} className="cursor-pointer">
                 <AiOutlineHeart className="text-red-500 text-xl" />
               </li>
             </div>
-          </Link>
+          </div>
         </div>
         <p className="text-center mt-2 text-orange-600 font-medium">{product.name}</p>
         <p className="price text-center text-gray-600">Rs {product.price}</p>
@@ -231,6 +237,7 @@ const Home = () => {
     ))}
   </Slider>
 </section>
+
 <Outlet />
 
 
