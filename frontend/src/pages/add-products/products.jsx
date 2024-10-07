@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import './products.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import Admin from '../Admin/admin';
 
 function AddProducts() {
     const navigate = useNavigate();
@@ -105,158 +106,158 @@ function AddProducts() {
     }
 
     return (
-        <div className="pro-upload-product-container">
-            <button onClick={handleBackToAdmin} className="pro-back-button">Back to Admin</button>
-            <h1>Upload Product</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="pro-form-group">
-                    <label htmlFor="name">Product Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                    {Error.name && <p className="pro-error-text">{Error.name}</p>}
-                </div>
+        <div className="pro-admin-container"> {/* Flex container for sidebar and form */}
+            <div className="sidenavbars">
+                <Admin />
+            </div>
+            <div className="pro-upload-product-container">
+                <button onClick={handleBackToAdmin} className="pro-back-button">Back to Admin</button>
+                <h1>Upload Product</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="pro-form-group">
+                        <label htmlFor="name">Product Name:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                        {Error.name && <p className="pro-error-text">{Error.name}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="description">Description:</label>
-                    <input
-                        type="text"
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                    {Error.description && <p className="pro-error-text">{Error.description}</p>}
-                </div>
+                    <div className="pro-form-group">
+                        <label htmlFor="description">Description:</label>
+                        <input
+                            type="text"
+                            id="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
+                        {Error.description && <p className="pro-error-text">{Error.description}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="price">Product Price:</label>
-                    <input
-                        type="number"
-                        id="price"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
-                    />
-                    {Error.price && <p className="pro-error-text">{Error.price}</p>}
-                </div>
+                    <div className="pro-form-group">
+                        <label htmlFor="price">Product Price:</label>
+                        <input
+                            type="number"
+                            id="price"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            required
+                        />
+                        {Error.price && <p className="pro-error-text">{Error.price}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="frame_material">Frame Material: </label>
-                    <select
-                        id="frame_material"
-                        value={frame_material}
-                        onChange={(e) => setFrame_material(e.target.value)}
-                        required
-                    >
-                        <option value="">Select a Frame Category</option>
-                        <option value="Aluminium">Aluminium</option>
-                        <option value="Titanium">Titanium</option>
-                        <option value="Stainless Steel">Stainless Steel</option>
-                        <option value="Plastic">Plastic</option>
-                        <option value="Carbon Fiber">Carbon Fiber</option>
-                        <option value="Wood">Wood</option>
-                        <option value="Leather">Leather</option>
-                        <option value="TR-90">TR-90</option>
-                    </select>
-                    {Error.frame_material && <p className="pro-error-text">{Error.frame_material}</p>}
-                </div>
+                    <div className="pro-form-group">
+                        <label htmlFor="frame_material">Frame Material: </label>
+                        <select
+                            id="frame_material"
+                            value={frame_material}
+                            onChange={(e) => setFrame_material(e.target.value)}
+                            required
+                        >
+                            <option value="">Select a Frame Category</option>
+                            <option value="Aluminium">Aluminium</option>
+                            <option value="Titanium">Titanium</option>
+                            <option value="Stainless Steel">Stainless Steel</option>
+                            <option value="Plastic">Plastic</option>
+                            <option value="Carbon Fiber">Carbon Fiber</option>
+                            <option value="Wood">Wood</option>
+                            <option value="Leather">Leather</option>
+                            <option value="TR-90">TR-90</option>
+                        </select>
+                        {Error.frame_material && <p className="pro-error-text">{Error.frame_material}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="frame_shape">Frame Shape: </label>
-                    <select
-                        id="frame_shape"
-                        value={frame_shape}
-                        onChange={(e) => setFrame_shape(e.target.value)}
-                        required
-                    >
-                        <option value="">Select a Frame Shape</option>
-                        <option value="Rectangular">Rectangular</option>
-                        <option value="Round">Round</option>
-                        <option value="Square">Square</option>
-                        <option value="Oval">Oval</option>
-                        <option value="Cat-Eye">Cat-Eye</option>
-                        <option value="Aviator">Aviator</option>
-                        <option value="Browline/Clubmaster">Browline/Clubmaster</option>
-                        <option value="Wayfarer">Wayfarer</option>
-                        <option value="Oversized">Oversized</option>
-                        <option value="Geometric">Geometric</option>
-                        <option value="Rimless">Rimless</option>
-                    </select>
-                    {Error.frame_shape && <p className="pro-error-text">{Error.frame_shape}</p>}
-                </div>
+                    <div className="pro-form-group">
+                        <label htmlFor="frame_shape">Frame Shape: </label>
+                        <select
+                            id="frame_shape"
+                            value={frame_shape}
+                            onChange={(e) => setFrame_shape(e.target.value)}
+                            required
+                        >
+                            <option value="">Select a Frame Shape</option>
+                            <option value="Rectangular">Rectangular</option>
+                            <option value="Round">Round</option>
+                            <option value="Square">Square</option>
+                            <option value="Oval">Oval</option>
+                            <option value="Cat-Eye">Cat-Eye</option>
+                            <option value="Aviator">Aviator</option>
+                            <option value="Browline/Clubmaster">Browline/Clubmaster</option>
+                            <option value="Wayfarer">Wayfarer</option>
+                            <option value="Oversized">Oversized</option>
+                            <option value="Geometric">Geometric</option>
+                            <option value="Rimless">Rimless</option>
+                        </select>
+                        {Error.frame_shape && <p className="pro-error-text">{Error.frame_shape}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="lens_material">Lens Material: </label>
-                    <select
-                        id="lens_material"
-                        value={lens_material}
-                        onChange={(e) => setLens_material(e.target.value)}
-                        required
-                    >
-                        <option value="">Select a Lens Material</option>
-                        <option value="Polycarbonate">Polycarbonate</option>
-                        <option value="Glass">Glass</option>
-                        <option value="Plastic">Plastic</option>
-                    </select>
-                    {Error.lens_material && <p className="pro-error-text">{Error.lens_material}</p>}
-                </div>
+                    <div className="pro-form-group">
+                        <label htmlFor="lens_material">Lens Material: </label>
+                        <select
+                            id="lens_material"
+                            value={lens_material}
+                            onChange={(e) => setLens_material(e.target.value)}
+                            required
+                        >
+                            <option value="">Select a Lens Material</option>
+                            <option value="Polycarbonate">Polycarbonate</option>
+                            <option value="Glass">Glass</option>
+                            <option value="Plastic">Plastic</option>
+                        </select>
+                        {Error.lens_material && <p className="pro-error-text">{Error.lens_material}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="category">Category: </label>
-                    <input
-                        type="text"
-                        id="category"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        placeholder="Enter categories separated by commas"
-                        required
-                    />
-                    {Error.category && <p className="pro-error-text">{Error.category}</p>}
-                </div>
+                    <div className="pro-form-group">
+                        <label htmlFor="category">Category: </label>
+                        <input
+                            type="text"
+                            id="category"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            placeholder="Enter categories separated by commas"
+                            required
+                        />
+                        {Error.category && <p className="pro-error-text">{Error.category}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="quantity">Quantity: </label>
-                    <input
-                        type="number"
-                        id="quantity"
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                        required
-                    />
-                    {Error.quantity && <p className="pro-error-text">{Error.quantity}</p>}
-                </div>
+                    <div className="pro-form-group">
+                        <label htmlFor="quantity">Quantity: </label>
+                        <input
+                            type="number"
+                            id="quantity"
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                            required
+                        />
+                        {Error.quantity && <p className="pro-error-text">{Error.quantity}</p>}
+                    </div>
 
-                <div className="pro-form-group">
-                    <label htmlFor="images">Product Images:</label>
-                    <input
-                        type="file"
-                        id="images"
-                        multiple
-                        onChange={handleImageChange}
-                        required
-                    />
-                    {Error.images && <p className="pro-error-text">{Error.images}</p>}
-                    {imagePreviews.length > 0 && (
-                        <div className="pro-selected-files">
-                            <p>Selected images:</p>
-                            <div className="pro-image-previews">
-                                {imagePreviews.map((image, index) => (
-                                    <img key={index} src={image} alt={`preview ${index}`} className="pro-image-preview" />
+                    <div className="pro-form-group">
+                        <label htmlFor="images">Product Images:</label>
+                        <input
+                            type="file"
+                            id="images"
+                            multiple
+                            onChange={handleImageChange}
+                            required
+                        />
+                        {Error.images && <p className="pro-error-text">{Error.images}</p>}
+                        {imagePreviews.length > 0 && (
+                            <div className="pro-selected-files">
+                                {imagePreviews.map((preview, index) => (
+                                    <img key={index} src={preview} alt={`Preview ${index}`} />
                                 ))}
                             </div>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
 
-                <button type="submit" className="pro-submit-button">Upload Product</button>
-                {message && <p className="pro-success-text">{message}</p>}
-                {Error.msg && <p className="pro-error-text">{Error.msg}</p>}
-            </form>
+                    <button type="submit" className="pro-submit-button">Upload Product</button>
+                </form>
+            </div>
         </div>
     );
 }

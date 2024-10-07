@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { NavLink, useNavigate, Outlet } from 'react-router-dom';
 import './admin.css'; 
+// import Admin_View from './admin_view';
 import { jwtDecode } from "jwt-decode";;
 
 function Admin() {
@@ -50,9 +51,8 @@ function Admin() {
                     Incoming Orders
                 </NavLink>
             </nav>
-            <div className="admin-content">
-                <Outlet />
-            </div>
+          
+
         </div>
     );
 }

@@ -1,12 +1,31 @@
-.admin-view-container {
+/* Layout */
+.admin-layout {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    height: 125vh; /* Fixed to the viewport height */
+    flex-direction: row;
 }
 
+.admin-sidenav {
+    width: 350px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.admin-content {
+    flex: 1; /* Allows the content to take up remaining space */
+    background-color: #ecf0f1;
+    /* Removed margin-left to prevent extra spacing */
+    /* padding: 20px; */
+    margin-left: 30px;
+}
+
+/* General Styling */
 .admin-title {
     margin-bottom: 20px;
+    font-size: 24px;
 }
 
 .back-button {
@@ -15,7 +34,6 @@
     color: white;
     padding: 10px 20px;
     text-align: center;
-    text-decoration: none;
     font-size: 16px;
     cursor: pointer;
     border-radius: 8px;
@@ -26,6 +44,7 @@
     background-color: #45a049;
 }
 
+/* Table Styles */
 .product-table {
     width: 100%;
     border-collapse: collapse;
@@ -56,28 +75,20 @@
     gap: 10px;
 }
 
+.edit-button, .delete-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+
 .edit-button {
     background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 8px;
 }
 
 .delete-button {
     background-color: #ff0000;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 8px;
 }
 
 .edit-button:hover {
@@ -88,34 +99,57 @@
     background-color: #c53535;
 }
 
+/* Search Bar */
 .search-bar {
     display: flex;
-    justify-content: space-between; /* Space between the inputs */
-    flex-wrap: wrap; /* To allow wrapping if needed on smaller screens */
-    gap: 10px; /* Add some space between inputs */
-    margin-bottom: 20px; /* Space between the form and the search button */
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .search-bar input {
-    flex: 1; /* Inputs will equally take available space */
-    min-width: 150px; /* Set a minimum width for each input */
-    padding: 10px; /* Some padding inside the input fields */
-    border: 1px solid #ccc; /* Add border */
-    border-radius: 5px; /* Rounded corners */
-    box-sizing: border-box; /* Ensures padding doesn’t affect width */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
 .search-bar button {
-    width: 100%; /* Button spans full width */
-    padding: 15px; /* Add padding to the button */
-    background-color: #007bff; /* Button color */
-    color: white; /* Text color */
+    padding: 10px 20px;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .search-bar button:hover {
-    background-color: #0056b3; /* Darken on hover */
+    background-color: #45a049;
+}
+
+/* Pagination Controls */
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    background-color: #3498db;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.pagination-button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-size: 16px;
 }

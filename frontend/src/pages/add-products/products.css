@@ -1,10 +1,26 @@
+.pro-admin-container {
+    display: flex;
+    justify-content: left; /* Align items in the center horizontally */
+    gap: 20px; /* Add some space between sidebar and form */
+}
+
+.sidenavbars {
+    flex: 1; /* Sidebar takes 1 part of the width */
+    max-width: 350px; /* Set a max width for the sidebar */
+    /* padding: 20px; */
+    /* height: 300px; */
+   /* Optional: Add a border on the right */
+}
+
 .pro-upload-product-container {
-    max-width: 600px;
-    margin: 0 auto;
+    flex: 2; /* Form takes 2 parts of the width */
+    max-width: 700px;
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
     border: 1px solid #ccc;
+    margin-left: 500px;
+    align-items: center;
     border-radius: 5px;
     background-color: #f9f9f9;
 }
@@ -18,63 +34,47 @@
     margin-bottom: 5px;
 }
 
-.pro-form-group input,
-.pro-form-group select {
+.pro-form-group input, .pro-form-group select {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.pro-error-text {
+    color: red;
+    font-size: 12px;
+}
+
+.pro-back-button {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pro-submit-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .pro-selected-files {
     margin-top: 10px;
 }
 
-.pro-image-previews {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    gap: 10px; /* Space between images */
-}
-
-.pro-image-preview {
-    width: 100%; /* Fill the cell */
-    height: auto; /* Maintain aspect ratio */
-    max-width: 100px; /* Limit maximum width */
-    max-height: 100px; /* Limit maximum height */
-    border-radius: 5px; /* Optional: for rounded corners */
-}
-
-.pro-submit-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.pro-submit-button:hover {
-    background-color: #0056b3;
-}
-
-.pro-error-text {
-    color: red;
-}
-
-.pro-success-text {
-    color: green;
-    margin-top: 10px;
-}
-.pro-back-button {
-    margin-bottom: 15px;
-    padding: 10px 15px;
-    background-color: #f44336; /* Red button for visibility */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.pro-back-button:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+.pro-selected-files img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
