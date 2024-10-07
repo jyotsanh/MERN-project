@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useCart } from '../../context/CartContext';
 import Outlet from '../../pages/Store/Outlet.jsx'; 
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
+import { addToCart } from '../../service/api';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import { useState, useEffect } from 'react';
-import { recentProducts } from '../../service/api';
 import axios from 'axios';
 
 const URL = import.meta.env.VITE_BASE_URL; // Use environment variable for the base URL
@@ -67,6 +70,12 @@ const Home = () => {
   const [recentProducts, setRecentProducts] = useState([]);
   const [sliderProducts, setSliderProducts] = useState([]);
   const { dispatch } = useCart();
+  const navigate = useNavigate();
+  const [addedProducts, setAddedProducts] = useState(() => {
+    // Initialize state from localStorage
+    const saved = localStorage.getItem('addedProducts');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const settings = {
     dots: true,
@@ -114,8 +123,50 @@ const Home = () => {
     fetchSliderProducts();
   }, []);
 
-  const handleAddToCart = (product) => {
-    dispatch({ type: 'ADD_TO_CART', payload: product });
+  useEffect(() => {
+    // Save addedProducts to localStorage whenever it changes
+    localStorage.setItem('addedProducts', JSON.stringify(addedProducts));
+  }, [addedProducts]);
+
+  const handleAddToCart = async (product) => {
+    const token = Cookies.get('token');
+    
+    if (!token) {
+      toast.error('Please log in to add items to your cart');
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decodedToken.exp < currentTime) {
+        toast.error('Your session has expired. Please log in again');
+        Cookies.remove('token');
+        navigate("/login");
+        return;
+      }
+
+      const payload = {
+        userId: decodedToken.userId,
+        items: [{
+          productId: product._id,
+          name: product.name,
+          imageUrl: product.imageUrls[0], // Assuming the first image is the main one
+          quantity: 1,
+          price: product.price
+        }]
+      };
+      console.log(`payload:`, payload, `token: ${token}`);
+      const response = await addToCart(payload, token);
+      toast.success('Product added to cart successfully');
+      setAddedProducts(prev => [...prev, product._id]); // Add the product ID to the state
+      // You might want to update the cart state or trigger a re-fetch of cart items here
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+      toast.error('Failed to add product to cart. Please try again.');
+    }
   };
 
   return (
@@ -225,8 +276,12 @@ const Home = () => {
           </Link>
           <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
-              <li onClick={() => handleAddToCart(product)} className="cursor-pointer">
-                <AiOutlineHeart className="text-red-500 text-xl" />
+              <li key={`heart-${product._id}`} onClick={() => handleAddToCart(product)} className="cursor-pointer">
+                {addedProducts.includes(product._id) ? (
+                  <AiFillHeart className="text-red-500 text-xl" />
+                ) : (
+                  <AiOutlineHeart className="text-red-500 text-xl" />
+                )}
               </li>
             </div>
           </div>
