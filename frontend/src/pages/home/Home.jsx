@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,7 +10,6 @@ import Outlet from '../../pages/Store/Outlet.jsx';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { addToCart } from '../../service/api';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import axios from 'axios';
@@ -128,45 +127,52 @@ const Home = () => {
     localStorage.setItem('addedProducts', JSON.stringify(addedProducts));
   }, [addedProducts]);
 
-  const handleAddToCart = async (product) => {
+  const isTokenValid = () => {
     const token = Cookies.get('token');
-    
-    if (!token) {
+    if (!token) return false;
+
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      return decodedToken.exp > currentTime;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const handleAddToCart = async (product) => {
+    if (!isTokenValid()) {
       toast.error('Please log in to add items to your cart');
       navigate("/login");
       return;
     }
 
     try {
+      const token = Cookies.get('token');
       const decodedToken = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-
-      if (decodedToken.exp < currentTime) {
-        toast.error('Your session has expired. Please log in again');
-        Cookies.remove('token');
-        navigate("/login");
-        return;
-      }
 
       const payload = {
         userId: decodedToken.userId,
         items: [{
           productId: product._id,
           name: product.name,
-          imageUrl: product.imageUrls[0], // Assuming the first image is the main one
+          imageUrl: product.imageUrls[0],
           quantity: 1,
           price: product.price
         }]
       };
-      console.log(`payload:`, payload, `token: ${token}`);
+
       const response = await addToCart(payload, token);
       toast.success('Product added to cart successfully');
-      setAddedProducts(prev => [...prev, product._id]); // Add the product ID to the state
-      // You might want to update the cart state or trigger a re-fetch of cart items here
+      setAddedProducts(prev => [...prev, product._id]);
     } catch (error) {
       console.error('Error adding product to cart:', error);
       toast.error('Failed to add product to cart. Please try again.');
     }
+  };
+
+  const isProductAdded = (productId) => {
+    return isTokenValid() && addedProducts.includes(productId);
   };
 
   return (
@@ -277,7 +283,7 @@ const Home = () => {
           <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="icon flex items-center justify-center p-2 bg-white rounded-full shadow-md">
               <li key={`heart-${product._id}`} onClick={() => handleAddToCart(product)} className="cursor-pointer">
-                {addedProducts.includes(product._id) ? (
+                {isProductAdded(product._id) ? (
                   <AiFillHeart className="text-red-500 text-xl" />
                 ) : (
                   <AiOutlineHeart className="text-red-500 text-xl" />
