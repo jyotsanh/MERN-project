@@ -1,25 +1,24 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { UploadProducts } from "../../service/api";
 import { jwtDecode } from "jwt-decode";
 import './products.css';
 import Cookies from 'js-cookie';
-import { NavLink,useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function AddProducts() {
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [images, setImages] = useState([]); 
+    const [images, setImages] = useState([]);
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState(''); 
+    const [category, setCategory] = useState('');
     const [quantity, setQuantity] = useState('');
     const [frame_material, setFrame_material] = useState('');
     const [lens_material, setLens_material] = useState('');
     const [frame_shape, setFrame_shape] = useState('');
     const [Error, SetError] = useState({});
-    const [imageNames, setImageNames] = useState([]);
-
+    const [imagePreviews, setImagePreviews] = useState([]);
 
     const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
@@ -39,16 +38,15 @@ function AddProducts() {
                 console.error('Invalid token:', error);
                 navigate('/');
             }
-        
         }
     }, [navigate]);
-
 
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         setImages(prevImages => [...prevImages, ...files]);
-        const fileNames = files.map(file => file.name);
-        setImageNames(prevNames => [...prevNames, ...fileNames]);
+
+        const filePreviews = files.map(file => URL.createObjectURL(file));
+        setImagePreviews(prevPreviews => [...prevPreviews, ...filePreviews]);
     };
 
     const handleSubmit = async (e) => {
@@ -79,7 +77,7 @@ function AddProducts() {
             setDescription("");
             setCategory("");
             setQuantity("");
-            setImageNames([]);
+            setImagePreviews([]);
         } catch (error) {
             const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = error.response.data;
             SetError({
@@ -94,7 +92,7 @@ function AddProducts() {
                 msg: error.response.data.msg
             });
         }
-    }
+    };
 
     if (!isAdmin) {
         return (
@@ -239,24 +237,21 @@ function AddProducts() {
                         required
                     />
                     {Error.images && <p className="pro-error-text">{Error.images}</p>}
-                    {imageNames.length > 0 && (
+                    {imagePreviews.length > 0 && (
                         <div className="pro-selected-files">
-                            <p>Selected files:</p>
-                            <ul>
-                                {imageNames.map((name, index) => (
-                                    <li key={index}>{name}</li>
+                            <p>Selected images:</p>
+                            <div className="pro-image-previews">
+                                {imagePreviews.map((image, index) => (
+                                    <img key={index} src={image} alt={`preview ${index}`} className="pro-image-preview" />
                                 ))}
-                            </ul>
+                            </div>
                         </div>
                     )}
                 </div>
 
-                <button type="submit">Upload</button>
-                <NavLink to="/admin/products">
-                    <button type="button">Back to Admin</button>
-                </NavLink>
+                <button type="submit" className="pro-submit-button">Upload Product</button>
+                {message && <p className="pro-success-text">{message}</p>}
                 {Error.msg && <p className="pro-error-text">{Error.msg}</p>}
-                {message && <p>{message}</p>}
             </form>
         </div>
     );

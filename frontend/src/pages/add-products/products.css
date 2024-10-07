@@ -1,18 +1,12 @@
 .pro-upload-product-container {
     max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.pro-upload-product-container h1 {
-    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
     margin-bottom: 20px;
-    color: #333;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .pro-form-group {
@@ -22,98 +16,52 @@
 .pro-form-group label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
 }
 
-.pro-form-group input[type='text'],
-.pro-form-group input[type='number'],
-.pro-form-group input[type='file'] {
-    width: calc(100% - 10px);
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #000000;
-    border-radius: 5px;
-}
-
-.pro-form-group input[type='file'] {
+.pro-form-group input,
+.pro-form-group select {
+    width: 100%;
     padding: 8px;
-}
-
-.pro-form-group label[for='images'] {
-    font-size: 16px;
-    color: #555;
-}
-
-.pro-form-group input[type='file']::file-selector-button {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.pro-form-group input[type='file']::file-selector-button:hover {
-    background: #45a049;
-}
-
-button[type='submit'] {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button[type='submit']:hover {
-    background-color: #45a049;
-}
-
-button[type='button'] {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button[type='button']:hover {
-    background-color: #c62828;
-}
-
-.pro-error-text {
-    color: #d32f2f;
-    margin-top: 5px;
-    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .pro-selected-files {
     margin-top: 10px;
-    font-size: 14px;
-    color: #555;
 }
 
-.pro-form-group select[multiple] {
-    height: auto;
-    min-height: 100px;
+.pro-image-previews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 10px; /* Space between images */
 }
 
-.pro-upload-product-container p {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #28a745;
+.pro-image-preview {
+    width: 100%; /* Fill the cell */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100px; /* Limit maximum width */
+    max-height: 100px; /* Limit maximum height */
+    border-radius: 5px; /* Optional: for rounded corners */
 }
 
-.pro-upload-product-container p.pro-error-text {
+.pro-submit-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pro-submit-button:hover {
+    background-color: #0056b3;
+}
+
+.pro-error-text {
     color: red;
+}
+
+.pro-success-text {
+    color: green;
+    margin-top: 10px;
 }

@@ -76,7 +76,7 @@ const Cart = () => {
   const updateQuantity = (productId, newQuantity) => {
     setCart((prevCart) => {
       const updatedItems = prevCart.items.map((item) => {
-        const validQuantity = Number(newQuantity) > 0 ? Number(newQuantity) : 0;
+        const validQuantity = Math.min(Math.max(1, parseInt(newQuantity) || 1), 10); // Limit between 1 and 10
         return item.productId === productId
           ? { ...item, quantity: validQuantity }
           : item;
@@ -100,7 +100,14 @@ const Cart = () => {
 
   const totalPrice = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
   const handleProceedToCheckout = () => {
-    navigate('/checkout', { state: { cartItems: cart.items,totalPrice: totalPrice } });
+    const productIds = cart.items.map(item => item.productId);
+    navigate('/checkout', { 
+      state: { 
+        cartItems: cart.items,
+        totalPrice: totalPrice,
+        productIds: productIds
+      } 
+    });
   };
   return (
     <div className="cart">
@@ -130,7 +137,7 @@ const Cart = () => {
                   type="number"
                   value={item.quantity}
                   min="1"
-                  max="5"
+                  max="10"
                   className="quantity-input"
                   onChange={(e) => updateQuantity(item.productId, e.target.value)}
                 />

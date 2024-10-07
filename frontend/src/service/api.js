@@ -25,10 +25,17 @@ export const UploadProducts = async (formdata, token) => {
 };
 
 // development in User products data fetched from backend
-export const FetchProducts = async () => {
-    const response = await axios.get(`${URL}/products`);
+export const FetchProducts = async (page = 1, limit = 8, filters = {}) => {
+    const response = await axios.get(`${URL}/products`, {
+        params: {
+            page,
+            limit,
+            ...filters // Spread the filters object to pass as query params
+        }
+    });
     return response.data;
 };
+
 
 // product can be deleted for admin
 export const deleteProduct = async (id, token) => {
@@ -70,8 +77,10 @@ export const AdminLogin = async (data) => {
 };
 
 // all for products data fetched from backend for User
-export const FetchProductsUser = async () => {
-    const response = await axios.get(`${URL}/user-products`);
+export const FetchProductsUser = async (page = 1) => {
+    const response = await axios.get(`${URL}/user-products`, {
+        params: { page }
+    });
     return response.data;
 };
 
@@ -156,3 +165,48 @@ export const placeOrder = async (orderData, token) => {
         throw error; // Handle errors appropriately
     }
 };
+// Fetch user order with token
+export const getUserOrder = async (token) => {
+    const response = await axios.get(`${URL}/user-order`, {
+        headers: {
+            Authorization: `${token}`, // Ensure token is prefixed with 'Bearer' if necessary
+        },
+    });
+    return response;
+};
+
+
+export const recentProducts = async () => {
+    const response = await axios.get(`${URL}/recent-products`);
+    return response.data;
+};
+
+export const getAdminOrders = async (token) => {
+    const response = await axios.get(`${URL}/get-orders`, {
+        headers: {
+            Authorization: `${token}`, // Ensure token is prefixed with 'Bearer' if necessary
+        },
+    });
+    return response.data;
+};
+
+export const adminUpdateOrderStatus = async (orderId, newStatus, token) => {
+    const response = await axios.put(`${URL}/update-order-status/${orderId}`, { status: newStatus }, {
+        headers: {
+            Authorization: `${token}`, // Ensure token is prefixed with 'Bearer' if necessary
+        },
+    });
+    return response.data;
+};
+
+
+export const FetchFilteredProducts = async (filters) => {
+    try {
+      const response = await axios.post(`${URL}/products/filter`, filters);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching filtered products:', error);
+      throw error;
+    }
+  };
+

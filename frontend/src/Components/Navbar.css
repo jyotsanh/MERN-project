@@ -74,7 +74,7 @@ nav .actions {
 
 /* Style for the action icons */
 nav .actions img {
-  height: 35px;
+  height: 32px;
   margin: 0 5px;
   cursor: pointer;
   transition: opacity 0.3s;

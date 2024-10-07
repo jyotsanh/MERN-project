@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ConnectDb = () => {
-  const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/EyeMate";
+  const mongoURI = process.env.MONGODB_URI ;
 
   mongoose.set('strictQuery', true);
   
