@@ -86,6 +86,7 @@ const UserProductsController = async (req, res) => {
 
 const ProductController = async (req, res) => {
     try {
+        console.log("fetched the filtered products")
         const { name, category, frame_shape, frame_material, lens_material, page = 1, limit = 8 } = req.query;
 
         let filter = {};

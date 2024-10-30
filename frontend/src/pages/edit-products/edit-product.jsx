@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { editProduct, FetchProducts } from '../../service/api';
+import { editProduct, FetchProducts,FetchProductInfoAsAdmin } from '../../service/api';
 import './edit-product.css'; 
 import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 function EditProduct() {
     const { id } = useParams();
@@ -24,34 +25,32 @@ function EditProduct() {
     const [previewImages, setPreviewImages] = useState([]);
     const [deleteProductsUrl, setDeleteProductsUrl] = useState([]);
     const [newImages, setNewImages] = useState([]);
+    const [notification, setNotification] = useState({ message: '', type: '' });
 
     const fetchProduct = async () => {
         console.log(`Fetching product with ID: ${id}`);
         try {
-            const page = searchParams.get('page');
-            console.log('page number:', page);
-            const productsData = await FetchProducts(page);
-            console.log('Fetched products data:', productsData);
+            const token = Cookies.get('token');
             
-            if (!productsData.Product || !Array.isArray(productsData.Product)) {
-                console.error('Invalid products data structure:', productsData);
+            if(!token) {
+                navigate('/');
                 return;
             }
-
-            console.log('All product IDs:', productsData.Product.map(p => p._id));
-            
-            const productToEdit = productsData.Product.find(p => p._id === id);
-            console.log(`Product to edit:`, productToEdit);
-
-            if (productToEdit) {
-                setProduct(productToEdit);
-            } else {
-                console.error(`Product with ID ${id} not found`);
-                console.log('ID type:', typeof id);
-                console.log('Sample product ID type:', typeof productsData.Product[0]._id);
-                // Optionally, you can set an error state or show a message to the user
-                // setError('Product not found');
+            try {
+                const decoded = jwtDecode(token);
+                if (decoded.role !== 'admin') {
+                    navigate('/');
+                    return; // prevent further execution if not an admin
+                }
+                
+            } catch (error) {
+                console.log('Invalid token:', error);
+                navigate('/');
+                return; // prevent further execution if token is invalid
             }
+            const response = await FetchProductInfoAsAdmin(id, token);
+            
+            setProduct(response.Product);
         } catch (error) {
             console.error('Error fetching product:', error);
             // Optionally, you can set an error state or show a message to the user
@@ -119,14 +118,19 @@ function EditProduct() {
             console.log(deleteProductsUrl);
             console.log(product.category);
             // Make the API request
-            await editProduct(id, formData, token);
+            const response = await editProduct(id, formData, token);
             // Reload the current page instead of navigating
-            window.location.reload();
+            console.log(response);
+            setNotification({ message: 'Update successful!', type: 'success' });
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+            
         } catch (error) {
             const errorMsg = error.response?.data?.msg || 'An unexpected error occurred';
             const errorDetails = error.response?.data || {};
             console.log(error);
-
+            setNotification({ message: "Can't update!", type: 'error' });
             SetError({
                 name: errorDetails.name || '',
                 price: errorDetails.price || '',
@@ -198,6 +202,7 @@ function EditProduct() {
                             <option value="">Select a Frame Shape</option>
                             <option value="Rectangular">Rectangular</option>
                             <option value="Round">Round</option>
+                            <option value="Geometric">Geometric</option>
                             <option value="Square">Square</option>
                             <option value="Oval">Oval</option>
                             <option value="Cat-Eye">Cat-Eye</option>
@@ -238,7 +243,26 @@ function EditProduct() {
                     <button type="submit" className="submit-btn">Update Product</button>
                     <button type="button" className="back-btn" onClick={() => navigate(`/admin-view?page=${searchParams.get('page')}`)}>Back to Admin</button>
                     
-                    {Error.msg && <p className="error-text"> {Error.msg} </p>}
+                    {
+                        Error.msg && <p className="error-text"> {Error.msg} </p>
+                    }
+                    
+
+                    {
+                        notification.message && (
+                        <div 
+                            style={{
+                                padding: '10px',
+                                marginBottom: '10px',
+                                borderRadius: '4px',
+                                backgroundColor: notification.type === 'success' ? '#d4edda' : '#f8d7da',
+                                color: notification.type === 'success' ? '#155724' : '#721c24',
+                                border: `1px solid ${notification.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`
+                            }}
+                            >
+                            {notification.message}
+                        </div>
+                    )}
                 </form>
             </div>
         </div>

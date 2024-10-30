@@ -15,47 +15,50 @@ function Admin_View() {
     const [searchParams] = useSearchParams();
     const [Error, SetError] = useState({});
 
-    useEffect(() => {
-        const token = Cookies.get('token');
-        console.log(token); // remove when deploying to production
-    
-        if (!token) {
-            navigate('/');
-            return; // prevent further execution if no token
-        }
-    
-        try {
-            const decoded = jwtDecode(token);
-            if (decoded.role === 'admin') {
-                setIsAdmin(true);
-            } else {
-                navigate('/');
-                return; // prevent further execution if not an admin
-            }
-        } catch (error) {
-            console.error('Invalid token:', error);
-            navigate('/');
-            return; // prevent further execution if token is invalid
-        }
+    useEffect(
+        () => {
+                const token = Cookies.get('token');
+                console.log(token); // remove when deploying to production
+            
+                if (!token) {
+                    navigate('/');
+                    return; // prevent further execution if no token
+                }
+            
+                try {
+                    const decoded = jwtDecode(token);
+                    if (decoded.role === 'admin') {
+                        setIsAdmin(true);
+                    } else {
+                        navigate('/');
+                        return; // prevent further execution if not an admin
+                    }
+                } catch (error) {
+                    console.log('Invalid token:', error);
+                    navigate('/');
+                    return; // prevent further execution if token is invalid
+                }
 
-        SetError({});
+                SetError({});
 
-        const fetchData = async (currentPage, searchFilters = {}) => {
-            try {
-                const productsData = await FetchProducts(currentPage, 8, searchFilters);
-                const { Product, totalPages } = productsData;
-                setProducts(Product);
-                setTotalPages(totalPages);
-            } catch (error) {
-                setProducts([]);
-                console.error('Error fetching products:', error);
-            }
-        };
+                const fetchData = async (currentPage, searchFilters = {}) => {
+                    try {
+                        const productsData = await FetchProducts(currentPage, 8, searchFilters);
+                        const { Product, totalPages } = productsData;
+                        setProducts(Product);
+                        setTotalPages(totalPages);
+                    } catch (error) {
+                        setProducts([]);
+                        console.error('Error fetching products:', error);
+                    }
+                };
 
-        const pageFromUrl = parseInt(searchParams.get('page')) || 1;
-        setPage(pageFromUrl);
-        fetchData(pageFromUrl, filters);  // Fetch products based on current page and filters
-    }, [searchParams, filters, navigate, setIsAdmin, setProducts]);
+                const pageFromUrl = parseInt(searchParams.get('page')) || 1;
+                setPage(pageFromUrl);
+                fetchData(pageFromUrl, filters);  // Fetch products based on current page and filters
+                }, 
+                [searchParams, filters, navigate, setIsAdmin, setProducts]
+            );
 
     const handleEdit = (id,pageNumber) => {
         console.log(`Editing product with ID: ${id}`);
@@ -115,43 +118,72 @@ function Admin_View() {
 
             {/* Search Bar */}
             <form onSubmit={handleSearchSubmit} className="search-bar">
-    <input
-        type="text"
-        name="name"
-        placeholder="Search by Name"
-        value={filters.name || ''}  // Change this to filters
-        onChange={handleSearchChange}
-    />
-    <input
-        type="text"
-        name="category"
-        placeholder="Search by Category"
-        value={filters.category || ''}  // Change this to filters
-        onChange={handleSearchChange}
-    />
-    <input
-        type="text"
-        name="frame_shape"
-        placeholder="Search by Frame Shape"
-        value={filters.frame_shape || ''}  // Change this to filters
-        onChange={handleSearchChange}
-    />
-    <input
-        type="text"
-        name="frame_material"
-        placeholder="Search by Frame Material"
-        value={filters.frame_material || ''}  // Change this to filters
-        onChange={handleSearchChange}
-    />
-    <input
-        type="text"
-        name="lens_material"
-        placeholder="Search by Lens Material"
-        value={filters.lens_material || ''}  // Change this to filters
-        onChange={handleSearchChange}
-    />
-    <button type="submit">Search</button>
-</form>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Search by Name"
+                    value={filters.name || ''}
+                    onChange={handleSearchChange}
+                />
+                <select
+                    name="category"
+                    value={filters.category || ''}
+                    onChange={handleSearchChange}
+                >
+                    <option value="">Select Category</option>
+                    <option value="Eyeglasses">Eyeglasses</option>
+                    <option value="Sunglasses">Sunglasses</option>
+                    <option value="Unisex Eyewear">Unisex Eyewear</option>
+                    <option value="Women's">Women's</option>
+                    <option value="Smoke Crystal">Smoke Crystal</option>
+                    <option value="Unisex">Unisex</option>
+                    <option value="Cat-Shaped">Cat-Shaped</option>
+                    <option value="Translucent">Translucent</option>
+                    <option value="Black Colored">Black Colored</option>
+                    <option value="Rectangular shaped">Rectangular shaped</option>
+                </select>
+                <select
+                    name="frame_shape"
+                    value={filters.frame_shape || ''}
+                    onChange={handleSearchChange}
+                >
+                    <option value="">Select Frame Shape</option>
+                    <option value="Rectangular">Rectangular</option>
+                    <option value="Round">Round</option>
+                    <option value="Square">Square</option>
+                    <option value="Oval">Oval</option>
+                    <option value="Cat-Eye">Cat-Eye</option>
+                    <option value="Aviator">Aviator</option>
+                    <option value="Wayfarer">Wayfarer</option>
+                    <option value="Oversized">Oversized</option>
+                </select>
+                <select
+                    name="frame_material"
+                    value={filters.frame_material || ''}
+                    onChange={handleSearchChange}
+                >
+                    <option value="">Select Frame Material</option>
+                    <option value="plastic">Plastic</option>
+                    <option value="Aluminium">Aluminium</option>
+                    <option value="Titanium">Titanium</option>
+                    <option value="Stainless Steel">Stainless Steel</option>
+                    <option value="Carbon Fiber">Carbon Fiber</option>
+                    <option value="Wood">Wood</option>
+                    <option value="Leather">Leather</option>
+                    <option value="TR-90">TR-90</option>
+                </select>
+                <select
+                    name="lens_material"
+                    value={filters.lens_material || ''}
+                    onChange={handleSearchChange}
+                >
+                    <option value="">Select Lens Material</option>
+                    <option value="Plastic">Plastic</option>
+                    <option value="Glass">Glass</option>
+                    <option value="Polycarbonate">Polycarbonate</option>
+                </select>
+                <button type="submit">Search</button>
+            </form>
 
             <div className="admin-view-container">
                 <table className="product-table">
@@ -167,29 +199,31 @@ function Admin_View() {
                         </tr>
                     </thead>
                     <tbody>
-    {Array.isArray(products) && products.length === 0 ? (
-        <tr>
-            <td colSpan="7">No products available</td>
-        </tr>
-    ) : (
-        Array.isArray(products) && products.map(product => (
-            <tr key={product._id}>
-                <td>
-                    <img src={product.imageUrls[0]} alt={product.name} className="product-image-table" />
-                </td>
-                <td>{product.name}</td>
-                <td>{product.description}</td>
-                <td>{product.price}</td>
-                <td>{product.category}</td>
-                <td>{product.quantity}</td>
-                <td className="product-actions-table">
-                    <button className="edit-button" onClick={() => handleEdit(product._id,page)}>Edit</button>
-                    <button className="delete-button" onClick={() => handleDelete(product._id)}>Delete</button>
-                </td>
-            </tr>
-        ))
-    )}
-</tbody>
+                        {
+                            Array.isArray(products) && products.length === 0 ? (
+                                <tr>
+                                    <td colSpan="7">No products available</td>
+                                </tr>
+                            ) : (
+                                Array.isArray(products) && products.map(product => (
+                                    <tr key={product._id}>
+                                        <td>
+                                            <img src={product.imageUrls[0]} alt={product.name} className="product-image-table" />
+                                        </td>
+                                        <td>{product.name}</td>
+                                        <td>{product.description}</td>
+                                        <td>{product.price}</td>
+                                        <td>{product.category.join(', ')}</td>
+                                        <td>{product.quantity}</td>
+                                        <td className="product-actions-table">
+                                            <button className="edit-button" onClick={() => handleEdit(product._id,page)}>Edit</button>
+                                            <button className="delete-button" onClick={() => handleDelete(product._id)}>Delete</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )
+                        }
+                    </tbody>
 
                 </table>
 

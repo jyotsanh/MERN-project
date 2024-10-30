@@ -2,7 +2,7 @@ const AdminSchema = require("../schema/adminSchema");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const OrderSchemadb = require("../schema/orderSchema");
-
+const ProductSchemadb = require("../schema/ProductSchema");
 
 const SECRET_KEY = process.env.SECRET_KEY
 
@@ -112,7 +112,22 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
+const ProductDetailsId = async (req, res) => {
+    try {
+        const product_data = await ProductSchemadb.findById(req.params.id);
+        if (product_data) {
+            return res.send({ "Product": product_data });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+
 exports.updateOrderStatus = updateOrderStatus;
 exports.AdminRegisterController = AdminRegisterController;
 exports.LoginAdmin = LoginAdmin;
 exports.fetchOrders = fetchOrders;
+exports.ProductDetailsId = ProductDetailsId

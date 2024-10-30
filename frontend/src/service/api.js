@@ -36,6 +36,15 @@ export const FetchProducts = async (page = 1, limit = 8, filters = {}) => {
     return response.data;
 };
 
+export const FetchProductInfoAsAdmin = async (id,token) => {
+    const response = await axios.get(`${URL}/admin/product/${id}`,{
+        headers: {
+            'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
+        }
+    });
+    return response.data;
+}
+
 
 // product can be deleted for admin
 export const deleteProduct = async (id, token) => {
@@ -54,7 +63,7 @@ export const editProduct = async (id, updatedData, token) => {
             'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
         }
     });
-    return response;
+    return response.data;
 };
 
 // appointments data is fetched for admin from backend
