@@ -132,13 +132,13 @@ function Navbar() {
       </nav>
 
       <ul className={`menu ${menuOpen ? 'open' : ''}`}>
-        <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
-        <li><NavLink to="/sunglasses" activeClassName="active">Eyeglasses</NavLink></li>
-        <li><NavLink to="/contactlens" activeClassName="active">Lens</NavLink></li>
-        <li><NavLink to="/book" activeClassName="active">Book Appointment</NavLink></li>
-        <li><NavLink to="/faq" activeClassName="active">FAQs</NavLink></li>
-        <li><NavLink to="/admin-login" activeClassName="active">Admin</NavLink></li>
-        <li><NavLink to="/myorders" activeClassName="active">My Orders</NavLink></li>
+        <li><NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink></li>
+        <li><NavLink to="/sunglasses" className={({ isActive }) => isActive ? 'active' : ''}>Eyeglasses</NavLink></li>
+        <li><NavLink to="/contactlens" className={({ isActive }) => isActive ? 'active' : ''}>Lens</NavLink></li>
+        <li><NavLink to="/book" className={({ isActive }) => isActive ? 'active' : ''}>Book Appointment</NavLink></li>
+        <li><NavLink to="/faq" className={({ isActive }) => isActive ? 'active' : ''}>FAQs</NavLink></li>
+        <li><NavLink to="/admin-login" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink></li>
+        <li><NavLink to="/myorders" className={({ isActive }) => isActive ? 'active' : ''}>My Orders</NavLink></li>
       </ul>
     </div>
   );
