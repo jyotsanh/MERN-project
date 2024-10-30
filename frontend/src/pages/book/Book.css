@@ -1,150 +1,204 @@
+/* General body styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+    line-height: 1.6;
 }
 
+/* Container for the entire booking section */
 .book-box {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.book-h1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-top: 30px;
-}
-
-.booking {
-    border: 1px solid black;
-    padding: 10px;
-    margin: 40px auto;
     width: 100%;
-    max-width: 800px;
-    background-color: rgb(223, 220, 220);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 20px;
 }
 
+/* Header styling */
+.book-h1 {
+    background-color: #6c6e70;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    margin: 0 0 30px 0;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px 8px 0 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Booking form container */
+.booking {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    padding: 40px 50px;
+    margin: 30px auto;
+    max-width: 650px;
+}
+
+/* Form container */
 .book-appointment {
-    width: 80%;
-    margin: 80px auto;
-    height: auto;
+    width: 100%;
 }
 
+/* Labels */
 .book-appointment label {
     display: block;
-    margin-bottom: 5px;
-    margin-top: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: 900;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 15px;
 }
 
+/* Input fields and select boxes */
 .book-appointment input[type="text"],
 .book-appointment input[type="tel"],
+.book-appointment input[type="email"],
+.book-appointment input[type="date"],
+.book-appointment input[type="time"],
 .book-appointment select {
-    width: 70%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 25px;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
     box-sizing: border-box;
+    font-size: 16px;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
 }
 
+/* Focus states */
+.book-appointment input[type="text"]:focus,
+.book-appointment input[type="tel"]:focus,
+.book-appointment input[type="email"]:focus,
+.book-appointment input[type="date"]:focus,
+.book-appointment input[type="time"]:focus,
+.book-appointment select:focus {
+    border-color: #1a73e8;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    background-color: #fff;
+}
+
+/* Styling for select dropdown */
+.book-appointment select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%231a73e8" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+/* Submit button styling */
 .book-appointment input[type="submit"] {
-    background-color: rgb(17, 122, 227);
+    background-color: #1a73e8;
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
+    border-radius: 6px;
+    padding: 14px 28px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
+/* Hover effect for submit button */
 .book-appointment input[type="submit"]:hover {
-    background-color: orange;
+    background-color: #1557b0;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
 }
 
+/* Success alert styling */
 .success-alert {
     position: fixed;
     top: 20px;
-    left: -100%;
-    background-color: green;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #34c759;
     color: white;
-    padding: 15px;
-    border-radius: 5px;
+    padding: 15px 25px;
+    border-radius: 8px;
     font-size: 16px;
-    font-weight: bold;
-    animation: slideIn 0.5s forwards; /* Trigger the animation */
+    font-weight: 600;
+    display: none;
+    box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+    animation: fadeIn 0.5s ease-out;
 }
 
-/* Keyframe animation for the success alert */
-@keyframes slideIn {
-    from {
-        left: -100%;
-    }
-    to {
-        left: 20px;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* Responsive styles for tablets and mobile */
+/* Media Queries for Responsiveness */
 @media only screen and (max-width: 768px) {
-    .book-box {
-        width: 90%;
-    }
-
-    .book-appointment {
-        width: 90%;
-        margin: 40px auto;
-    }
-
     .booking {
-        width: 100%;
-        padding: 15px;
+        padding: 30px;
     }
 
-    .book-appointment input[type="text"],
-    .book-appointment input[type="tel"],
-    .book-appointment select {
-        width: 85%;
-    }
-
-    .book-appointment input[type="submit"] {
-        padding: 8px 16px;
+    .book-h1 {
+        font-size: 24px;
     }
 }
 
 @media only screen and (max-width: 480px) {
     .book-box {
-        width: 100%;
-        margin: 0 auto;
+        padding: 30px 15px;
     }
 
-    .book-appointment {
-        width: 100%;
-        margin: 20px auto;
+    .book-h1 {
+        font-size: 22px;
+        padding: 25px 15px;
     }
 
     .booking {
-        width: 95%;
-        padding: 10px;
-    }
-
-    .book-appointment input[type="text"],
-    .book-appointment input[type="tel"],
-    .book-appointment select {
-        width: 100%;
+        padding: 25px;
     }
 
     .book-appointment input[type="submit"] {
-        padding: 8px 12px;
+        padding: 12px 24px;
     }
 }
 
-.error-text {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-}
+/* Flexbox for time picker and AM/PM dropdown */
+.book-time-picker-container {
+    margin-bottom: 10px;
+  }
+  
+  /* Aligning AM/PM selector below the time input */
+  .book-appointment .time-option {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #f8fafc;
+    appearance: none;
+    cursor: pointer;
+  }
+  
+  /* Input focus state */
+  .book-appointment select.time-option:focus {
+    border-color: #1a73e8;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    background-color: #fff;
+  }
+  
+  /* Ensure no overlap with location */
+  .book-appointment select#location {
+    margin-top: 25px;
+  }
+  
