@@ -11,11 +11,19 @@ const AuthenticationMiddleware = (req, res, next) => {
         }
 
         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-            if (err) {
-                console.log(err)
+            try{
+                if (err) {
+                    console.log(err) // prints error if token is expired
+                    return res.status(500).send(
+                        { msg: 'Failed to authenticate token.' }
+                    );
+                }
+            }catch(err){
                 return res.status(500).send(
-                    { msg: 'Failed to authenticate token.' }
-                );
+                    { 
+                        msg: 'Server Error'
+                     }
+                    );
             }
             console.log(`Decoded: ${decoded.role}`)
             if (decoded.role !== 'admin') {

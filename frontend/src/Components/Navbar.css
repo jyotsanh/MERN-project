@@ -232,3 +232,89 @@ nav .hamburger {
     height: 40px; /* Adjust the height for smaller screens */
   }
 }
+
+/* Navbar layout */
+.menu {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  border-radius: 50px;
+}
+
+/* Links */
+.menu a {
+  padding: 10px 20px;
+  margin: 0;
+  text-decoration: none;
+  color: black;
+  position: relative;
+  display: block;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.menu a:hover {
+  color: white;
+}
+
+.menu li a.active {
+  background-color: orange; /* Keep background at the active link */
+  color: white;
+  border-radius: 50px;
+}
+/* Animation background */
+.menu .animation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+  background: orange;
+  border-radius: 50px;
+  transition: all 0.4s ease;
+}
+
+/* Starting background for the first link */
+.menu .start-home {
+  width: 100px;
+  left: 340px;
+}
+
+/* Position the sliding background for each link */
+li:nth-child(1):hover~.animation {
+  width: 100px;
+  left: 340px;
+}
+menu.li:nth-child(2) a.active{
+  background-color: orange;
+}
+li:nth-child(2):hover~.animation {
+  width: 150px;
+  left: 450px;
+}
+
+
+
+li:nth-child(3):hover~.animation {
+  width: 80px;
+  left: 620px;
+}
+
+li:nth-child(4):hover~.animation {
+  width: 200px;
+  left: 730px;
+}
+
+li:nth-child(5):hover~.animation {
+  width: 80px;
+  left: 970px;
+}
+
+li:nth-child(6):hover~.animation {
+  width: 100px;
+  left: 1080px;
+}

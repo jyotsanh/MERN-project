@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Store from "../../assets/Store.png";
 import loc from '../../assets/Loc.png';
 import i from '../../assets/1.jpg';
 import im from '../../assets/2.jpg';
 import img from '../../assets/3.jpg';
-import"./Outlet.css";
+import "./Outlet.css";
 
 function Outlet() {
   return (
@@ -21,7 +22,9 @@ function Outlet() {
               <img src={img} alt="Contact Lens" className="store-carousel-image" />
             </div>
           </div>
-          <button className="store-book-now-btn" ><a href="/book"  className='while-700'>Book Now</a></button>
+          <button className="store-book-now-btn">
+            <Link to="/book" className='while-700'>Book Now</Link>
+          </button>
         </div>
       </div>
 

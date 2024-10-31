@@ -86,36 +86,46 @@ const UserProductsController = async (req, res) => {
 
 const ProductController = async (req, res) => {
     try {
-        const { name, category, frameShape, frameMaterial, lensMaterial, page = 1, limit = 8 } = req.query;
+        console.log("fetched the filtered products")
+        const { name, category, frame_shape, frame_material, lens_material, page = 1, limit = 8 } = req.query;
 
         let filter = {};
 
+        // Build the search filters based on query parameters
         if (name) filter.name = { $regex: name, $options: 'i' };
         if (category) filter.category = { $regex: category, $options: 'i' };
-        if (frameShape) filter.frameShape = { $regex: frameShape, $options: 'i' };
-        if (frameMaterial) filter.frameMaterial = { $regex: frameMaterial, $options: 'i' };
-        if (lensMaterial) filter.lensMaterial = { $regex: lensMaterial, $options: 'i' };
+        if (frame_shape) filter.frame_shape = { $regex: frame_shape, $options: 'i' };
+        if (frame_material) filter.frame_material = { $regex: frame_material, $options: 'i' };
+        if (lens_material) filter.lens_material = { $regex: lens_material, $options: 'i' };
 
         const skip = (page - 1) * limit;
 
-        const product_data = await ProductSchemadb.find(filter).skip(skip).limit(limit);
+        // Fetch products with filters and pagination
+        const product_data = await ProductSchemadb.find(filter)
+            .skip(skip)
+            .limit(limit);
+
+        // Get total count of filtered products
         const total_products = await ProductSchemadb.countDocuments(filter);
 
+        // Check if products exist
         if (product_data.length > 0) {
             return res.send({
                 "Product": product_data,
-                "totalPages": Math.ceil(total_products / limit),
+                "totalPages": Math.ceil(total_products / limit),  // Total number of pages
                 "currentPage": page,
-                "totalProducts": total_products
+                "totalProducts": total_products  // Total number of matching products
             });
         } else {
             return res.send({ "msg": "No products found" });
         }
     } catch (error) {
         console.error("Error fetching products:", error);
-        return res.status(500).send({ "msg": "Server error", error: error.message }); // Include error message
+        return res.status(500).send({ "msg": "Server error", error: error.message });
     }
 };
+
+
 
 
 

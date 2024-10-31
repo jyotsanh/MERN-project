@@ -1,0 +1,33 @@
+category:
+ - Eyeglasses
+ - Sunglasses
+ - Unisex Eyewear
+ - Women's
+ - Smoke Crystal
+ - Unisex
+ - Cat-Shaped
+ - Translucent
+ - Black Colored
+ - Rectangular shaped
+frame_shape
+ - Rectangular
+ - Round
+ - Square
+ - Oval
+ - Cat-Eye
+ - Aviator
+ - Wayfarer
+ - Oversized
+frame_material
+ - plastic
+ - Aluminium
+ - Titanium
+ - Stainless Steel
+ - Carbon Fiber
+ - Wood
+ - Leather
+ - TR-90
+lens_material
+ - Plastic
+ - Glass
+ - Polycarbonate

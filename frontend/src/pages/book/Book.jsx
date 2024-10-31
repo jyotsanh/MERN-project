@@ -130,6 +130,7 @@ function Book() {
               required
             />
           </div>
+        
           {error.time && <p className="error-text">{error.time}</p>}
 
           <label htmlFor="location">Location:</label>
