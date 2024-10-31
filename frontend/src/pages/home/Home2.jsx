@@ -4,7 +4,9 @@ export default function Home2ndCompo(){
     return (
         <>
             <section className="two-image-section py-8 px-4 md:px-12 bg-gray-50">
-                <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-gray-800">
+                <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-gray-800" style={{
+                    fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"
+                }}>
                 Elevate Your Look with Our Signature Features
                 </h2>
                 <div className="image-description grid grid-cols-1 md:grid-cols-2 ">
@@ -16,7 +18,9 @@ export default function Home2ndCompo(){
                         className="eyeglasses w-full md:w-1/4 h-64 object-cover"
                         />
                         <div className="description1 flex-1 p-4 text-center md:text-center md:ml-7">
-                            <h3 className="text-lg font-medium text-gray-700 md:text-center md:ml-7  md:w-10">
+                            <h3 className="text-lg font-medium text-gray-700 md:text-center md:ml-7  md:w-10" style={{
+                                fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"
+                            }}>
                                 Ultra-lightweight Frames <br /> for Maximum Comfort
                             </h3>
                             <Link to="/Sunglasses">
@@ -35,7 +39,9 @@ export default function Home2ndCompo(){
                         className="polarized-glasses w-full md:w-1/2 h-64 object-cover"
                         />
                         <div className="description flex-1 p-4 text-center md:text-left">
-                            <h3 className="text-lg font-medium text-gray-700 md:p-1 ml-2">
+                            <h3 className="text-lg font-medium text-gray-700 md:p-1 ml-2" style={{
+                                fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"
+                            }}>
                                 Trendy Designs with  <br />UV Protection
                             </h3>
                             <Link to="/Sunglasses">

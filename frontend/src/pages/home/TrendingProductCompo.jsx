@@ -63,6 +63,15 @@ const multipleItemsSettings = {
     ],
   };
 
+// Add these styles at the top of your component
+const titleStyles = {
+    fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"
+};
+
+const productTextStyles = {
+    fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"
+};
+
 export default function TrendingProductCompo() {
     const [recentProducts, setRecentProducts] = useState([]);
     const [addedProducts, setAddedProducts] = useState([]);
@@ -130,8 +139,12 @@ export default function TrendingProductCompo() {
         <>
             {/* Top Trending Products Section */}
             <section className="top-trending-products py-8 px-4 bg-gray-100">
-                <h3 className="text-lg font-medium text-center text-orange-600 mb-2">Top Products</h3>
-                <h2 className="text-2xl font-bold text-center text-orange-700 mb-6">Top Trending Products</h2>
+                <h3 className="text-lg font-medium text-center text-orange-600 mb-2" style={titleStyles}>
+                    Top Products
+                </h3>
+                <h2 className="text-2xl font-bold text-center text-orange-700 mb-6" style={titleStyles}>
+                    Top Trending Products
+                </h2>
                 <Slider {...multipleItemsSettings}>
                 {
                     recentProducts?.map(
@@ -159,8 +172,12 @@ export default function TrendingProductCompo() {
                                         </div>
                                     </div>
                                 </div>
-                                <p className="text-center mt-2 text-orange-600 font-medium">{product.name}</p>
-                                <p className="price text-center text-gray-600">Rs {product.price}</p>
+                                <p className="text-center mt-2 text-orange-600 font-medium" style={productTextStyles}>
+                                    {product.name}
+                                </p>
+                                <p className="price text-center text-gray-600" style={productTextStyles}>
+                                    Rs {product.price}
+                                </p>
                             </div>
                         )
                     )
