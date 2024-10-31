@@ -12,7 +12,7 @@ const AddToCart = async (req,res) => {
         }
         req.body.total_price = total_price;
         
-        console.log(`request body is ${req.body}`);
+        console.log(`request body is`, req.body);
  // remove while deployment 
         try{
             const cart_data = await CartSchemadb.create(req.body);

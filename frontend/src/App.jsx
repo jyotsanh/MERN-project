@@ -24,6 +24,8 @@ import Cart from './pages/cart/cart';
 import ProductPage from './Components/ProductPage';
 import AdminLogIn from "../src/pages/Admin/adminLogIn";
 import Checkout from "../src/pages/checkout/checkout";
+import SingleAdmin from "../src/pages/Admin/SingleAdmin";
+
 import './App.css'
 
 const App = () => {
@@ -53,6 +55,7 @@ const App = () => {
                         <Route path='/checkout' element={<Checkout />} />
                         <Route path="/myorders" element={<Order />}/>
                         <Route path="/orders" element={<AllOrders />}/>
+                        <Route path="/single" element={<SingleAdmin />}/>
                     </Routes>
                     <Footer />
                 </BrowserRouter>

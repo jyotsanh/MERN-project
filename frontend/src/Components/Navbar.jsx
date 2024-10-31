@@ -24,7 +24,7 @@ function Navbar() {
   const { token, logout } = useContext(AuthContext); // Use AuthContext
   const [username, setUsername] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (token) {
       if (isTokenExpired(token)) {
