@@ -1,4 +1,33 @@
- export default function Filter() {
+import React, { useState } from 'react';
+
+export default function Filter({
+  handlePriceChange,
+  selectedPrice,
+  
+  handleFrameMaterialChange,
+  selectedFrameMaterial,
+
+  handleLensMaterialChange, 
+  selectedLensMaterial,
+  
+  handleFrameShapeChange,
+  selectedFrameShape, 
+
+  applyFilters,
+  clearFilters
+}) {
+  
+  const [visibleSubOptions, setVisibleSubOptions] = useState({});
+  
+
+  const toggleSubOptions = (option) => {
+    setVisibleSubOptions((prevVisibleSubOptions) => ({
+      ...prevVisibleSubOptions,
+      [option]: !prevVisibleSubOptions[option],
+    }));
+  };  
+
+ 
   return (
     <>
         <div className="side-navbar">
