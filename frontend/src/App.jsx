@@ -24,7 +24,7 @@ import Cart from './pages/cart/cart';
 import ProductPage from './Components/ProductPage';
 import AdminLogIn from "../src/pages/Admin/adminLogIn";
 import Checkout from "../src/pages/checkout/checkout";
-import SingleAdmin from "../src/pages/Admin/SingleAdmin";
+import SingleAdmin from "./pages/Admin/New_Admin/SingleAdmin";
 
 import './App.css'
 

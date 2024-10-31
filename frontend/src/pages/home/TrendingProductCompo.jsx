@@ -7,7 +7,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { useCart } from '../../context/CartContext';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
