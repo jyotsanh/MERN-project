@@ -2,6 +2,7 @@
 import React, { useMemo } from "react";
 import { Link } from 'react-router-dom';
 import { useFetchProducts } from './useFetchProducts';
+import  './ProductCompo.css';
 
 const ProductList = React.memo(({ products }) => (
   <div className="product-list">
@@ -66,7 +67,11 @@ export default function ProductsCompo({
   } = useFetchProducts(currentPage, isFiltered, filters, totalPages, setTotalPages);
 
   if (isLoading) {
-    return <div className="loading">Loading...</div>;
+    return (
+        <div className="loading">
+            <div className="loader"></div>
+        </div>
+    );
   }
 
   return (
