@@ -21,7 +21,7 @@
 <img src="https://user-images.githubusercontent.com/74038190/212281775-b468df30-4edc-4bf8-a4ee-f52e1aaddc86.gif" alt="Cat GIF" width="50" height="25">
 <img src="https://user-images.githubusercontent.com/74038190/212280805-9bcb336b-8c55-46a8-abf8-ff286ab55472.gif" alt="Cat GIF" width="25" height="25">
 
-- **Backend:** Python Django API
+- **Backend:** Express 
 - **Frontend:** React
 
 ## Project Development
@@ -30,9 +30,6 @@
 2. **Requirements Gathering** ✅
 3. **Design Phase** ✅
 4. **Development** ⌛
-      - JWT Awthentication ✅
-      - OTP reset password ✅
-      - Product db schema  ⌛
 5. Testing
 6. Deployment
 7. Maintenance
@@ -44,17 +41,18 @@ To get started with EyeMate development, follow these steps:
 1. Clone the repository:
 
 ```
-git clone https://github.com/Jyotsan-Hamal/EyeMate.git
+git clone https://github.com/jyotsanh/MERN-project.git
 ```
 
 2. Install dependencies for both backend and frontend:
 
 ```
-cd EyeMate/backend
+cd MERN-project/backend
 ```
 
 ```
-pip install -r requirements.txt
+npm install
+npm run bro
 ```
 
 ```
@@ -72,7 +70,7 @@ cd ../frontend
 npm start
 ```
 
-5. Access EyeMate in your browser at `http://localhost:3000`.
+5. Access EyeMate in your browser at `http://localhost:5173`.
 
 ## License
 
