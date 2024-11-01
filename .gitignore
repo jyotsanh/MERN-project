@@ -29,7 +29,7 @@ backend/package-lock.json/
 # Dependency directories
 venv/
 
-
+/adminFrontend
 
 # C extensions
 *.so
