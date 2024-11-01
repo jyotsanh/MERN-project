@@ -26,6 +26,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+
     if (token) {
       if (isTokenExpired(token)) {
         logout(); // Automatically logout if token is expired
@@ -42,6 +43,7 @@ function Navbar() {
     } else {
       setUsername("No name");
     }
+    console.log("Navbar Component Mounted");
   }, [token, logout]);
 
   const toggleMenu = () => {

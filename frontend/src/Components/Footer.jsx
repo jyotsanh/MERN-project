@@ -1,7 +1,10 @@
-import React from 'react';
 import './Footer.css';
+import React, { useEffect } from 'react';
 
 function Footer() {
+  useEffect(() => {
+    console.log('Footer component mounted');
+  },[])
   return (
     <div>
       <footer className="foot">
