@@ -406,7 +406,7 @@ const FilterProductsController = async (req, res) => {
     try {
         console.log(req.body);
         const { price, frameMaterial, lensMaterial, frameShape, page = 1 } = req.body;
-        const limit = 10; // Or whatever number of items per page you want
+        const limit = 8; // Or whatever number of items per page you want
 
         let query = {};
 
@@ -449,7 +449,7 @@ const FilterProductsController = async (req, res) => {
         const filteredProducts = await ProductSchemadb.find(query)
             .skip((page - 1) * limit)
             .limit(limit);
-
+        console.log(`Total Page: ${totalPages}`);
         return res.status(200).send({
             Products: filteredProducts,
             currentPage: page,
