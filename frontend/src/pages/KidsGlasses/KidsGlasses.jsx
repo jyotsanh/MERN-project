@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 //Filter Component
 import Filter from './FilterCompo';
 import ProductsCompo from './ProductsCompo';
-function EyeGlasses() {
+function KidsGlasses() {
   const [visibleSubOptions, setVisibleSubOptions] = useState({});
   const [selectedPrice, setSelectedPrice] = useState('');
   const [selectedFrameMaterial, setSelectedFrameMaterial] = useState('');
@@ -92,7 +92,7 @@ function EyeGlasses() {
 
   return (
     <div className="container">
-      <h1>EyeGlasses</h1>
+      <h1>Kids Glasses</h1>
       <button className="hamburger" onClick={toggleSidebar}>
         &#9776;
       </button>
@@ -114,7 +114,7 @@ function EyeGlasses() {
           clearFilters = {clearFilters}
           ></Filter>
 
-          <ProductsCompo
+          {/* <ProductsCompo
           currentPage = {currentPage}
           totalPages = {totalPages}
           setTotalPages = {setTotalPages}
@@ -126,11 +126,14 @@ function EyeGlasses() {
           selectedLensMaterial={selectedLensMaterial}
           selectedFrameShape={selectedFrameShape}
           isFiltered={isFiltered}
-          ></ProductsCompo>
+          ></ProductsCompo> */}
+          <div className="product-list-container">
+            <p>Working on it</p>
+          </div>
         
       </div>
     </div>
   );
 }
 
-export default EyeGlasses;
+export default KidsGlasses;

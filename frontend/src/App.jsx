@@ -4,7 +4,6 @@ import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './pages/auth/AuthContext';
 import Home from './pages/home/Home';
 import Order from './pages/order/Order';
-import AllOrders from './pages/AllOrders/AllOrders';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import Sunglasses from "./pages/Sunglasses/Sunglasses";
@@ -14,16 +13,12 @@ import Book from "./pages/book/Book";
 import FAQ from "./pages/Faq/FAQ";
 import Log from './pages/Login/Log';
 import Sign from './pages/Sign/Sign';
-import AddProducts from '../src/pages/add-products/products';
-import Admin from "../src/pages/Admin/admin";
-import Admin_View from "../src/pages/Admin/admin_view";
-import EditProduct from "./pages/edit-products/edit-product";
-import AppointmentView from "./pages/Admin/appointment_view";
 import About from './pages/about-page/about';
 import Cart from './pages/cart/cart';
 import ProductPage from './Components/ProductPage';
-import AdminLogIn from "../src/pages/Admin/adminLogIn";
 import Checkout from "../src/pages/checkout/checkout";
+import StoreLocator from './pages/StoreLocator/StoreLocator';
+import KidsGlasses from './pages/KidsGlasses/KidsGlasses';
 import './App.css'
 
 const App = () => {
@@ -33,6 +28,7 @@ const App = () => {
                 <BrowserRouter>
                     <Navbar />
                     <Routes>
+
                         <Route path="/" element={<Home />} />
                         <Route path="/sunglasses" element={<Sunglasses />} />
                         <Route path="/product/:id" element={<ProductPage />} /> {/* Product Page when clicked will show product data */}
@@ -40,19 +36,15 @@ const App = () => {
                         <Route path="/contactlens" element={<Contactlens />} />
                         <Route path="/book" element={<Book />} />
                         <Route path="/faq" element={<FAQ />} />
+                        <Route path="/kidsglasses" element={<KidsGlasses />} />
                         <Route path="/login" element={<Log />} />
                         <Route path="/sign" element={<Sign />} />
-                        <Route path="/add-products" element={<AddProducts />} />
-                        <Route path="/admin-login" element={<AdminLogIn />} />
-                        <Route path="/admin" element={<Admin />} />
-                        <Route path="/admin-view" element={<Admin_View />} />
-                        <Route path="/edit-product/:id" element={<EditProduct />} />
-                        <Route path="/appointments" element={<AppointmentView />} />
                         <Route path='/about' element={<About />} />
                         <Route path='/cart' element={<Cart />} />
                         <Route path='/checkout' element={<Checkout />} />
                         <Route path="/myorders" element={<Order />}/>
-                        <Route path="/orders" element={<AllOrders />}/>
+                        <Route path="/store-locator" element={<StoreLocator />}/>
+                        
                     </Routes>
                     <Footer />
                 </BrowserRouter>
