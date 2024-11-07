@@ -106,9 +106,10 @@ export const updateAppointmentStatus = async (id, status) => {
 };
 
 // delete an appointment by ID (admin)
-export const deleteAppointment = async (id) => {
+export const deleteAppointment = async (id,prescription) => {
     try {
-        const response = await axios.delete(`${URL}/appointments/${id}`);
+        
+        const response = await axios.post(`${URL}/appointments/${id}`,{ prescription });
         return response.data;
     } catch (error) {
         console.error('Error deleting appointment:', error);

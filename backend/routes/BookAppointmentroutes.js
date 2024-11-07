@@ -18,7 +18,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
       folder: 'Prescription', // Folder where images will be stored on Cloudinary
-      format: async (req, file) => 'png', // supports promises as well
+      format: async (req, file) => 'webp', // supports promises as well
       public_id: (req, file) => `${Date.now()}_${file.originalname}`,
     },
   });
@@ -39,6 +39,6 @@ router.post("/appointment", upload.single('prescription'), AppointmentMiddleware
 router.get("/get-appointments", Appointments);
 router.get('/appointments', Appointments);
 router.put('/appointments/status', updateAppointmentStatus);
-router.delete('/appointments/:id', deleteAppointment);
+router.post('/appointments/:id', deleteAppointment);
 
 module.exports = router;

@@ -23,7 +23,7 @@ const storage = new CloudinaryStorage({
             // Get the file extension
             const extension = file.originalname.split('.').pop().toLowerCase();
             // If it's one of our allowed formats, use that. Otherwise, default to png.
-            return ['jpg', 'png', 'webp', 'jpeg'].includes(extension) ? extension : 'png';
+            return ['jpg', 'png', 'webp', 'jpeg'].includes(extension) ? extension : 'webp';
         },
         public_id: (req, file) => `${Date.now()}_${file.originalname}`,
     },

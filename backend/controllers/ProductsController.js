@@ -1,7 +1,5 @@
 const bcrypt = require("bcrypt");
 const ProductSchemadb = require("../schema/ProductSchema");
-const fs = require('fs');
-const path = require('path');
 
 const { v2: cloudinary } = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');

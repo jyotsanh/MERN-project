@@ -53,9 +53,9 @@ function AppointmentView() {
         }
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id,prescription) => {
         try {
-            await deleteAppointment(id);
+            const response  = await deleteAppointment(id,prescription);
             setAppointments(appointments.filter(app => app._id !== id));
         } catch (error) {
             console.error('Error deleting appointment:', error);
@@ -100,7 +100,7 @@ function AppointmentView() {
                                     <option value="ongoing">Ongoing</option>
                                     <option value="completed">Completed</option>
                                 </select>
-                                <button onClick={() => handleDelete(appointment._id)}>Delete</button>
+                                <button onClick={() => handleDelete(appointment._id,appointment.prescription)}>Delete</button>
                             </li>
                         ))}
                     </ul>
