@@ -37,6 +37,8 @@ const {
   ProductController,
   ProductDetailsId,
   UserProductsController,
+  UserSunglassesProductsController,
+  KidsGlassesProductsController,
   TopProductController,
   AddProductController,
   EditProductController,
@@ -54,6 +56,8 @@ router.get("/products", ProductController); // admin can see all product details
 router.get("/top-products", TopProductController); // top products for User
 router.get("/products/:id", ProductDetailsId); // Product info with id endpoint
 router.get("/user-products", UserProductsController); // all product info for User
+router.get("/sunglasses-products", UserSunglassesProductsController); // all Sunglasses product info for User
+router.get("/kidsglasses-products", KidsGlassesProductsController); // all Sunglasses product info for User
 router.get("/recent-products", RecentProductsController); // all product info for User
 router.get("/slider-products", SliderProductsController); // slider product info for User
 

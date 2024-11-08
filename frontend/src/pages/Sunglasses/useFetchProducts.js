@@ -1,6 +1,6 @@
 // useFetchProducts.js
 import { useState, useEffect, useCallback } from 'react';
-import { FetchProductsUser, FetchFilteredProducts } from '../../service/api';
+import { FetchSunglassesProductsUser, FetchFilteredProducts } from '../../service/api';
 
 export const useFetchProducts = (currentPage, isFiltered, filters, totalPages, setTotalPages) => {
   const [products, setProducts] = useState([]);
@@ -38,10 +38,10 @@ export const useFetchProducts = (currentPage, isFiltered, filters, totalPages, s
                 } else {
                   // Fallback to regular fetch if no actual filters despite isFiltered being true
                   console.log('No active filters, falling back to regular fetch');
-                  productsData = await FetchProductsUser(currentPage);
+                  productsData = await FetchSunglassesProductsUser(currentPage);
                 }
         } else {
-                productsData = await FetchProductsUser(currentPage);
+                productsData = await FetchSunglassesProductsUser(currentPage);
         }
         
         if (isMounted) {
@@ -54,7 +54,7 @@ export const useFetchProducts = (currentPage, isFiltered, filters, totalPages, s
         console.error('Error in useFetchProducts:', error);
         
         if (error.response?.status === 404) {
-          setErrorMessage(`${error.response.data.msg || 'No products found'}. Try adjusting your filters.`);
+          setErrorMessage(`${error.response.data.msg || 'No products found'}`);
           setProducts([]);
           setTotalPages(0);
         } else {

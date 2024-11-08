@@ -93,6 +93,21 @@ export const FetchProductsUser = async (page = 1) => {
     return response.data;
 };
 
+// all for products data fetched from backend for User
+export const FetchSunglassesProductsUser = async (page = 1) => {
+    const response = await axios.get(`${URL}/sunglasses-products`, {
+        params: { page }
+    });
+    return response.data;
+};
+
+// all for products data fetched from backend for User
+export const FetchKidsglassesProductsUser = async (page = 1) => {
+    const response = await axios.get(`${URL}/kidsglasses-products`, {
+        params: { page }
+    });
+    return response.data;
+};
 // id specific product detail fetched from backend
 export const FetchProductWithId = async (id) => {
     const response = await axios.get(`${URL}/products/${id}`);

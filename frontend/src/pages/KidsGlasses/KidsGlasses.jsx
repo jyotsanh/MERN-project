@@ -114,7 +114,7 @@ function KidsGlasses() {
           clearFilters = {clearFilters}
           ></Filter>
 
-          {/* <ProductsCompo
+          <ProductsCompo
           currentPage = {currentPage}
           totalPages = {totalPages}
           setTotalPages = {setTotalPages}
@@ -126,10 +126,10 @@ function KidsGlasses() {
           selectedLensMaterial={selectedLensMaterial}
           selectedFrameShape={selectedFrameShape}
           isFiltered={isFiltered}
-          ></ProductsCompo> */}
-          <div className="product-list-container">
+          ></ProductsCompo>
+          {/* <div className="product-list-container">
             <p>Working on it</p>
-          </div>
+          </div> */}
         
       </div>
     </div>

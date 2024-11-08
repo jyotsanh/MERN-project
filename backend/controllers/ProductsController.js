@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
 const ProductSchemadb = require("../schema/ProductSchema");
+const EyeGlassessSchemadb = require("../schema/EyeGlassesSchemadb");
+const KidsGlassesSchemadb = require("../schema/KidsGlassesSchema");
+const SunglassesSchemadb = require("../schema/SunglassesSchemadb");
 
 const { v2: cloudinary } = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -75,6 +78,64 @@ const UserProductsController = async (req, res) => {
             });
         } else {
             return res.send({ "msg": "No data found for this page" });
+        }
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+const UserSunglassesProductsController = async (req, res) => {
+    try {
+        console.log("Sunglasses Products")
+        const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1
+        const limit = 8; // Number of items per page
+        const skip = (page - 1) * limit; // Calculate the number of documents to skip
+
+        const totalProducts = await SunglassesSchemadb.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const product_data = await SunglassesSchemadb.find()
+            .select('name price category imageUrls frame_material lens_material frame_shape')
+            .skip(skip)
+            .limit(limit);
+
+        if (product_data.length > 0) {
+            return res.send({
+                "Products": product_data,
+                "currentPage": page,
+                "totalPages": totalPages
+            });
+        } else {
+            return res.status(404).send({ "msg": "No Sunglasses Products Available" });
+        }
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+
+const KidsGlassesProductsController = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1
+        const limit = 8; // Number of items per page
+        const skip = (page - 1) * limit; // Calculate the number of documents to skip
+
+        const totalProducts = await KidsGlassesSchemadb.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const product_data = await KidsGlassesSchemadb.find()
+            .select('name price category imageUrls frame_material lens_material frame_shape')
+            .skip(skip)
+            .limit(limit);
+
+        if (product_data.length > 0) {
+            return res.send({
+                "Products": product_data,
+                "currentPage": page,
+                "totalPages": totalPages
+            });
+        } else {
+            return res.status(404).send({ "msg": "No Kids Glasses available" });
         }
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -473,3 +534,5 @@ exports.UserProductsController = UserProductsController;
 exports.ProductDetailsId = ProductDetailsId;
 exports.SliderProductsController = SliderProductsController;
 exports.FilterProductsController = FilterProductsController;
+exports.UserSunglassesProductsController = UserSunglassesProductsController;
+exports.KidsGlassesProductsController = KidsGlassesProductsController;
