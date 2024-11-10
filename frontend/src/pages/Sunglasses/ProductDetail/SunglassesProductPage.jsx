@@ -87,7 +87,7 @@ const SunglassesProductPage = () => {
   const [originalPrice, setOriginalPrice] = useState(null);
   const navigate = useNavigate();
   const handleProductClick = (productId) => {
-    navigate(`/product/${productId}`);
+    navigate(`/sunglasses/${productId}`);
   };
 
   const calculateOriginalPrice = (price) => {

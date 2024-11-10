@@ -88,7 +88,7 @@ const KidsGlassesProductPage = () => {
   const [originalPrice, setOriginalPrice] = useState(null);
   const navigate = useNavigate();
   const handleProductClick = (productId) => {
-    navigate(`/product/${productId}`);
+    navigate(`/kidsglasses/${productId}`);
   };
 
   const calculateOriginalPrice = (price) => {
