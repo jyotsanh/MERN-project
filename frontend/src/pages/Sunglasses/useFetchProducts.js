@@ -1,6 +1,6 @@
 // useFetchProducts.js
 import { useState, useEffect, useCallback } from 'react';
-import { FetchSunglassesProductsUser, FetchFilteredProducts } from '../../service/api';
+import { FetchSunglassesProductsUser, FetchFilteredProducts, FetchFilteredSunglassesProducts } from '../../service/api';
 
 export const useFetchProducts = (currentPage, isFiltered, filters, totalPages, setTotalPages) => {
   const [products, setProducts] = useState([]);
@@ -33,7 +33,7 @@ export const useFetchProducts = (currentPage, isFiltered, filters, totalPages, s
                 // Only proceed with filtered fetch if there are actual filters
                 if (Object.keys(nonEmptyFilters).length > 0) {
                   console.log('Applying filters:', nonEmptyFilters);
-                  productsData = await FetchFilteredProducts(nonEmptyFilters);
+                  productsData = await FetchFilteredSunglassesProducts(nonEmptyFilters);
                   console.log('Filtered Fetching products Hook is used');
                 } else {
                   // Fallback to regular fetch if no actual filters despite isFiltered being true

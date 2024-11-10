@@ -246,4 +246,22 @@ export const FetchFilteredProducts = async (filters) => {
       throw error;
     }
   };
+  export const FetchFilteredSunglassesProducts = async (filters) => {
+    try {
+      const response = await axios.post(`${URL}/sunglasses-products/filter`, filters);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching filtered products:', error);
+      throw error;
+    }
+  };
+  export const FetchFilteredKidsglassesProducts = async (filters) => {
+    try {
+      const response = await axios.post(`${URL}/kidsglasses-products/filter`, filters);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching filtered products:', error);
+      throw error;
+    }
+  };
 
