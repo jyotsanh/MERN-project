@@ -41,6 +41,7 @@ const {
   KidsGlassesProductsController,
   TopProductController,
   AddProductController,
+  Test_AddProductController,
   EditProductController,
   DeleteProductController,
   RecentProductsController,
@@ -65,7 +66,10 @@ router.get("/slider-products", SliderProductsController); // slider product info
 
 router.post("/products/filter", FilterProductsController); // filter product info for User
 // adding, editing, and deleting products requires authentication: 'AuthenticationMiddleware'
-router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, AddProductController);
+router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
+router.post("/add-sunglasses", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
+router.post("/add-eyeglasses", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
+router.post("/add-kidsglasses", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
 router.put("/edit-product/:id", upload.array('newImages', 4), AddProductMiddleware, AuthenticationMiddleware, EditProductController);
 router.delete("/delete-product/:id", AuthenticationMiddleware, DeleteProductController);
 

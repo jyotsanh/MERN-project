@@ -200,7 +200,6 @@ const AddProductController = async (req, res) => {
 
         // Extract Cloudinary URLs from the uploaded files
         const imageUrls = req.files.map(file => file.path); // Cloudinary stores the URL in `file.path`
-
         // Create the product with the Cloudinary URLs
         const data = await ProductSchemadb.create({
             name,
@@ -224,59 +223,70 @@ const AddProductController = async (req, res) => {
     }
 };
 
-
-const testEditProductController = async (req, res) => {
+const Test_AddProductController = async (req, res) => {
     try {
-        const productId = req.params.id;
         const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
+        console.log(category)
+        let data; 
+        // Extract Cloudinary URLs from the uploaded files
+        const imageUrls = req.files.map(file => file.path); // Cloudinary stores the URL in `file.path`
+        if(category.includes("Eyeglasses")) {
+            data = await EyeGlassessSchemadb.create({
+                name,
+                price,
+                description,
+                category,
+                quantity,
+                frame_material,
+                lens_material,
+                frame_shape,
+                imageUrls,  // Saving Cloudinary URLs
+                createdBy: req.userId
+            })
+            console.log("adding to eyeglasses")
+        }
+        if (category.includes("Sunglasses")) {
+            
+            data = await SunglassesSchemadb.create({
+                name,
+                price,
+                description,
+                category,
+                quantity,
+                frame_material,
+                lens_material,
+                frame_shape,
+                imageUrls,  // Saving Cloudinary URLs
+                createdBy: req.userId
+            })
+            console.log("adding to sunglasses")
+        }
+
+        if (category.includes("Kidsglasses")) {
+            data = await KidsGlassesSchemadb.create({
+                name,
+                price,
+                description,
+                category,
+                quantity,
+                frame_material,
+                lens_material,
+                frame_shape,
+                imageUrls,  // Saving Cloudinary URLs
+                createdBy: req.userId
+            })
+            console.log("adding to kidsglasses")
+        }
+        if (data) {
+            console.log(data)
+            return res.status(200).send({ msg: "Product Added Successfully" });
+        }
         
-        // Find the product to update
-        const product = await ProductSchemadb.findById(productId);
-        if (!product) {
-            return res.status(404).json({ msg: "Product not found" });
-        }
-
-        // Updated product data (without images)
-        const updatedData = {
-            name,
-            price,
-            description,
-            category,
-            quantity,
-            frame_material,
-            lens_material,
-            frame_shape,
-            createdBy: req.userId
-        };
-
-        // If there are new files (images) uploaded
-        if (req.files && req.files.length > 0) {
-            // Delete old images from Cloudinary
-            const oldImageUrls = product.imageUrls;
-            for (const imageUrl of oldImageUrls) {
-                // Extract the public ID from the Cloudinary URL
-                const publicId = imageUrl.split('/').pop().split('.')[0];
-                await cloudinary.uploader.destroy(publicId); // delete image from Cloudinary
-            }
-
-            // Map new uploaded files to Cloudinary URLs
-            const newImageUrls = req.files.map(file => file.path); // Cloudinary stores URL in file.path
-            updatedData.imageUrls = newImageUrls; // Update the product with new image URLs
-        }
-
-        // Update the product in the database
-        const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
-        if (updatedProduct) {
-            return res.status(200).json({ msg: "Product updated successfully", product: updatedProduct });
-        } else {
-            return res.status(404).json({ msg: "Product not found" });
-        }
     } catch (error) {
-        console.error("Error updating product:", error);
-        return res.status(500).json({ msg: "Server error", error });
+        console.error("Error adding product:", error);
+        return res.status(400).send({ msg: "Server Error", error: error });
     }
 };
-
 
 const EditProductController = async (req, res) => {
     try {
@@ -536,3 +546,4 @@ exports.SliderProductsController = SliderProductsController;
 exports.FilterProductsController = FilterProductsController;
 exports.UserSunglassesProductsController = UserSunglassesProductsController;
 exports.KidsGlassesProductsController = KidsGlassesProductsController;
+exports.Test_AddProductController = Test_AddProductController;
