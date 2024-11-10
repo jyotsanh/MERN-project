@@ -1,0 +1,66 @@
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 60vh; /* Takes up same space as product list would */
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: adds slight overlay */
+  }
+
+.loader {
+    width: 80px;  /* Increased size */
+    height: 80px; /* Increased size */
+    border: 8px solid #f3f3f3; /* Thicker border */
+    border-top: 8px solid #f19b61; /* Matching top border thickness */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: relative; /* Helps with centering */
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+/* Alternative loader styles */
+.loader-dots {
+display: flex;
+gap: 8px;
+}
+
+.loader-dots div {
+width: 12px;
+height: 12px;
+background-color: #3498db;
+border-radius: 50%;
+animation: bounce 0.5s ease-in-out infinite;
+}
+
+.loader-dots div:nth-child(2) {
+animation-delay: 0.1s;
+}
+
+.loader-dots div:nth-child(3) {
+animation-delay: 0.2s;
+}
+
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+/* Pulse loader */
+.loader-pulse {
+width: 40px;
+height: 40px;
+background-color: #3498db;
+border-radius: 50%;
+animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+0% { transform: scale(0.8); opacity: 0.5; }
+50% { transform: scale(1.2); opacity: 1; }
+100% { transform: scale(0.8); opacity: 0.5; }
+}

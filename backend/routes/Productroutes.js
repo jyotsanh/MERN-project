@@ -23,7 +23,7 @@ const storage = new CloudinaryStorage({
             // Get the file extension
             const extension = file.originalname.split('.').pop().toLowerCase();
             // If it's one of our allowed formats, use that. Otherwise, default to png.
-            return ['jpg', 'png', 'webp', 'jpeg'].includes(extension) ? extension : 'png';
+            return ['jpg', 'png', 'webp', 'jpeg'].includes(extension) ? extension : 'webp';
         },
         public_id: (req, file) => `${Date.now()}_${file.originalname}`,
     },
@@ -37,8 +37,11 @@ const {
   ProductController,
   ProductDetailsId,
   UserProductsController,
+  UserSunglassesProductsController,
+  KidsGlassesProductsController,
   TopProductController,
   AddProductController,
+  Test_AddProductController,
   EditProductController,
   DeleteProductController,
   RecentProductsController,
@@ -54,6 +57,8 @@ router.get("/products", ProductController); // admin can see all product details
 router.get("/top-products", TopProductController); // top products for User
 router.get("/products/:id", ProductDetailsId); // Product info with id endpoint
 router.get("/user-products", UserProductsController); // all product info for User
+router.get("/sunglasses-products", UserSunglassesProductsController); // all Sunglasses product info for User
+router.get("/kidsglasses-products", KidsGlassesProductsController); // all Sunglasses product info for User
 router.get("/recent-products", RecentProductsController); // all product info for User
 router.get("/slider-products", SliderProductsController); // slider product info for User
 
@@ -61,7 +66,10 @@ router.get("/slider-products", SliderProductsController); // slider product info
 
 router.post("/products/filter", FilterProductsController); // filter product info for User
 // adding, editing, and deleting products requires authentication: 'AuthenticationMiddleware'
-router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, AddProductController);
+router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
+router.post("/add-sunglasses", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
+router.post("/add-eyeglasses", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
+router.post("/add-kidsglasses", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
 router.put("/edit-product/:id", upload.array('newImages', 4), AddProductMiddleware, AuthenticationMiddleware, EditProductController);
 router.delete("/delete-product/:id", AuthenticationMiddleware, DeleteProductController);
 

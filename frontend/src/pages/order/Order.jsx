@@ -60,7 +60,7 @@ const Order = () => {
     }
 
     if (error) {
-        return <div className='admin-container'>{error}</div>;
+        return <div className='admin-container'>{error} to see your orders</div>;
     }
 
     return (

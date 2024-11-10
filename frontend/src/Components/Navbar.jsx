@@ -135,12 +135,14 @@ function Navbar() {
 
       <ul className={`menu ${menuOpen ? 'open' : ''}`}>
         <li><NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink></li>
-        <li><NavLink to="/sunglasses" className={({ isActive }) => isActive ? 'active' : ''}>Eyeglasses</NavLink></li>
-        <li><NavLink to="/contactlens" className={({ isActive }) => isActive ? 'active' : ''}>Lens</NavLink></li>
+        <li><NavLink to="/sunglasses" className={({ isActive }) => isActive ? 'active' : ''}>Sunglasses</NavLink></li>
+        <li><NavLink to="/contactlens" className={({ isActive }) => isActive ? 'active' : ''}>Contact Lens</NavLink></li>
+        <li><NavLink to="/eyeglasses" className={({ isActive }) => isActive ? 'active' : ''}>EyeGlasses</NavLink></li>
+        <li><NavLink to="/kidsglasses" className={({ isActive }) => isActive ? 'active' : ''}>Kids Glasses</NavLink></li>
         <li><NavLink to="/book" className={({ isActive }) => isActive ? 'active' : ''}>Book Appointment</NavLink></li>
-        <li><NavLink to="/faq" className={({ isActive }) => isActive ? 'active' : ''}>FAQs</NavLink></li>
-        <li><NavLink to="/admin-login" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink></li>
+        <li><NavLink to="/store-locator" className={({ isActive }) => isActive ? 'active' : ''}>Store Locator</NavLink></li>
         <li><NavLink to="/myorders" className={({ isActive }) => isActive ? 'active' : ''}>My Orders</NavLink></li>
+        
       </ul>
     </div>
   );

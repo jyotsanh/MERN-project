@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 const ProductSchemadb = require("../schema/ProductSchema");
-const fs = require('fs');
-const path = require('path');
+const EyeGlassessSchemadb = require("../schema/EyeGlassesSchemadb");
+const KidsGlassesSchemadb = require("../schema/KidsGlassesSchema");
+const SunglassesSchemadb = require("../schema/SunglassesSchemadb");
 
 const { v2: cloudinary } = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -83,6 +84,64 @@ const UserProductsController = async (req, res) => {
         return res.status(500).send({ "msg": "Server error" });
     }
 };
+const UserSunglassesProductsController = async (req, res) => {
+    try {
+        console.log("Sunglasses Products")
+        const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1
+        const limit = 8; // Number of items per page
+        const skip = (page - 1) * limit; // Calculate the number of documents to skip
+
+        const totalProducts = await SunglassesSchemadb.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const product_data = await SunglassesSchemadb.find()
+            .select('name price category imageUrls frame_material lens_material frame_shape')
+            .skip(skip)
+            .limit(limit);
+
+        if (product_data.length > 0) {
+            return res.send({
+                "Products": product_data,
+                "currentPage": page,
+                "totalPages": totalPages
+            });
+        } else {
+            return res.status(404).send({ "msg": "No Sunglasses Products Available" });
+        }
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+
+const KidsGlassesProductsController = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1
+        const limit = 8; // Number of items per page
+        const skip = (page - 1) * limit; // Calculate the number of documents to skip
+
+        const totalProducts = await KidsGlassesSchemadb.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const product_data = await KidsGlassesSchemadb.find()
+            .select('name price category imageUrls frame_material lens_material frame_shape')
+            .skip(skip)
+            .limit(limit);
+
+        if (product_data.length > 0) {
+            return res.send({
+                "Products": product_data,
+                "currentPage": page,
+                "totalPages": totalPages
+            });
+        } else {
+            return res.status(404).send({ "msg": "No Kids Glasses available" });
+        }
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
 
 const ProductController = async (req, res) => {
     try {
@@ -141,7 +200,6 @@ const AddProductController = async (req, res) => {
 
         // Extract Cloudinary URLs from the uploaded files
         const imageUrls = req.files.map(file => file.path); // Cloudinary stores the URL in `file.path`
-
         // Create the product with the Cloudinary URLs
         const data = await ProductSchemadb.create({
             name,
@@ -165,59 +223,70 @@ const AddProductController = async (req, res) => {
     }
 };
 
-
-const testEditProductController = async (req, res) => {
+const Test_AddProductController = async (req, res) => {
     try {
-        const productId = req.params.id;
         const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = req.body;
+        console.log(category)
+        let data; 
+        // Extract Cloudinary URLs from the uploaded files
+        const imageUrls = req.files.map(file => file.path); // Cloudinary stores the URL in `file.path`
+        if(category.includes("Eyeglasses")) {
+            data = await EyeGlassessSchemadb.create({
+                name,
+                price,
+                description,
+                category,
+                quantity,
+                frame_material,
+                lens_material,
+                frame_shape,
+                imageUrls,  // Saving Cloudinary URLs
+                createdBy: req.userId
+            })
+            console.log("adding to eyeglasses")
+        }
+        if (category.includes("Sunglasses")) {
+            
+            data = await SunglassesSchemadb.create({
+                name,
+                price,
+                description,
+                category,
+                quantity,
+                frame_material,
+                lens_material,
+                frame_shape,
+                imageUrls,  // Saving Cloudinary URLs
+                createdBy: req.userId
+            })
+            console.log("adding to sunglasses")
+        }
+
+        if (category.includes("Kidsglasses")) {
+            data = await KidsGlassesSchemadb.create({
+                name,
+                price,
+                description,
+                category,
+                quantity,
+                frame_material,
+                lens_material,
+                frame_shape,
+                imageUrls,  // Saving Cloudinary URLs
+                createdBy: req.userId
+            })
+            console.log("adding to kidsglasses")
+        }
+        if (data) {
+            console.log(data)
+            return res.status(200).send({ msg: "Product Added Successfully" });
+        }
         
-        // Find the product to update
-        const product = await ProductSchemadb.findById(productId);
-        if (!product) {
-            return res.status(404).json({ msg: "Product not found" });
-        }
-
-        // Updated product data (without images)
-        const updatedData = {
-            name,
-            price,
-            description,
-            category,
-            quantity,
-            frame_material,
-            lens_material,
-            frame_shape,
-            createdBy: req.userId
-        };
-
-        // If there are new files (images) uploaded
-        if (req.files && req.files.length > 0) {
-            // Delete old images from Cloudinary
-            const oldImageUrls = product.imageUrls;
-            for (const imageUrl of oldImageUrls) {
-                // Extract the public ID from the Cloudinary URL
-                const publicId = imageUrl.split('/').pop().split('.')[0];
-                await cloudinary.uploader.destroy(publicId); // delete image from Cloudinary
-            }
-
-            // Map new uploaded files to Cloudinary URLs
-            const newImageUrls = req.files.map(file => file.path); // Cloudinary stores URL in file.path
-            updatedData.imageUrls = newImageUrls; // Update the product with new image URLs
-        }
-
-        // Update the product in the database
-        const updatedProduct = await ProductSchemadb.findByIdAndUpdate(productId, updatedData, { new: true });
-        if (updatedProduct) {
-            return res.status(200).json({ msg: "Product updated successfully", product: updatedProduct });
-        } else {
-            return res.status(404).json({ msg: "Product not found" });
-        }
     } catch (error) {
-        console.error("Error updating product:", error);
-        return res.status(500).json({ msg: "Server error", error });
+        console.error("Error adding product:", error);
+        return res.status(400).send({ msg: "Server Error", error: error });
     }
 };
-
 
 const EditProductController = async (req, res) => {
     try {
@@ -475,3 +544,6 @@ exports.UserProductsController = UserProductsController;
 exports.ProductDetailsId = ProductDetailsId;
 exports.SliderProductsController = SliderProductsController;
 exports.FilterProductsController = FilterProductsController;
+exports.UserSunglassesProductsController = UserSunglassesProductsController;
+exports.KidsGlassesProductsController = KidsGlassesProductsController;
+exports.Test_AddProductController = Test_AddProductController;

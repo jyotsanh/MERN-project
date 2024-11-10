@@ -93,6 +93,21 @@ export const FetchProductsUser = async (page = 1) => {
     return response.data;
 };
 
+// all for products data fetched from backend for User
+export const FetchSunglassesProductsUser = async (page = 1) => {
+    const response = await axios.get(`${URL}/sunglasses-products`, {
+        params: { page }
+    });
+    return response.data;
+};
+
+// all for products data fetched from backend for User
+export const FetchKidsglassesProductsUser = async (page = 1) => {
+    const response = await axios.get(`${URL}/kidsglasses-products`, {
+        params: { page }
+    });
+    return response.data;
+};
 // id specific product detail fetched from backend
 export const FetchProductWithId = async (id) => {
     const response = await axios.get(`${URL}/products/${id}`);
@@ -106,9 +121,10 @@ export const updateAppointmentStatus = async (id, status) => {
 };
 
 // delete an appointment by ID (admin)
-export const deleteAppointment = async (id) => {
+export const deleteAppointment = async (id,prescription) => {
     try {
-        const response = await axios.delete(`${URL}/appointments/${id}`);
+        
+        const response = await axios.post(`${URL}/appointments/${id}`,{ prescription });
         return response.data;
     } catch (error) {
         console.error('Error deleting appointment:', error);
