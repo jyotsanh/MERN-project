@@ -7,7 +7,7 @@ import  './ProductCompo.css';
 const ProductList = React.memo(({ products }) => (
   <div className="product-list">
     {products.map((product) => (
-      <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
+      <Link to={`/sunglasses/${product._id}`} key={product._id} className="product-card-link">
         <div className="product-card">
           {product.imageUrls && product.imageUrls.length > 0 ? (
             <img src={`${product.imageUrls[0]}`} alt={product.name} className="imagess" />

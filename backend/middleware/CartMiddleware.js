@@ -27,28 +27,7 @@ const CartMiddleWare = async (req, res, next) => {
             
         }
 
-        try{
-       
-             // Validate productIds
-            for (const item of items) {
-                
-                const productExists = await ProductSchemadb.findById(item.productId); // see if the product exists in ProductSchemadb
-                
-                if (!productExists) {
-                    return res.status(400).json(
-                        { 
-                            message: `Product with id: ${item.productId} doesn't exist` 
-                        }
-                        );
-                }
-            }
-        }catch(err){
-            console.log(err)
-            return res.status(400).send({
-                msg:"Invalid ProductId",
-                
-            })
-        }
+
 
         try{ // In this try block a same user won't be able to add same product more than once
             const cart_data = await CartSchemadb.find({ userId: userId });   

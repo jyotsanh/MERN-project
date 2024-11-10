@@ -55,6 +55,85 @@ const ProductDetailsId = async (req, res) => {
     }
 };
 
+const EyeglassesProductDetailsId = async (req, res) => {
+    try {
+        // Fetch the main product by its ID
+        const product_data = await EyeGlassessSchemadb.findById(req.params.id);
+        
+        if (product_data) {
+            // Fetch all other products for recommendations, excluding the current product
+            const otherProducts = await EyeGlassessSchemadb.find({ _id: { $ne: req.params.id } });
+
+            // Shuffle and pick 8 random products for "You may also like" section
+            const suggestedProducts = otherProducts
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            return res.send({
+                "Product": product_data,
+                "youMayAlsoLike": suggestedProducts
+            });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+
+const SunglassesProductDetailsId = async (req, res) => {
+    try {
+        // Fetch the main product by its ID
+        const product_data = await SunglassesSchemadb.findById(req.params.id);
+        
+        if (product_data) {
+            // Fetch all other products for recommendations, excluding the current product
+            const otherProducts = await SunglassesSchemadb.find({ _id: { $ne: req.params.id } });
+
+            // Shuffle and pick 8 random products for "You may also like" section
+            const suggestedProducts = otherProducts
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            return res.send({
+                "Product": product_data,
+                "youMayAlsoLike": suggestedProducts
+            });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+const KidsGlassesProductDetailsId = async (req, res) => {
+    try {
+        // Fetch the main product by its ID
+        const product_data = await KidsGlassesSchemadb.findById(req.params.id);
+        
+        if (product_data) {
+            // Fetch all other products for recommendations, excluding the current product
+            const otherProducts = await KidsGlassesSchemadb.find({ _id: { $ne: req.params.id } });
+
+            // Shuffle and pick 8 random products for "You may also like" section
+            const suggestedProducts = otherProducts
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            return res.send({
+                "Product": product_data,
+                "youMayAlsoLike": suggestedProducts
+            });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
 
 const UserProductsController = async (req, res) => {
     try {
@@ -531,6 +610,126 @@ const FilterProductsController = async (req, res) => {
     }
 };
 
+const FilterSunglassesProductsController = async (req, res) => {
+    try {
+        console.log(req.body);
+        const { price, frameMaterial, lensMaterial, frameShape, page = 1 } = req.body;
+        const limit = 8; // Or whatever number of items per page you want
+
+        let query = {};
+
+        if (price) {
+            if (price === 'Under Rs 500') {
+                query.price = { $lt: 500 };
+            } else if (price === 'Rs 500 - Rs 2000') {
+                query.price = { $gte: 500, $lte: 2000 };
+            } else if (price === 'Over Rs 2000') {
+                query.price = { $gt: 2000 };
+            }
+        }
+
+        if (frameMaterial) {
+            query.frame_material = frameMaterial;
+        }
+
+        if (lensMaterial) {
+            query.lens_material = lensMaterial;
+        }
+
+        if (frameShape) {
+            query.frame_shape = frameShape;
+        }
+
+        const totalProducts = await SunglassesSchemadb.countDocuments(query);
+        console.log(totalProducts);
+        if (totalProducts === 0) {
+            return res.status(404).send({
+                msg: "No products found matching the filter criteria",
+                Products: [],
+                currentPage: page,
+                totalPages: 0,
+                totalProducts: 0
+            });
+        }
+
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const filteredProducts = await SunglassesSchemadb.find(query)
+            .skip((page - 1) * limit)
+            .limit(limit);
+        console.log(`Total Page: ${totalPages}`);
+        return res.status(200).send({
+            Products: filteredProducts,
+            currentPage: page,
+            totalPages: totalPages,
+            totalProducts: totalProducts
+        });
+    } catch (error) {
+        console.error('Error filtering products:', error);
+        return res.status(500).send({ msg: 'Server error' });
+    }
+};
+
+const FilterKidsglassesProductsController = async (req, res) => {
+    try {
+        console.log(req.body);
+        const { price, frameMaterial, lensMaterial, frameShape, page = 1 } = req.body;
+        const limit = 8; // Or whatever number of items per page you want
+
+        let query = {};
+
+        if (price) {
+            if (price === 'Under Rs 500') {
+                query.price = { $lt: 500 };
+            } else if (price === 'Rs 500 - Rs 2000') {
+                query.price = { $gte: 500, $lte: 2000 };
+            } else if (price === 'Over Rs 2000') {
+                query.price = { $gt: 2000 };
+            }
+        }
+
+        if (frameMaterial) {
+            query.frame_material = frameMaterial;
+        }
+
+        if (lensMaterial) {
+            query.lens_material = lensMaterial;
+        }
+
+        if (frameShape) {
+            query.frame_shape = frameShape;
+        }
+
+        const totalProducts = await KidsGlassesSchemadb.countDocuments(query);
+        console.log(totalProducts);
+        if (totalProducts === 0) {
+            return res.status(404).send({
+                msg: "No products found matching the filter criteria",
+                Products: [],
+                currentPage: page,
+                totalPages: 0,
+                totalProducts: 0
+            });
+        }
+
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const filteredProducts = await KidsGlassesSchemadb.find(query)
+            .skip((page - 1) * limit)
+            .limit(limit);
+        console.log(`Total Page: ${totalPages}`);
+        return res.status(200).send({
+            Products: filteredProducts,
+            currentPage: page,
+            totalPages: totalPages,
+            totalProducts: totalProducts
+        });
+    } catch (error) {
+        console.error('Error filtering products:', error);
+        return res.status(500).send({ msg: 'Server error' });
+    }
+};
+
 
 
 
@@ -547,3 +746,8 @@ exports.FilterProductsController = FilterProductsController;
 exports.UserSunglassesProductsController = UserSunglassesProductsController;
 exports.KidsGlassesProductsController = KidsGlassesProductsController;
 exports.Test_AddProductController = Test_AddProductController;
+exports.SunglassesProductDetailsId = SunglassesProductDetailsId;
+exports.KidsGlassesProductDetailsId = KidsGlassesProductDetailsId;
+exports.EyeglassesProductDetailsId = EyeglassesProductDetailsId;
+exports.FilterSunglassesProductsController = FilterSunglassesProductsController;
+exports.FilterKidsglassesProductsController = FilterKidsglassesProductsController;

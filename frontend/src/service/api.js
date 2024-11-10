@@ -113,6 +113,18 @@ export const FetchProductWithId = async (id) => {
     const response = await axios.get(`${URL}/products/${id}`);
     return response.data;
 };
+export const FetchSunglassesProductWithId = async (id) => {
+    const response = await axios.get(`${URL}/sunglasses-products/${id}`);
+    return response.data;
+};
+export const FetchEyeglassesProductWithId = async (id) => {
+    const response = await axios.get(`${URL}/eyeglasses-products/${id}`);
+    return response.data;
+};
+export const FetchKidsglassesProductWithId = async (id) => {
+    const response = await axios.get(`${URL}/kidsglasses-products/${id}`);
+    return response.data;
+};
 
 // update the status of an appointment (admin)
 export const updateAppointmentStatus = async (id, status) => {
@@ -228,6 +240,24 @@ export const adminUpdateOrderStatus = async (orderId, newStatus, token) => {
 export const FetchFilteredProducts = async (filters) => {
     try {
       const response = await axios.post(`${URL}/products/filter`, filters);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching filtered products:', error);
+      throw error;
+    }
+  };
+  export const FetchFilteredSunglassesProducts = async (filters) => {
+    try {
+      const response = await axios.post(`${URL}/sunglasses-products/filter`, filters);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching filtered products:', error);
+      throw error;
+    }
+  };
+  export const FetchFilteredKidsglassesProducts = async (filters) => {
+    try {
+      const response = await axios.post(`${URL}/kidsglasses-products/filter`, filters);
       return response.data;
     } catch (error) {
       console.error('Error fetching filtered products:', error);

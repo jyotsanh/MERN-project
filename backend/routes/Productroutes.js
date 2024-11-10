@@ -36,6 +36,9 @@ const storage = new CloudinaryStorage({
 const { 
   ProductController,
   ProductDetailsId,
+  SunglassesProductDetailsId,
+  EyeglassesProductDetailsId,
+  KidsGlassesProductDetailsId,
   UserProductsController,
   UserSunglassesProductsController,
   KidsGlassesProductsController,
@@ -46,7 +49,9 @@ const {
   DeleteProductController,
   RecentProductsController,
   SliderProductsController,
-  FilterProductsController
+  FilterProductsController,
+  FilterSunglassesProductsController,
+  FilterKidsglassesProductsController
 } = require("../controllers/ProductsController");
 
 // Products Middleware
@@ -56,6 +61,9 @@ const { AuthenticationMiddleware, CheckIncomingOrderMiddleWare, UserAuthenticati
 router.get("/products", ProductController); // admin can see all product details
 router.get("/top-products", TopProductController); // top products for User
 router.get("/products/:id", ProductDetailsId); // Product info with id endpoint
+router.get("/sunglasses-products/:id", SunglassesProductDetailsId);
+router.get("/eyeglasses-products/:id", EyeglassesProductDetailsId);
+router.get("/kidsglasses-products/:id", KidsGlassesProductDetailsId);
 router.get("/user-products", UserProductsController); // all product info for User
 router.get("/sunglasses-products", UserSunglassesProductsController); // all Sunglasses product info for User
 router.get("/kidsglasses-products", KidsGlassesProductsController); // all Sunglasses product info for User
@@ -65,6 +73,8 @@ router.get("/slider-products", SliderProductsController); // slider product info
 
 
 router.post("/products/filter", FilterProductsController); // filter product info for User
+router.post("/kidsglasses-products/filter", FilterKidsglassesProductsController); // filter product info for User
+router.post("/sunglasses-products/filter", FilterSunglassesProductsController); // filter product info for User
 // adding, editing, and deleting products requires authentication: 'AuthenticationMiddleware'
 router.post("/add-products", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
 router.post("/add-sunglasses", upload.array('images', 4), AddProductMiddleware, AuthenticationMiddleware, Test_AddProductController);
