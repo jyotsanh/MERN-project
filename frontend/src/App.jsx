@@ -21,6 +21,10 @@ import StoreLocator from './pages/StoreLocator/StoreLocator';
 import KidsGlasses from './pages/KidsGlasses/KidsGlasses';
 import './App.css'
 
+import SunglassesProductPage from './pages/Sunglasses/ProductDetail/SunglassesProductPage';
+import EyeglassesProductPage from './pages/Eyeglasses/ProductDetail/EyeglassesProductPage';
+import KidsGlassesProductPage from './pages/KidsGlasses/ProductDetail/KidsGlassesProductPage';
+
 const App = () => {
     return (
         <AuthProvider>
@@ -32,6 +36,9 @@ const App = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="/sunglasses" element={<Sunglasses />} />
                         <Route path="/product/:id" element={<ProductPage />} /> {/* Product Page when clicked will show product data */}
+                        <Route path="/sunglasses/:id" element={<SunglassesProductPage />} />
+                        <Route path="/eyeglasses/:id" element={<EyeglassesProductPage />} />
+                        <Route path="/kidsglasses/:id" element={<KidsGlassesProductPage />} />
                         <Route path="/eyeglasses" element={<EyeGlasses />} />
                         <Route path="/contactlens" element={<Contactlens />} />
                         <Route path="/book" element={<Book />} />

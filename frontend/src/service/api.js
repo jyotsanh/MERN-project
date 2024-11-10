@@ -113,6 +113,18 @@ export const FetchProductWithId = async (id) => {
     const response = await axios.get(`${URL}/products/${id}`);
     return response.data;
 };
+export const FetchSunglassesProductWithId = async (id) => {
+    const response = await axios.get(`${URL}/sunglasses-products/${id}`);
+    return response.data;
+};
+export const FetchEyeglassesProductWithId = async (id) => {
+    const response = await axios.get(`${URL}/eyeglasses-products/${id}`);
+    return response.data;
+};
+export const FetchKidsglassesProductWithId = async (id) => {
+    const response = await axios.get(`${URL}/kidsglasses-products/${id}`);
+    return response.data;
+};
 
 // update the status of an appointment (admin)
 export const updateAppointmentStatus = async (id, status) => {

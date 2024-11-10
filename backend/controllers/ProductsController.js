@@ -55,6 +55,85 @@ const ProductDetailsId = async (req, res) => {
     }
 };
 
+const EyeglassesProductDetailsId = async (req, res) => {
+    try {
+        // Fetch the main product by its ID
+        const product_data = await EyeGlassessSchemadb.findById(req.params.id);
+        
+        if (product_data) {
+            // Fetch all other products for recommendations, excluding the current product
+            const otherProducts = await EyeGlassessSchemadb.find({ _id: { $ne: req.params.id } });
+
+            // Shuffle and pick 8 random products for "You may also like" section
+            const suggestedProducts = otherProducts
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            return res.send({
+                "Product": product_data,
+                "youMayAlsoLike": suggestedProducts
+            });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+
+const SunglassesProductDetailsId = async (req, res) => {
+    try {
+        // Fetch the main product by its ID
+        const product_data = await SunglassesSchemadb.findById(req.params.id);
+        
+        if (product_data) {
+            // Fetch all other products for recommendations, excluding the current product
+            const otherProducts = await SunglassesSchemadb.find({ _id: { $ne: req.params.id } });
+
+            // Shuffle and pick 8 random products for "You may also like" section
+            const suggestedProducts = otherProducts
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            return res.send({
+                "Product": product_data,
+                "youMayAlsoLike": suggestedProducts
+            });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
+const KidsGlassesProductDetailsId = async (req, res) => {
+    try {
+        // Fetch the main product by its ID
+        const product_data = await KidsGlassesSchemadb.findById(req.params.id);
+        
+        if (product_data) {
+            // Fetch all other products for recommendations, excluding the current product
+            const otherProducts = await KidsGlassesSchemadb.find({ _id: { $ne: req.params.id } });
+
+            // Shuffle and pick 8 random products for "You may also like" section
+            const suggestedProducts = otherProducts
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            return res.send({
+                "Product": product_data,
+                "youMayAlsoLike": suggestedProducts
+            });
+        } else {
+            return res.send({ "msg": "No data in db" });
+        }
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        return res.status(500).send({ "msg": "Server error" });
+    }
+};
 
 const UserProductsController = async (req, res) => {
     try {
@@ -547,3 +626,6 @@ exports.FilterProductsController = FilterProductsController;
 exports.UserSunglassesProductsController = UserSunglassesProductsController;
 exports.KidsGlassesProductsController = KidsGlassesProductsController;
 exports.Test_AddProductController = Test_AddProductController;
+exports.SunglassesProductDetailsId = SunglassesProductDetailsId;
+exports.KidsGlassesProductDetailsId = KidsGlassesProductDetailsId;
+exports.EyeglassesProductDetailsId = EyeglassesProductDetailsId;

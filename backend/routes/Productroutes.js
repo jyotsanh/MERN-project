@@ -36,6 +36,9 @@ const storage = new CloudinaryStorage({
 const { 
   ProductController,
   ProductDetailsId,
+  SunglassesProductDetailsId,
+  EyeglassesProductDetailsId,
+  KidsGlassesProductDetailsId,
   UserProductsController,
   UserSunglassesProductsController,
   KidsGlassesProductsController,
@@ -56,6 +59,9 @@ const { AuthenticationMiddleware, CheckIncomingOrderMiddleWare, UserAuthenticati
 router.get("/products", ProductController); // admin can see all product details
 router.get("/top-products", TopProductController); // top products for User
 router.get("/products/:id", ProductDetailsId); // Product info with id endpoint
+router.get("/sunglasses-products/:id", SunglassesProductDetailsId);
+router.get("/eyeglasses-products/:id", EyeglassesProductDetailsId);
+router.get("/kidsglasses-products/:id", KidsGlassesProductDetailsId);
 router.get("/user-products", UserProductsController); // all product info for User
 router.get("/sunglasses-products", UserSunglassesProductsController); // all Sunglasses product info for User
 router.get("/kidsglasses-products", KidsGlassesProductsController); // all Sunglasses product info for User
