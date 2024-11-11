@@ -34,6 +34,9 @@ function Navbar() {
       } else {
         try {
           const decoded = jwtDecode(token);
+          if(decoded.username === "admin"){
+            setUsername("No name")
+          }
           setUsername(decoded.username || "No name");
         } catch (error) {
           console.error('Invalid token:', error);
