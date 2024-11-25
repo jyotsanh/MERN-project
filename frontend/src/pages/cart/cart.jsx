@@ -26,7 +26,7 @@ const Cart = () => {
         const response = await getCartItems(token);
         const { Cart } = response;
         const { items } = Cart;
-
+        console.log(items)
         // Initialize quantity for each item
         const itemsWithQuantity = items.map((item) => ({
           ...item,
@@ -122,29 +122,44 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {cart.items.map((item) => (
-            <tr key={item.productId}>
-              <td className="product-info">
-                <button className="remove-item-button" onClick={() => DeleteCartItems(item.productId)}>✖</button>
-                <img src={item.imageUrl} alt={item.name} className="product-image" />
-                <Link to={`/product/${item.productId}`} className="product-name">
-                  {item.name}
-                </Link>
-              </td>
-              <td>Rs. {item.price}</td>
-              <td>
-                <input
-                  type="number"
-                  value={item.quantity}
-                  min="1"
-                  max="10"
-                  className="quantity-input"
-                  onChange={(e) => updateQuantity(item.productId, e.target.value)}
-                />
-              </td>
-              <td>Rs. {item.quantity * item.price}</td>
-            </tr>
-          ))}
+              {cart.items.map((item) => {
+              // Extract categories from the string
+              const categories = item.category[0]?.split(",") || [];
+
+              // Determine the URL based on the categories
+              const linkTo = categories.includes("Sunglasses")
+                ? `/sunglasses/${item.productId}`
+                : categories.includes("Eyeglasses")
+                ? `/eyeglasses/${item.productId}`
+                : categories.includes("Kidsglasses")
+                ? `/kidsglasses/${item.productId}`
+                : `/product/${item.productId}`; // Default fallback
+
+              return (
+                <tr key={item.productId}>
+                  <td className="product-info">
+                    <button className="remove-item-button" onClick={() => DeleteCartItems(item.productId)}>✖</button>
+                    <img src={item.imageUrl} alt={item.name} className="product-image" />
+                    <Link to={linkTo} className="product-name">
+                      {item.name}
+                    </Link>
+                  </td>
+                  <td>Rs. {item.price}</td>
+                  <td>
+                    <input
+                      type="number"
+                      value={item.quantity}
+                      min="1"
+                      max="10"
+                      className="quantity-input"
+                      onChange={(e) => updateQuantity(item.productId, e.target.value)}
+                    />
+                  </td>
+                  <td>Rs. {item.quantity * item.price}</td>
+                </tr>
+              );
+            })}
+
         </tbody>
       </table>
 

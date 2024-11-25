@@ -4,7 +4,7 @@ const CartSchemadb = require("../schema/CartSchema");
 const AddToCart = async (req,res) => {
     try{
         const items = req.body.items
-        console.log(items)
+        
         let total_price = 0;
         for (const item of items) {
             const price = item.price;
@@ -12,20 +12,21 @@ const AddToCart = async (req,res) => {
         }
         req.body.total_price = total_price;
         
-        console.log(`request body is ${req.body}`);
+        
  // remove while deployment 
-        try{
+        try{ 
             const cart_data = await CartSchemadb.create(req.body);
+            
             if(cart_data){
                 return res.status(200).send({
                     "Cart":cart_data,
                     "status":"data added successfully",
                     
                 })
+
             }
             console.log("cart data added successfully")
         }catch(err){
-            console.log(err)
             return res.status(500).send({
                 msg:"Insertion in Database error",
                 error:err

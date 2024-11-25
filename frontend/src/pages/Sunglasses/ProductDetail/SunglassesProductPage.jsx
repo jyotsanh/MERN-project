@@ -158,7 +158,8 @@ const SunglassesProductPage = () => {
           productId: product._id,
           price: product.price,
           imageUrl: product.imageUrls[0],
-          name: product.name
+          name: product.name,
+          category: product.category
         }]
       };
 

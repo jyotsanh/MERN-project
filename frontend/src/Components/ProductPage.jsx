@@ -159,10 +159,11 @@ const ProductPage = () => {
           productId: product._id,
           price: product.price,
           imageUrl: product.imageUrls[0],
-          name: product.name
+          name: product.name,
+          category: product.category
         }]
       };
-
+      console.log(payload);
       await apiAddToCart(payload, token);
       dispatch({ type: 'ADD_TO_CART', payload: product });
       setShowNotification(true);
