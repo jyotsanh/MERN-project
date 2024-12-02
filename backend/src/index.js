@@ -45,6 +45,9 @@ app.use("/api", CartRoutes);
 const OrderRoutes = require("../routes/OrderRoutes");
 app.use("/api", OrderRoutes);
 
+const EsewaRoutes = require("../routes/esewaRoutes");
+app.use("/api", EsewaRoutes);
+
 // Start the server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

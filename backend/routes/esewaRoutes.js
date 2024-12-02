@@ -1,9 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const mongoose = require('mongoose');
+const EsewaPaymentSchemadb = require("../schema/esewaIntegration");
+const OrderSchemadb = require("../schema/orderSchema");
+
 const router = express.Router();
-const EsewaPaymentSchemadb = require('./models/EsewaPayment'); // Replace with actual path to the schema
-const OrderSchemadb = require('./models/Order'); // Replace with actual path to the schema
 
 // eSewa UAT config
 const esewaConfig = {
@@ -13,7 +14,7 @@ const esewaConfig = {
     esewaEndpoint: 'https://uat.esewa.com.np/epay/main', // eSewa Test URL
 };
 
-// 1. Route to initiate eSewa payment
+// Route to initiate eSewa payment
 router.post('/pay', async (req, res) => {
     const { order_id, amount } = req.body;
 
@@ -41,26 +42,36 @@ router.post('/pay', async (req, res) => {
             pdc: 0,
             txAmt: 0,
             tAmt: amount,
-            pid: payment._id, // Unique Payment ID
-            scd: esewaConfig.merchantCode, // Merchant Code
-            su: esewaConfig.successUrl, // Success URL
-            fu: esewaConfig.failureUrl, // Failure URL
+            pid: payment._id.toString(), 
+            scd: esewaConfig.merchantCode, 
+            su: esewaConfig.successUrl, 
+            fu: esewaConfig.failureUrl, 
         });
 
         const paymentUrl = `${esewaConfig.esewaEndpoint}?${params.toString()}`;
         res.redirect(paymentUrl);
 
     } catch (error) {
-        console.error(error);
+        console.error("Error in /pay route:", error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
 
-// 2. Success route to handle eSewa payment verification
+// Success route to handle eSewa payment verification
 router.get('/esewa/success', async (req, res) => {
     const { amt, rid, pid, scd } = req.query;
 
+    if (!mongoose.Types.ObjectId.isValid(pid)) {
+        return res.status(400).json({ message: 'Invalid payment ID' });
+    }
+
     try {
+        const payment = await EsewaPaymentSchemadb.findById(pid);
+        if (!payment) {
+            return res.status(404).json({ message: 'Payment record not found' });
+        }
+
+        // Verify payment with eSewa
         const verificationResponse = await axios.post('https://uat.esewa.com.np/epay/transrec', null, {
             params: {
                 amt: amt,
@@ -71,37 +82,46 @@ router.get('/esewa/success', async (req, res) => {
         });
 
         if (verificationResponse.data.response_code === 'Success') {
-            const payment = await EsewaPaymentSchemadb.findById(pid);
             payment.transaction_id = rid;
             payment.payment_status = 'Success';
             await payment.save();
 
             const order = await OrderSchemadb.findById(payment.order_id);
-            order.status = 'Paid';
-            await order.save();
+            if (order) {
+                order.status = 'Paid';
+                await order.save();
+            }
 
             res.json({ message: 'Payment successful!' });
         } else {
             res.json({ message: 'Payment verification failed' });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Payment verification failed' });
+        console.error("Error in /esewa/success route:", error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
-// 3. Failure route to handle payment failure
+// Failure route to handle payment failure
 router.get('/esewa/failure', async (req, res) => {
     const { pid } = req.query;
 
+    if (!mongoose.Types.ObjectId.isValid(pid)) {
+        return res.status(400).json({ message: 'Invalid payment ID' });
+    }
+
     try {
         const payment = await EsewaPaymentSchemadb.findById(pid);
+        if (!payment) {
+            return res.status(404).json({ message: 'Payment record not found' });
+        }
+
         payment.payment_status = 'Failed';
         await payment.save();
 
         res.json({ message: 'Payment failed!' });
     } catch (error) {
-        console.error(error);
+        console.error("Error in /esewa/failure route:", error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
