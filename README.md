@@ -12,7 +12,7 @@
 - [**Richma Gurung**](https://github.com/Mochigurung) - Frontend Engineer
 - [**Mandeep Chaudhary**](https://github.com/Mandip69) - Frontend Engineer
 
-## Website is Deployed at  : [link](https://eye-frontend.onrender.com/)
+## Website is Deployed at  : [link](https://eyemate.vercel.app/)
 
 ## Technology Stack
 
