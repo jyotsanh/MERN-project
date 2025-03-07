@@ -1,0 +1,39 @@
+services:
+  frontend:
+  # dir where frontend src code lies
+    build: frontend/
+  # sets the container name
+    container_name: mern-frontend
+  # expose the port "host:container"
+    ports:
+      - "8002:5173"
+  # docker makes sure frontend waits for the backend service to be ready before it starts.
+    depends_on:
+      - backend
+  # this mounts the local frontend folder to app working dir in container
+    volumes:
+      - ./frontend:/app
+  # connects the frontend to 'mern-network' both service in the same network
+    networks:
+      - mern-network
+    restart: always
+  backend:
+  # build where backend src code lies
+    build: backend/
+  # sets the container name
+    container_name: mern-backend
+  # expose the port "host:container"  
+    ports:
+      - "8001:8000"
+  # this mounts the local backend folder to app working dir in container  
+    volumes:
+      - ./backend:/app
+  # connects the backend to 'mern-network' both service in the same network
+    networks:
+      - mern-network
+    restart: always
+
+# a custom bridge network named mern-network. This allows the services to communicate with each other
+networks:
+  mern-network:
+    driver: bridge
