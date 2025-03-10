@@ -27,7 +27,8 @@
     "react-time-picker": "^7.0.0",
     "react-toastify": "^10.0.6",
     "sharp": "^0.33.4",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "vite": "^5.2.12"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
