@@ -10,7 +10,7 @@ services:
   # docker makes sure frontend waits for the backend service to be ready before it starts.
     depends_on:
       - backend
-  # this mounts the local frontend folder to app working dir in container
+  # this mounts the local `frontend` folder to `app` working dir in container
     volumes:
       - ./frontend:/app
   # connects the frontend to 'mern-network' both service in the same network
